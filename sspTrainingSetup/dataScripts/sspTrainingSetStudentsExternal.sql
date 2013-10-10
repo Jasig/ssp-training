@@ -123,7 +123,7 @@ DELETE FROM external_student_transcript_term  WHERE school_id = 'STRUGGLINGSTUDE
 --NEWSTUDENT1
 
 INSERT INTO external_person(school_id, username, first_name, middle_name, last_name, birth_date, primary_email_address, address_line_1, address_line_2, city, state, zip_code, home_phone, work_phone, office_location, office_hours, department_name, actual_start_term, actual_start_year, marital_status, ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('NEWSTUDENT1', 'NEWSTUDENT1', 'NEWSTUDENTFIRSTNAME', 'NEWSTUDENTMIDDLENAME', 'NEWSTUDENTLASTNAME', '1983-08-20','demo@trainingssp.com', '123 N. Demo St.', 'Apt. 555', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SPYEAR3', 'YEAR3', 'Single', 'Caucasian/White', 'M', 't', 0.00, 'COACHASSIGNED', '', '/ssp/images/demoAvatars/male_30.jpg', 'DemoCounty', 'Y', 'N', 'FTIC', '');         
+VALUES ('NEWSTUDENT1', 'NEWSTUDENT1', 'NEWSTUDENTFIRSTNAME', 'NEWSTUDENTMIDDLENAME', 'NEWSTUDENTLASTNAME', '1983-08-20','demo@trainingssp.com', '123 N. Demo St.', 'Apt. 555', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SPYEAR3', 'YEAR3', 'Single', 'Caucasian/White', 'M', 't', 0.00, 'COACHASSIGNED', '', NULL, 'DemoCounty', 'Y', 'N', 'FTIC', '');         
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name,
@@ -265,7 +265,7 @@ INSERT INTO external_person( school_id, username, first_name, middle_name, last_
             department_name, actual_start_term, actual_start_year, marital_status, 
             ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, 
             photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('PROGRESSINGSTUDENT2', 'PROGRESSINGSTUDENT2', 'PROGRESSINGSTUDENTFIRSTNAME', 'PROGRESSINGSTUDENTMIDDLENAME', 'PROGRESSINGSTUDENTLASTNAME', '1988-01-04', 'demo@trainingssp.com', '312 N. Demo St.', 'Apt. 012', 'Phoenix', 'AZ', '55555', '(555) 555-5423', '', '', '', '', 'FAYEAR1', 'YEAR1', 'Separated', 'Caucasian/White', 'F', 't', 0.00, 'COACHASSIGNED', '', '/ssp/images/demoAvatars/female_33.jpg','DemoCounty','Y','N','RET','');
+VALUES ('PROGRESSINGSTUDENT2', 'PROGRESSINGSTUDENT2', 'PROGRESSINGSTUDENTFIRSTNAME', 'PROGRESSINGSTUDENTMIDDLENAME', 'PROGRESSINGSTUDENTLASTNAME', '1988-01-04', 'demo@trainingssp.com', '312 N. Demo St.', 'Apt. 012', 'Phoenix', 'AZ', '55555', '(555) 555-5423', '', '', '', '', 'FAYEAR1', 'YEAR1', 'Separated', 'Caucasian/White', 'F', 't', 0.00, 'COACHASSIGNED', '', NULL,'DemoCounty','Y','N','RET','');
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name, test_date, score, status)
@@ -660,7 +660,7 @@ INSERT INTO external_person( school_id, username, first_name, middle_name, last_
             department_name, actual_start_term, actual_start_year, marital_status, 
             ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, 
             photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('STRUGGLINGSTUDENT3', 'STRUGGLINGSTUDENT3', 'STRUGGLINGSTUDENTFIRSTNAME', 'STRUGGLINGSTUDENTMIDDLENAME', 'STRUGGLINGSTUDENTLASTNAME', '1986-10-24', 'demo@trainingssp.com', '321 W. Demo St.', 'Apt. 214', 'Phoenix', 'AZ', '55555', '(555) 555-5412', '', '', '', '', 'FAYEAR1', 'YEAR1', 'Separated', 'Caucasian/White', 'M', 't', 0.00, 'COACHASSIGNED', '', '/ssp/images/demoAvatars/male_20.jpg','DemoCounty','Y','N','EAL','');
+VALUES ('STRUGGLINGSTUDENT3', 'STRUGGLINGSTUDENT3', 'STRUGGLINGSTUDENTFIRSTNAME', 'STRUGGLINGSTUDENTMIDDLENAME', 'STRUGGLINGSTUDENTLASTNAME', '1986-10-24', 'demo@trainingssp.com', '321 W. Demo St.', 'Apt. 214', 'Phoenix', 'AZ', '55555', '(555) 555-5412', '', '', '', '', 'FAYEAR1', 'YEAR1', 'Separated', 'Caucasian/White', 'M', 't', 0.00, 'COACHASSIGNED', '', NULL,'DemoCounty','Y','N','EAL','');
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name, test_date, score, status)

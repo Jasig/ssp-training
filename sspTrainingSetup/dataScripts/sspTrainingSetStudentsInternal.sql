@@ -259,7 +259,7 @@ VALUES ((SELECT generateUUID()), (SELECT first_name FROM external_person WHERE s
 	    (SELECT middle_name FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
 	    (SELECT last_name FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
 	    (SELECT birth_date FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
-	    'demo@trainingssp.com', '', 'NEWSTUDENT1','(555) 555-5555', '', '','123 W. Demo St.', 'Apt. 555', 'Phoenix', 'AZ','55555', '/ssp/images/demoAvatars/male_30.jpg','NEWSTUDENT1', 't', 'YEAR2-08-20', 'YEAR2-08-20','COACHID','COACHID', '1', 'TASKID1', 'TASKID1', 'TASKID1', 'Student is good at x, y, and z.', 'COACHID', 't', 'SPYEAR3', 'YEAR3', null, '0a640a2a-409d-1271-8140-d0afceae00f1', 'YEAR3-09-13 09:22:00.091', null,'YEAR3', 'SPYEAR3', 'f', 'f', '', '', '', '', '', '', 'TASKID1', 'Y', 'DemoCounty','user', null, null);
+	    'demo@trainingssp.com', '', 'NEWSTUDENT1','(555) 555-5555', '', '','123 W. Demo St.', 'Apt. 555', 'Phoenix', 'AZ','55555', NULL, 't', 'YEAR2-08-20', 'YEAR2-08-20','COACHID','COACHID', '1', 'TASKID1', 'TASKID1', 'TASKID1', 'Student is good at x, y, and z.', 'COACHID', 't', 'SPYEAR3', 'YEAR3', null, '0a640a2a-409d-1271-8140-d0afceae00f1', 'YEAR3-09-13 09:22:00.091', null,'YEAR3', 'SPYEAR3', 'f', 'f', '', '', '', '', '', '', 'TASKID1', 'Y', 'DemoCounty','user', null, null);
 
 
 INSERT INTO person_challenge(
@@ -466,7 +466,7 @@ VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE 
     (SELECT last_name FROM external_person WHERE school_id = 'PROGRESSINGSTUDENT2'), 
     (SELECT birth_date FROM external_person WHERE school_id = 'PROGRESSINGSTUDENT2'), 
     'demo2@trainingssp.com', '', 'PROGRESSINGSTUDENT2','(555) 555-5412', '', '','321 W. Demo St.', 'Apt. 222', 'Phoenix', 'AZ', 
-'55555', '/ssp/images/demoAvatars/female_33.jpg','PROGRESSINGSTUDENT2', 't', 'YEAR1-08-20', 'YEAR1-08-20', 'COACHID', 
+'55555', NULL, 't', 'YEAR1-08-20', 'YEAR1-08-20', 'COACHID', 
     'COACHID', '1', 'TASKID2', 'TASKID2', 'TASKID2', 'Patricia has strengths in writing, math, and work ethic.', 'COACHID', 't', 
     'FAYEAR1', 'YEAR1', null, 
     'b2d05919-5056-a51a-80bd-03e5288de771', 'YEAR1-09-13 09:22:00.091', null, 
@@ -658,7 +658,7 @@ VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE 
     (SELECT last_name FROM external_person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
     (SELECT birth_date FROM external_person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
     'demo2@trainingssp.com', '', 'STRUGGLINGSTUDENT3','(555) 555-5122', '', '',
-'312 N. Demo St.', 'Apt. 321', 'Phoenix', 'AZ', '55555', '/ssp/images/demoAvatars/male_20.jpg',
+'312 N. Demo St.', 'Apt. 321', 'Phoenix', 'AZ', '55555', NULL,
 'STRUGGLINGSTUDENT3', 't', 'YEAR1-08-20', 'YEAR1-08-20', 'COACHID', 
     'COACHID', '1', 'TASKID3', null, null, '', 'COACHID', 't', 
     'FAYEAR1', 'YEAR1', null, 
