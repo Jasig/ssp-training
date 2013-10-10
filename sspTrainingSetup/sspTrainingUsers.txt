@@ -1,0 +1,66 @@
+// SSP TRAINING DRIVE USER LIST
+//
+//This file should contain the list of users/coaches
+//
+//Format: firstname lastname username password(plain text)
+//
+//Note: At this time apostraphes in names are not allowed
+//   O'Hara should become OHara due to script limitations
+//
+//Delimination: Space on line and entry by line
+// '//' Comments and Whitespace are ignored. 
+
+//Begin User List
+
+Demo Coach1 coach1 password0
+
+Demo Coach2 coach2 password0
+
+Demo Coach3 coach3 password0
+
+Demo Coach4 coach4 password0
+
+Demo Coach5 coach5 password0
+
+Demo Coach6 coach6 password0
+
+Demo Coach7 coach7 password0
+
+Demo Coach8 coach8 password0
+
+Demo Coach9 coach9 password0
+
+Demo Coach10 coach10 password0
+
+Demo Coach11 coach11 password0
+
+Demo Coach12 coach12 password0
+
+Demo Coach13 coach13 password0
+
+Demo Coach14 coach14 password0
+
+Demo Coach15 coach15 password0
+
+Demo Coach16 coach16 password0
+
+Demo Coach17 coach17 password0
+
+Demo Coach18 coach18 password0
+
+Demo Coach19 coach19 password0
+
+Demo Coach20 coach20 password0
+
+Demo Coach21 coach21 password0
+
+Demo Coach22 coach22 password0
+
+Demo Coach23 coach23 password0
+
+Demo Coach24 coach24 password0
+
+Demo Coach25 coach25 password0
+
+//End of User List
+

@@ -1,0 +1,24 @@
+//  SSP TRAINING FACULTY LIST
+//
+//This file should contain the list of faculty logins
+//
+//Format: firstname lastname username password(plain text)
+//
+//Note: At this time apostraphes in names are not allowed
+//   O'Hara should become OHara due to script limitations
+//
+//Delimination: Space on line and entry by line
+// '//' Comments and Whitespace are ignored. 
+
+
+
+//Begin Faculty List
+
+Demo Faculty1 faculty1 password0
+
+Demo Faculty2 faculty2 password0
+
+Demo Faculty3 faculty3 password0
+
+//End of Faculty List
+

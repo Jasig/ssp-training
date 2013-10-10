@@ -1,0 +1,231 @@
+//  SSP TRAINING STUDENT LIST
+//
+//This file should contain the list of students of which,
+// every 3 will be assigned to a coach.
+//
+//After those 3 per coach, another set of students 1 per coach
+// should be added at the end for training on the external sync.
+//These will only be loaded into external data.
+// 
+//The middle student should be a female name for proper matching.
+//
+//Format: first middle lastname username password(plain text)
+//
+// The password is the only optional parameter.
+//
+//Note: At this time apostraphes in names are not allowed
+//  O'Hara should become OHara due to script limitations
+//
+//Delimination: Space on line and by line
+// Comments and Whitespace are ignored. 
+
+//Begin Student List
+
+David James Robinson drobinson1 password0
+
+﻿Mary Rose Anderson manderson1 password0
+
+David Paul Martin dmartin0 password0
+
+Chris Lewis Garcia cgarcia1 password0
+
+Patricia Flora Taylor ptaylor14 password0
+
+Robert Santiago Martinez rmartinez11 password0
+
+Michael William Wilson mwilson12 password0
+
+Patricia Mumford Davis pdavis13 password0
+
+Joseph Lawson Jackson jjackson10 password0
+
+John Oscar Johnson jjohnson15 password0
+
+Linda Nicole White lwhite112 password0
+
+Michael Tim Rodriguez mrodriguez17 password0
+
+Robert Luke Robinson rrobinson18 password0
+
+Margaret Elizabeth Robinson mrobinson113 password0
+
+Joseph Nick Martinez jmartinez110 password0
+
+David Charlie Robinson drobinson111 password0
+
+Susan Lily Thomas sthomas20 password0
+
+Michael Anthony Anderson manderson16 password0
+
+Chris Paul Miller cmiller114 password0
+
+Jennifer Samantha Davis jdavis24 password0
+
+Charles Uberto Wilson cwilson59 password0
+
+Thomas Jason Brown tbrown22 password0
+
+Margaret Sue Davis mdavis25 password0
+
+Richard Sean White rwhite23 password0
+
+Richard Ely Wilson rwilson2 password0
+
+Jennifer Jewel Thompson jthompson216 password0
+
+Roberto Miguel Jones rjones26 password0
+
+Bob Lee Jones bjones27 password0
+
+Margaret Sarah Williams mwilliams213 password0
+
+Charles Victor Simth csimth29 password0
+
+Ramsey William Taylor rjones210 password0
+
+Maria Rosa Williams mwilliams214 password0
+
+John Luke Robinson jrobinson212 password0
+
+Joseph James Johnson jjohnson215 password0
+
+Dorothy Liz Wilson dwilson220 password0
+
+Joseph Matthew Williams jwilliams211 password0
+
+Michael Andrew Robinson mrobinson217 password0
+
+Elizabeth Sarah Davis edavis221 password0
+
+James Jacob Anderson janderson218 password0
+
+John Paul Wilson jwilson219 password0
+
+Jennifer Mercedes Martin jmartin222 password0
+
+David Taylor Simth dsimth19 nkSWBHX2Aj password0
+
+David Nick Thompson dthompson28 password0
+
+Jennifer Lue Harris jharris224 password0
+
+David Michael Thomas dthomas225 password0
+
+John Andrew White jwhite226 password0
+
+Linda Patricia Brown lbrown228 password0
+
+David Ralph Martinez dmartinez227 password0
+
+Charles Lawrence Harris charris223 password0
+
+Marge Rosa Simth msimth229 password0
+
+Richard Matthew Thompson rthompson3 password0
+
+James Matthew Taylor jtaylor31 password0
+
+Barbara Lois Taylor btaylor30 password0
+
+John Matthew Garcia jgarcia35 password0
+
+Joseph George Robinson jrobinson38
+
+Elizabeth Sarah Miller emiller32 password0
+
+Thomas Robert Martin tmartin311 password0
+
+Joseph Luke Brown jbrown312 password0
+
+Jennifer Linda Thompson jthompson33 password0
+
+Chris Joe Williams cwilliams314 password0
+
+Robert Joeseph Robinson rrobinson316 password0
+
+Elizabeth Isabella Taylor etaylor310 password0
+
+Chris Mumford Harris charris317 password0
+
+David Tyler Martinez dmartinez319 password0
+
+Dorothy BellaRosa Miller dmiller318 password0
+
+James Bradley Brown jbrown321 password0
+
+Joseph Victor Wilson jwilson325 password0
+
+Elizabeth Riley Simth esimth322 password0
+
+Robert Bradley Jones rjones330 password0
+
+John Sean Jackson jjackson332 password0
+
+Maria Christina Jones mjones323 password0
+
+Chris Michael Simth csimth335 password0
+
+Thomas Oscar Johnson tjohnson337 password0
+
+Mary Samantha Jackson mjackson39 password0
+
+Michael George Simth msimth338 password0
+
+
+//External Sync Students Below This Line (1 per coach in order)
+// To add more coaches add the 3 students above this line per coach 
+//  Then add one student per coach below this line
+
+
+Robert Eric Jackson rjackson339
+
+Susan Carrie Jackson sjackson334
+
+David Walter Martinez dmartinez340 a75lbFpXbB
+
+Richard Javier Miller rmiller342
+
+Patricia Nicole Robinson probinson343
+
+Nathan James Jackson njackson344 tShNqJKc08
+
+Thomas Walter Davis tdavis4
+
+Margaret Bernice Taylor mtaylor5
+
+Robert Andrew Davis rdavis50 TCu2LkbNep
+
+Michael Kevin Brown mbrown51
+
+Patience LuAnne Thompson pthompson326
+
+Charles Lawrence Jackson cjackson52 VsGITZKhj2
+
+David Jacob Wilson dwilson54
+
+Susan Rose White swhite53
+
+Joseph Nathan Anderson janderson56 AI9FYCE9GQ
+
+John Lewis Taylor jtaylor57
+
+Linda Winter Anderson landerson313
+
+Charles Matthew Wilson cwilson598 JOoC7RfAAk
+
+Michael Peter Brown mbrown511
+
+Edrie Renee Williams jwilliams510
+
+Robert David Martin rmartin512 YrmSaGHW8W
+
+Robert Sean Taylor rtaylor514
+
+Carrie Denise Martin smartin513
+
+Oscar Jacob Lewis olewis21 zPSMNjbJED
+
+Jacob Matthew Bryant jbryant34
+
+//End of Student List
+
