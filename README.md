@@ -17,16 +17,23 @@
  * under the License.
  */
 
+
 ssp-training
 ============
+
+
 
 *** WELCOME TO THE SSP Training SCRIPTS FOLDER ***
 
  SSP Training has one main script folder named sspTrainingSetup and a main pre-compiled for
-  Postgres script file named allSSPTrainingDefaultDataCompiled. You can run this after
-  Tomcat startup and all the default liquibase has ran. The command is a standard psql
-  command: psql -d ssp -U postgres -f allSSPTrainingDefaultDataCompiled.sql. There should be
-  no errors and it may take several minutes to complete. 
+  Postgres script file named allSSPTrainingDefaultDataCompiled in the postgres folder. 
+  You can run this after Tomcat startup and all the default liquibase has ran. 
+  The command is a standard psql command: psql -d ssp -U postgres -f allSSPTrainingDefaultDataCompiled.sql.
+  There should be no errors and it may take several minutes to complete. 
+
+
+
+ *Read Further Only If You Wish To Modify The Scripts or Data*
 
  If you wish to recompile the data or to change the default data, the sspTrainingSetup folder 
   is used.The main file to run is SSPTrainingSetup.groovy. 
@@ -55,18 +62,24 @@ ssp-training
   The script should execute correctly and once you login, you can navigate to student search and execute a search 
    for active students. The number students at the bottom should total what is in your list of students text file. 
 
+
   *Extras*: There is the possibility to add a 3rd argument to the sspTrainingSetup.groovy file and that is the text file
    containing the information for faculty logins in the same format as the coach users above. This will add the 
    faculty usernames and passwords and make them available to login. Additionaly, it will select at random a number of 
    students and assign them to a course or two for that instructor, so that early_alert functionality can be demonstrated. 
+
 
    If a more limited and autonomous demonstration is desired, there is code in sspsspTrainingSetStudentsExternal.sql in 
     the dataScripts folder at the end, that can be uncommented out. It will setup the coaches as faculty and the 3
     assigned students will be in a course, such that early_alerts can be demonstrated without affecting the rest
     of the assigned students.
 
+
+
   *Warning*: You may want to change the admin password after everything is setup correctly. It is the default and
    is not changed automatically by SSP Training.
+
+
 
   *Caveats*: This setup uses 3 different script files for each action, the groovy script file, a bash shell script 
    executing sed, and then the sql files sent to postgres. There can be multiple failures in this system, however 
@@ -89,7 +102,8 @@ ssp-training
    So, for different versions a good workflow is to run the scripts and see what fails. If there are lots of errors, 
    you can run each script manually by making the substitutions and then running it to find what changes are necessary. 
 
-   If nothing is working there is a pg_dump sql file that was generated from the ssp training database with the data loaded for rel-2-0-patches.
+   If nothing is working there is a pg_dump sql file in the postgres folder that was generated from the ssp 
+   training database with the data loaded for rel-2-0-patches.
    It can be run on the command line with this command: 
 	psql -d ssp -U postgres -f /pathTOfile/pgDumpOfSSPTraining.sql 
    That should run successfully with a 0 table empty ssp database. 
