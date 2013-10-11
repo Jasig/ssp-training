@@ -40,7 +40,7 @@ DELETEUSERSSQLFILE="sspTrainingDeleteCoachAndAssignedStudents.sql"
 if [ -e "$SQLFILEDIR/$DELETEUSERSSQLFILE" ]; then
     if [ "$#" -eq 4 ]; then        
 
-	sed "s/COACHUSERNAME/$1/g;s/NEWSTUDENT1/$2/g;s/PROGRESSINGSTUDENT2/$3/g;s/STRUGGLINGSTUDENT3/$4/g;" $SQLFILEDIR/$DELETEUSERSSQLFILE >> ~/Desktop/backup.sql #| psql ssp -U postgres
+	sed "s/COACHUSERNAME/$1/g;s/NEWSTUDENT1/$2/g;s/PROGRESSINGSTUDENT2/$3/g;s/STRUGGLINGSTUDENT3/$4/g;" $SQLFILEDIR/$DELETEUSERSSQLFILE | psql ssp -U postgres
     	exit $?
     else
 	echo "Improper number of input arguments script: sspTrainingDeleteCoachAndAssignedStudents! Need 4 and $# were inputted."

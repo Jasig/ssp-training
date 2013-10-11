@@ -41,7 +41,7 @@ SETCOACHUSERSSQLFILE="sspTrainingAddCoachUsers.sql"
 if [ -e "$SQLFILEDIR/$SETCOACHUSERSSQLFILE" ]; then
     if [ "$#" -eq 5 ]; then        
 
-	sed "s@COACHUSERNAME@$1@g;s@COACHPASSWORD@$2@g;s@COACHFIRSTNAME@$3@g;s@COACHLASTNAME@$4@g;s@COACHUUID@$5@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE >> ~/Desktop/backup.sql #| psql ssp -U postgres
+	sed "s@COACHUSERNAME@$1@g;s@COACHPASSWORD@$2@g;s@COACHFIRSTNAME@$3@g;s@COACHLASTNAME@$4@g;s@COACHUUID@$5@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE | psql ssp -U postgres
     	exit $?
     else
 	echo "Improper number of input arguments script: sspTrainingAddCoachUsers.sql! Need 5 and $# were inputted."

@@ -89,7 +89,7 @@ BEGIN
 
  UPDATE external_faculty_course SET title = (SELECT title FROM external_course WHERE formatted_course = facultyCourseRecordSpring.formatted_course) WHERE term_code = facultyCourseRecordSpring.term_code AND faculty_school_id = $1;
 
- FOR studentRecordRoster1 IN (SELECT * FROM external_person ORDER BY RANDOM() LIMIT 10) LOOP
+ FOR studentRecordRoster1 IN (SELECT * FROM person WHERE student_type_id IS NOT NULL ORDER BY RANDOM() LIMIT 10) LOOP
  				
 	INSERT INTO external_faculty_course_roster(faculty_school_id, school_id, first_name, middle_name, last_name, 
 		    primary_email_address, term_code, formatted_course, status_code, section_code, section_number)
@@ -97,7 +97,7 @@ BEGIN
 
  END LOOP;
 
- FOR studentRecordRoster2 IN (SELECT * FROM external_person ORDER BY RANDOM() LIMIT 10) LOOP
+ FOR studentRecordRoster2 IN (SELECT * FROM person WHERE student_type_id IS NOT NULL ORDER BY RANDOM() LIMIT 10) LOOP
  				
 	INSERT INTO external_faculty_course_roster(faculty_school_id, school_id, first_name, middle_name, last_name, 
 		    primary_email_address, term_code, formatted_course, status_code, section_code, section_number)

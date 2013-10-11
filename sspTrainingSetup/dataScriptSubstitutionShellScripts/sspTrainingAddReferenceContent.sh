@@ -35,7 +35,7 @@ CONTENTSQLFILE="sspTrainingImmutableStartupContent.sql"
 
 if [ -e "$SQLFILEDIR/$CONTENTSQLFILE" ]; then
    
-   #psql -d ssp -U postgres -f $SQLFILEDIR/$CONTENTSQLFILE   
+   psql -d ssp -U postgres -f $SQLFILEDIR/$CONTENTSQLFILE   
    echo "Loading reference content complete"
    exit $?
 else

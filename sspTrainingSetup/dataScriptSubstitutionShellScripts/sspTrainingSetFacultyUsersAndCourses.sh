@@ -48,7 +48,7 @@ if [ -f "$SQLFILEDIR/$SETFACULTYUSERSSQLFILE" ] && [ -f "$SQLFILEDIR/$SETFACULTY
 
 	FACULTYUSER=$1	
 
-	sed "s@FACULTYUSERNAME@$1@g;s@FACULTYPASSWORD@$2@g;s@FACULTYFIRSTNAME@$3@g;s@FACULTYLASTNAME@$4@g" $SQLFILEDIR/$SETFACULTYUSERSSQLFILE >> ~/Desktop/backup.sql #| psql ssp -U postgres
+	sed "s@FACULTYUSERNAME@$1@g;s@FACULTYPASSWORD@$2@g;s@FACULTYFIRSTNAME@$3@g;s@FACULTYLASTNAME@$4@g" $SQLFILEDIR/$SETFACULTYUSERSSQLFILE | psql ssp -U postgres
         if [ $? -ne 0 ]; then
       	   echo "Adding Faculty User Records Failed"
 	   exit $?
@@ -56,7 +56,7 @@ if [ -f "$SQLFILEDIR/$SETFACULTYUSERSSQLFILE" ] && [ -f "$SQLFILEDIR/$SETFACULTY
 
 	echo "Adding Faculty User Records Complete"
 
-	sed "s@FACULTYUSER@$FACULTYUSER@g;s@YEAR3@$YEAR3@g" $SQLFILEDIR/$SETFACULTYEXTERNALSQLFILE >> ~/Desktop/backup.sql #| psql ssp -U postgres
+	sed "s@FACULTYUSER@$FACULTYUSER@g;s@YEAR3@$YEAR3@g" $SQLFILEDIR/$SETFACULTYEXTERNALSQLFILE | psql ssp -U postgres
 	
 	if [ $? -ne 0 ]; then
       	   echo "Adding External Faculty Course and Roster Records Failed"

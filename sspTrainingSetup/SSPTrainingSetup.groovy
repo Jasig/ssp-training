@@ -145,12 +145,12 @@ class SSPTrainingSetup {
             def insertContentCmd = "./dataScriptSubstitutionShellScripts/sspTrainingAddReferenceContent.sh";
             def insertContentProcess = insertContentCmd.execute()
 
-            insertContentProcess.in.eachLine { line -> println line }
-            insertContentProcess.out.close()
-            insertContentProcess.waitFor()
+           insertContentProcess.in.eachLine { line -> println line }
+           insertContentProcess.out.close()
+           insertContentProcess.waitFor()
 
-            println "Insert Reference Content return code: ${insertContentProcess.exitValue()}"
-            println "stderr: ${insertContentProcess.err.text}"
+           println "Insert Reference Content return code: ${insertContentProcess.exitValue()}"
+           println "stderr: ${insertContentProcess.err.text}"
 
 
             listOfStudentsTxtFile.eachLine { line ->
@@ -226,8 +226,7 @@ class SSPTrainingSetup {
 
                 def setExternalSyncStudent = "./dataScriptSubstitutionShellScripts/sspTrainingSetOneExternalStudent.sh " +
                         externalStudentLine[3] + " " + externalStudentLine[0] + " " + externalStudentLine[1] + " " + externalStudentLine[2] + " " +
-                        coachUserName;
-                  println "\nCMD: " +setExternalSyncStudent +" \n\n"
+                        coachUserName;                 
                def setExternalSyncStudentProcess = setExternalSyncStudent.execute()
 
                 setExternalSyncStudentProcess.waitFor()

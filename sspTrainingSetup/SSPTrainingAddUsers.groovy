@@ -131,7 +131,6 @@ class SSPTrainingAddUsers {
                  }
         }
 
-
         if( !listOfStudentsTxtFile.exists() && !listOfUsersTxtFile.exists() ) {
           println "File " +args[0] +" or " +args[1] +" does not exist!"
         } else {
@@ -142,7 +141,7 @@ class SSPTrainingAddUsers {
             def setStudentsCmd = "";
 
             listOfStudentsTxtFile.eachLine { line ->
-            if ( !line.isAllWhitespace() && !line.contains('//') && coachCount < userFileLines.size() && externalSyncIndex < coachCount ) {
+            if ( !line.isAllWhitespace() && !line.contains('//') && coachCount < userFileLines.size() ) {
                 //load students into external and ssp
                 def (coachFirst, coachLast, coachUserName, coachPassword) =
                         userFileLines.get(coachCount).split(' ');
@@ -203,13 +202,11 @@ class SSPTrainingAddUsers {
                 } else {
                    index++;
                 }
-              } else if ( !line.isAllWhitespace() && !line.contains('//') && coachCount >= userFileLines.size() ) {
+              } else if ( !line.isAllWhitespace() && !line.contains('//') && coachCount >= userFileLines.size() && externalSyncIndex < coachCount ) {
                 //Add external sync student
                 println "Inserting external sync student... "
-                externalSyncIndex++;
-
                 def (coachFirst, coachLast, coachUserName, coachPassword) =
-                    userFileLines.get((coachCount-coachCount+externalSyncIndex)).split(' ');
+                    userFileLines.get((externalSyncIndex)).split(' ');
 
                 def externalStudentLine = line.split(' ');
 
@@ -220,9 +217,11 @@ class SSPTrainingAddUsers {
                 def setExternalSyncStudentProcess = setExternalSyncStudent.execute()
 
                 setExternalSyncStudentProcess.waitFor()
-                println "Add external sync student for user# ${coachCount-coachCount+externalSyncIndex} return code: ${setExternalSyncStudentProcess.exitValue()}"
+                println "Add external sync student for user# ${externalSyncIndex+1} return code: ${setExternalSyncStudentProcess.exitValue()}"
                 println "stdout: ${setExternalSyncStudentProcess.in.text}"
                 println "stderr: ${setExternalSyncStudentProcess.err.text}"
+
+                externalSyncIndex++;
 
             }
            }

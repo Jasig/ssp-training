@@ -44,7 +44,7 @@ YEAR2=`expr $YEAR3 - 1`
 if [ -f "$SQLFILEDIR/$SETSTUDENTEXTERNALSQLFILE" ]; then
     if [ "$#" -eq 5 ]; then        
 
-	sed "s@EXTERNALSYNC1@$1@g;s@EXTERNALSYNCFIRSTNAME@$2@g;s@EXTERNALSYNCMIDDLENAME@$3@g;s@EXTERNALSYNCLASTNAME@$4@g;s@YEAR3@$YEAR3@g;s@YEAR2@$YEAR2@g;s@COACHASSIGNED@$5@g" $SQLFILEDIR/$SETSTUDENTEXTERNALSQLFILE >> ~/Desktop/backup.sql #| psql ssp -U postgres
+	sed "s@EXTERNALSYNC1@$1@g;s@EXTERNALSYNCFIRSTNAME@$2@g;s@EXTERNALSYNCMIDDLENAME@$3@g;s@EXTERNALSYNCLASTNAME@$4@g;s@YEAR3@$YEAR3@g;s@YEAR2@$YEAR2@g;s@COACHASSIGNED@$5@g" $SQLFILEDIR/$SETSTUDENTEXTERNALSQLFILE >> ~/Desktop/backup.sql | psql ssp -U postgres
 	
 	if [ $? -ne 0 ]; then
       	   echo "Loading One Student External Record Failed"

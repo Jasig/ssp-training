@@ -25,11 +25,16 @@ ssp-training
 
 *** WELCOME TO THE SSP Training SCRIPTS FOLDER ***
 
+ Current SSP Training Version: SSP rel-2-0-patches
+
+
  SSP Training has one main script folder named sspTrainingSetup and a main pre-compiled for
   Postgres script file named allSSPTrainingDefaultDataCompiled in the postgres folder. 
   You can run this after Tomcat startup and all the default liquibase has ran. 
   The command is a standard psql command: psql -d ssp -U postgres -f allSSPTrainingDefaultDataCompiled.sql.
   There should be no errors and it may take several minutes to complete. 
+
+ In the future there will be a Microsoft SQL version found in the mssql folder.
 
 
 
@@ -103,10 +108,13 @@ ssp-training
    you can run each script manually by making the substitutions and then running it to find what changes are necessary. 
 
    If nothing is working there is a pg_dump sql file in the postgres folder that was generated from the ssp 
-   training database with the data loaded for rel-2-0-patches.
+   training database with the data loaded for rel-2-0-patches. It is a fixed snapshot in time including liquibase.
+   So, it needs a fully empty ssp database!
+
    It can be run on the command line with this command: 
 	psql -d ssp -U postgres -f /pathTOfile/pgDumpOfSSPTraining.sql 
    That should run successfully with a 0 table empty ssp database. 
+
    If it does not, then there are some database setup issues that need to be addressed.
 
 END README

@@ -40,7 +40,7 @@ SETSTUDENTUSERSSQLFILE="sspTrainingAddStudentUsers.sql"
 if [ -e "$SQLFILEDIR/$SETSTUDENTUSERSSQLFILE" ]; then
     if [ "$#" -eq 4 ]; then        
 
-	sed "s@STUDENTUSERNAME@$1@g;s@STUDENTPASSWORD@$2@g;s@STUDENTFIRSTNAME@$3@g;s@STUDENTLASTNAME@$4@g" $SQLFILEDIR/$SETSTUDENTUSERSSQLFILE >> ~/Desktop/backup.sql #| psql ssp -U postgres
+	sed "s@STUDENTUSERNAME@$1@g;s@STUDENTPASSWORD@$2@g;s@STUDENTFIRSTNAME@$3@g;s@STUDENTLASTNAME@$4@g" $SQLFILEDIR/$SETSTUDENTUSERSSQLFILE | psql ssp -U postgres
         exit $?
     else
 	echo "Improper number of input arguments in script: sspTrainingAddStudentUsers! Need 4 and $# were inputted."
