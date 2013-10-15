@@ -171,7 +171,7 @@ class SSPTrainingSetup {
 
                    setCoachesProcess.waitFor()
                    println "Add Coach User " + coachUserName + " return code: ${setCoachesProcess.exitValue()}"
-                   //println "stdout: ${setCoachesProcess.in.text}"
+                   println "stdout: ${setCoachesProcess.in.text}"
                    println "stderr: ${setCoachesProcess.err.text}"
 
                 }
@@ -189,7 +189,7 @@ class SSPTrainingSetup {
 
                     setStudentUserProcess.waitFor()
                     println "Set Student User: ${studentLine[3]} return code: ${setStudentUserProcess.exitValue()}"
-                    //println "stdout: ${setStudentUserProcess.in.text}"
+                    println "stdout: ${setStudentUserProcess.in.text}"
                     println "stderr: ${setStudentUserProcess.err.text}"
                 }
 
@@ -206,7 +206,7 @@ class SSPTrainingSetup {
 
                     setStudentsProcess.waitFor()
                     println "Add students for user# ${coachCount+1} return code: ${setStudentsProcess.exitValue()}"
-                    //println "stdout: ${setStudentsProcess.in.text}"
+                    println "stdout: ${setStudentsProcess.in.text}"
                     println "stderr: ${setStudentsProcess.err.text}"
 
                     coachCount++;
@@ -231,7 +231,7 @@ class SSPTrainingSetup {
 
                 setExternalSyncStudentProcess.waitFor()
                 println "Add external sync student for user# ${externalSyncIndex+1} return code: ${setExternalSyncStudentProcess.exitValue()}"
-                //println "stdout: ${setExternalSyncStudentProcess.in.text}"
+                println "stdout: ${setExternalSyncStudentProcess.in.text}"
                 println "stderr: ${setExternalSyncStudentProcess.err.text}"
 
                 externalSyncIndex++;
@@ -261,7 +261,7 @@ class SSPTrainingSetup {
 
                          setFacultyProcess.waitFor()
                          println "Add Faculty User " + facultyUserName + " return code: ${setFacultyProcess.exitValue()}"
-                         //println "stdout: ${setFacultyProcess.in.text}"
+                         println "stdout: ${setFacultyProcess.in.text}"
                          println "stderr: ${setFacultyProcess.err.text}"
 
                      }

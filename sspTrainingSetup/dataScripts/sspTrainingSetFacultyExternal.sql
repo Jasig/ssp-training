@@ -85,9 +85,9 @@ BEGIN
 
  SELECT * INTO facultyCourseRecordSpring FROM external_faculty_course WHERE term_code = (SELECT code FROM external_term WHERE name = 'Spring YEAR3' LIMIT 1) AND faculty_school_id = $1;
 
- UPDATE external_faculty_course SET title = (SELECT title FROM external_course WHERE formatted_course = facultyCourseRecordFall.formatted_course) WHERE term_code = facultyCourseRecordFall.term_code AND faculty_school_id = $1;
+ UPDATE external_faculty_course SET title = (SELECT title FROM external_course WHERE formatted_course = facultyCourseRecordFall.formatted_course LIMIT 1) WHERE term_code = facultyCourseRecordFall.term_code AND faculty_school_id = $1;
 
- UPDATE external_faculty_course SET title = (SELECT title FROM external_course WHERE formatted_course = facultyCourseRecordSpring.formatted_course) WHERE term_code = facultyCourseRecordSpring.term_code AND faculty_school_id = $1;
+ UPDATE external_faculty_course SET title = (SELECT title FROM external_course WHERE formatted_course = facultyCourseRecordSpring.formatted_course LIMIT 1) WHERE term_code = facultyCourseRecordSpring.term_code AND faculty_school_id = $1;
 
  FOR studentRecordRoster1 IN (SELECT * FROM person WHERE student_type_id IS NOT NULL ORDER BY RANDOM() LIMIT 10) LOOP
  				
