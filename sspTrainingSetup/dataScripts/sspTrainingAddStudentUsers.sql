@@ -50,9 +50,9 @@ CREATE OR REPLACE FUNCTION addStudentUsersToPlatform(text, text, text, text) RET
 DECLARE
   studentUserDirId bigint;
   studentUserUserId bigint;
-  studentIdAttr bigint; 
   ifRecordExists boolean;    
   attributeRecord RECORD; 
+  throwAwayInt bigint;
 
 BEGIN
 	--Delete can comment out for fresh database 
@@ -69,82 +69,89 @@ BEGIN
 	 END IF;*/
 	--End Delete  
 
-	 studentUserDirId = (SELECT user_dir_id FROM up_person_dir ORDER BY user_dir_id DESC LIMIT 1) + 1;
-	 studentIdAttr = (SELECT id FROM up_person_attr ORDER BY id DESC LIMIT 1) + 1;
+
+	 studentUserDirId = (SELECT nextval('up_person_dir_seq'));	
 	 studentUserUserId = (SELECT user_id FROM up_user ORDER BY user_id DESC LIMIT 1) + 1;
+
 
 	 INSERT INTO up_person_dir(user_dir_id, entity_version, lst_pswd_cgh_dt, user_name, encrptd_pswd)
 	 VALUES (studentUserDirId, '1', '2013-09-10 21:59:16.794', $1, $2);
 
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr, '0', 'DATA_ACADEMIC_RESOURCE_CENTER', studentUserDirId);
 
 	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+1, '0', 'SSP_ROLES', studentUserDirId);
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_ACADEMIC_RESOURCE_CENTER', studentUserDirId);
+ 
+         INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0'); 
 
 	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+2, '0', 'sn', studentUserDirId);
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'SSP_ROLES', studentUserDirId);
+
+         INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
+         VALUES ((SELECT currval('up_person_attr_seq')), '_SSP_STUDENT', '0');
 
 	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+3, '0', 'DATA_DISPLACED_WORKERS', studentUserDirId);
-
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+4, '0', 'DATA_FAST_FORWARD', studentUserDirId);
-
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+5, '0', 'DATA_DISABILITY', studentUserDirId);
-
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+6, '0', 'givenName', studentUserDirId);
-
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+7, '0', 'DATA_INDIVIDUALIZED_LEARNING_PLAN', studentUserDirId);
-
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+8, '0', 'DATA_EARLY_ALERT', studentUserDirId);
-
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+9, '0', 'DATA_ENGLISH_SECOND_LANGUAGE', studentUserDirId);
-
-	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
-	 VALUES (studentIdAttr+10, '0', 'DATA_COUNSELING_SERVICES', studentUserDirId);
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'sn', studentUserDirId);
 
 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+10, '_FALSE', '0');
+         VALUES ((SELECT currval('up_person_attr_seq')), '_'||$4, '0');
 
- 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+9, '_FALSE', '0');
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_DISPLACED_WORKERS', studentUserDirId);
 
- 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+8, '_FALSE', '0');
+	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0');
 
- 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+7, '_FALSE', '0');
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_FAST_FORWARD', studentUserDirId);
+
+	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0');
+
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_DISABILITY', studentUserDirId);
+
+	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0');
+
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'givenName', studentUserDirId);
 
   	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+6, '_'||$3, '0');
+         VALUES ((SELECT currval('up_person_attr_seq')), '_'||$3, '0');
+
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_INDIVIDUALIZED_LEARNING_PLAN', studentUserDirId);
+
+ 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0');
+
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_EARLY_ALERT', studentUserDirId);
 
 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+5, '_FALSE', '0');
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0');
+
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_ENGLISH_SECOND_LANGUAGE', studentUserDirId);
+
+ 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0');
+
+	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
+	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_COUNSELING_SERVICES', studentUserDirId);
 
 	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+4, '_FALSE', '0');
+         VALUES ((SELECT currval('up_person_attr_seq')), '_FALSE', '0');	
 
-	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+3, '_FALSE', '0');
-
-	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+2, '_'||$4, '0');
-
-	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+1, '_SSP_STUDENT', '0');
-
-	 INSERT INTO up_person_attr_values(attr_id, attr_value, value_order)
-         VALUES (studentIdAttr+0, '_FALSE', '0'); 
-
+	
 	 INSERT INTO up_user(user_id, user_name, user_dflt_usr_id, user_dflt_lay_id, next_struct_id, 
             lst_chan_updt_dt)
-    	 VALUES (studentUserUserId+1, $1, 10, 1, 4, null);	
+    	 VALUES (studentUserUserId, $1, 10, 1, 4, null);
+
+         --Increment the sequences / Fixes error in ssp-platform admin on add/edit a user after data load 
+         throwAwayInt = (SELECT nextval('up_person_dir_seq'));
+         throwAwayInt = (SELECT nextval('up_person_attr_seq'));	
 END;
 
 $$ LANGUAGE plpgsql;

@@ -31,17 +31,31 @@
 #	  3rd arg string username of the progressing student use case
 #	  4th arg string username of the struggling student use case
 #
+#	  5th OPTIONAL arg number=1 to tell script to output to file 
+#	 	instead of the db. File is set to 
+#           ../postgres/sspTrainingDataCompiled(TODAY'S DATE).sql
+#
+#
 # Note: Requires Postgres 8.X or higher (SQL Script Dependency)
 #
 
 SQLFILEDIR="$(dirname $0)/../dataScripts"
 DELETEUSERSSQLFILE="sspTrainingDeleteCoachAndAssignedStudents.sql"
+DATE=$(date +"%m-%d-%Y")
+OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 
 if [ -e "$SQLFILEDIR/$DELETEUSERSSQLFILE" ]; then
     if [ "$#" -eq 4 ]; then        
 
 	sed "s/COACHUSERNAME/$1/g;s/NEWSTUDENT1/$2/g;s/PROGRESSINGSTUDENT2/$3/g;s/STRUGGLINGSTUDENT3/$4/g;" $SQLFILEDIR/$DELETEUSERSSQLFILE | psql ssp -U postgres
     	exit $?
+
+    #Print To File Option
+    elif [ "$#" -eq 5 ] && [ "$5" -eq 1 ]; then
+	sed "s/COACHUSERNAME/$1/g;s/NEWSTUDENT1/$2/g;s/PROGRESSINGSTUDENT2/$3/g;s/STRUGGLINGSTUDENT3/$4/g;" $SQLFILEDIR/$DELETEUSERSSQLFILE >> $OUTPUTFILE
+    exit $?
+    #End Print To File Option
+    
     else
 	echo "Improper number of input arguments script: sspTrainingDeleteCoachAndAssignedStudents! Need 4 and $# were inputted."
 	exit 1

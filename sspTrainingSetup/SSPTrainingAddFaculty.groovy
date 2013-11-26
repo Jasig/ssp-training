@@ -49,13 +49,21 @@
  * The file names are entered as command line arguments as listed below. 
  *
  * Params: 	 
- *         arg1 String filename = filename for the txt file list of faculty  	   
+ *         arg1 String filename = filename for the txt file list of faculty
+ *
+ *(OPTIONAL) arg2 String mssql = type "mssql" without the quotes this will switch it to compile
+ *   the scripts for mssql and make the produced sql mssql safe
+ *
+ *(OPTIONAL) arg2 or arg3 String file = type "file" without the quotes as the last arg, this will switch the program
+ *   to notify the scripts to output their data to a file. If mssql is used this is found in the directory above this one
+ *   in the folder mssql and for postgres its in the folder postgres. The file name will be:
+ *   sspTrainingDataCompiled(TODAY'S DATE).sql in the respective db version folder.
  *
  * Also, you need to include the provided jasypt-1.9.0.jar in the classpath. You can do this
  *  for all groovy instances on your system, otherwise its easy enough to include it
  *  via the command line. A sample is provided below.
  *
- * groovy -cp jasypt-1.9.0.jar SSPTrainingAddFaculty.groovy ./TrainingUsers.txt ./TrainingStudents.txt 
+ * groovy -cp jasypt-1.9.0.jar SSPTrainingAddFaculty.groovy ./TrainingFaculty.txt
  *
  * Note:
  * The password generator method/constructor was pulled out of uPortal and modified 
@@ -78,11 +86,14 @@ import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 
 class SSPTrainingAddFaculty {
 
+   private static final String databaseIntermediateScriptLocation = "dataScriptSubstitutionShellScripts";
+   private static final String addFacultyScript = "sspTrainingSetFacultyUsersAndCourses";
+
    protected static final String MD5_PREFIX = "(MD5)";
    protected static final String SHA256_PREFIX = "(SHA256)";
-    
+
    private ConfigurablePasswordEncryptor md5Encryptor;    
-   private ConfigurablePasswordEncryptor sha256Encryptor;	
+   private ConfigurablePasswordEncryptor sha256Encryptor;
 
    public SSPTrainingAddFaculty() {  	 
         sha256Encryptor = new ConfigurablePasswordEncryptor();
@@ -105,10 +116,33 @@ class SSPTrainingAddFaculty {
   
    public static void main(String[] args) {
 
+   def mssqlDir = "/";  //default acts as file separator otherwise holds location of mssql directory
+       //form should be /directory/  need a separator before and after
+   def fileParam = ""; //defaults to empty, if file is specified will tell scripts to output data to a
+       //single file for backup or ease of use
+   def commandFileType = ".sh " //defaults to shell if mssql, then bat
+   def preCommand = "./"
+
     if (args.size() < 1) {
         println "\nYou must have a command line argument for the faculty text file!\n\n"
         System.exit(1);
     } else {
+
+    if ( args.size() > 1 ) {
+        if ( args[1].equals("mssql") ) {
+            mssqlDir = "/mssql/";
+            commandFileType = ".bat ";
+            preCommand = "";
+        } else if ( args[1].equals("file") ) {
+            fileParam = " 1";
+        }
+
+        if ( args.size() > 2 ) {
+            if ( args[2].equals("file") ) {
+                fileParam = " 1";
+            }
+        }
+    }
 
 	SSPTrainingAddFaculty sspTrainingAddFaculty = new SSPTrainingAddFaculty(); 		 
 	File listOfFacultyTxtFile = new File(args[0]);
@@ -127,10 +161,10 @@ class SSPTrainingAddFaculty {
 
                     def (facultyFirst, facultyLast, facultyUserName, facultyPassword) = line.split(' ');
 
-                    def passwordEncrypt = sspTrainingAddFaculty.encryptPassword(facultyPassword);
+                    def passwordEncrypt = sspTrainingAddFaculty.encryptPassword(facultyPassword.trim());
 
-                    def setFacultyCommand = "./dataScriptSubstitutionShellScripts/sspTrainingSetFacultyUsersAndCourses.sh " +
-                            facultyUserName + " " + passwordEncrypt + " " + facultyFirst + " " + facultyLast;
+                    def setFacultyCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir + addFacultyScript +
+                            commandFileType + facultyUserName + " " + passwordEncrypt + " " + facultyFirst + " " + facultyLast + fileParam;
 
                     def setFacultyProcess = setFacultyCommand.execute()
 

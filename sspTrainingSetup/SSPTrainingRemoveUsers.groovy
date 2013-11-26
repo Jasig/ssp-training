@@ -38,6 +38,14 @@
  *         arg1 String filename = filename for the txt file list of users 
  *	   arg2 String filename = filename for the txt file list of students
  *
+ *(OPTIONAL) arg3 String mssql = type "mssql" without the quotes, this will switch it to compile
+ *   the scripts for mssql and make the produced sql mssql safe
+ *
+ *(OPTIONAL) arg3 or arg4 String file = type "file" without the quotes as the last arg, this will switch the program
+ *   to notify the scripts to output their data to a file. If mssql is used this is found in the directory above this one
+ *   in the folder mssql and for postgres its in the folder postgres. The file name will be:
+ *   sspTrainingDataCompiled(TODAY'S DATE).sql in the respective db version folder.
+ *
  * A sample is provided below.
  *
  * groovy SSPTrainingRemoveUsers.groovy ./sspTrainingUsers.txt ./sspTrainingStudents.txt 
@@ -50,12 +58,39 @@ import sspTrainingSetup.*;
 
 class SSPTrainingRemoveUsers {
 
+    private static final String databaseIntermediateScriptLocation = "dataScriptSubstitutionShellScripts";
+    private static final String deleteUsersAndStudentsScript = "sspTrainingDeleteUserAndAssignedStudents";
+
    public static void main(String[] args) {
+
+   def mssqlDir = "/";  //default acts as file separator otherwise holds location of mssql directory
+       //form should be /directory/  need a separator before and after
+   def fileParam = ""; //defaults to empty, if file is specified will tell scripts to output data to a
+       //single file for backup or ease of use
+   def commandFileType = ".sh " //defaults to shell if mssql, then bat
+   def preCommand = "./"
 
    if (args.size() < 2) {
        println "\nYou must have command line arguments for the user/coach and student text files!\n\n"
        System.exit(1);
    } else {
+
+       if ( args.size() > 2 ) {
+           if ( args[2].equals("mssql") ) {
+               mssqlDir = "/mssql/";
+               commandFileType = ".bat ";
+               preCommand = "";
+           } else if ( args[2].equals("file") ) {
+               fileParam = " 1";
+           }
+
+           if ( args.size() > 3 ) {
+               if ( args[3].equals("file") ) {
+                   fileParam = " 1";
+               }
+           }
+       }
+
         File listOfUsersTxtFile = new File(args[0]);
         File listOfStudentsTxtFile = new File(args[1]);
         def userFileLines = []
@@ -90,8 +125,9 @@ class SSPTrainingRemoveUsers {
 
                 if ( index == 2 ) {
                     println "\nDeleting User " +coachUserName +" and the Assigned Students... "
-                    def deleteUserAndStudentsCmd = "./dataScriptSubstitutionShellScripts/sspTrainingDeleteUserAndAssignedStudents.sh " +
-                    coachUserName + " " + deleteStudentsCmd;
+                    def deleteUserAndStudentsCmd = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                            deleteUsersAndStudentsScript + commandFileType + coachUserName + " " + deleteStudentsCmd +
+                            fileParam;
                     def deleteStudentsProcess = deleteUserAndStudentsCmd.execute()
                         deleteStudentsProcess.waitFor()
                     println "Delete students for user# ${coachCount+1} return code: ${ deleteStudentsProcess.exitValue()}"

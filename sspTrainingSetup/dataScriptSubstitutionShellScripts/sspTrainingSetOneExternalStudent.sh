@@ -33,6 +33,10 @@
 #	  4th arg string lastname External Student
 #	  5th arg string username for the Assigned Coach Username
 #
+#	  6th OPTIONAL arg number=1 to tell script to output to file 
+#	 	instead of the db. File is set to 
+#           ../postgres/sspTrainingDataCompiled(TODAY'S DATE).sql
+#
 # Note: Requires Postgres 8.X or higher (SQL Script Dependency)
 #
 
@@ -40,6 +44,8 @@ SQLFILEDIR="$(dirname $0)/../dataScripts"
 SETSTUDENTEXTERNALSQLFILE="sspTrainingSetOneStudentExternal.sql"
 YEAR3=`date +'%Y'`
 YEAR2=`expr $YEAR3 - 1`
+DATE=$(date +"%m-%d-%Y")
+OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 
 if [ -f "$SQLFILEDIR/$SETSTUDENTEXTERNALSQLFILE" ]; then
     if [ "$#" -eq 5 ]; then        
@@ -52,6 +58,18 @@ if [ -f "$SQLFILEDIR/$SETSTUDENTEXTERNALSQLFILE" ]; then
    	fi
 
 	echo "Loading One Student External Record Done"
+
+    #Print To File Option  
+    elif [ "$#" -eq 6 ] && [ "$6" -eq 1 ]; then
+	sed "s@EXTERNALSYNC1@$1@g;s@EXTERNALSYNCFIRSTNAME@$2@g;s@EXTERNALSYNCMIDDLENAME@$3@g;s@EXTERNALSYNCLASTNAME@$4@g;s@YEAR3@$YEAR3@g;s@YEAR2@$YEAR2@g;s@COACHASSIGNED@$5@g" $SQLFILEDIR/$SETSTUDENTEXTERNALSQLFILE  >> $OUTPUTFILE
+	
+	if [ $? -ne 0 ]; then
+      	   echo "Printing One Student External Record To File Failed"
+	   exit $?
+   	fi
+
+	echo "Printing One Student External Record To File Done" 
+    #End Print To File Option 
 
     else
 	echo "Improper number of input arguments! Need 5 and $# were inputted."

@@ -125,6 +125,5 @@ VALUES ('FACULTYUSER', (SELECT code FROM external_term WHERE name = 'Spring YEAR
 
 SELECT assignStudentsToFacultyCourse('FACULTYUSER');
 
-
 --***END OF SQL SCRIPT***
 

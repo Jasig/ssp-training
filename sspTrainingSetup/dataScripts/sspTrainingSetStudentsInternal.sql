@@ -259,7 +259,7 @@ VALUES ((SELECT generateUUID()), (SELECT first_name FROM external_person WHERE s
 	    (SELECT middle_name FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
 	    (SELECT last_name FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
 	    (SELECT birth_date FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
-	    'demo@trainingssp.com', '', 'NEWSTUDENT1','(555) 555-5555', '', '','123 W. Demo St.', 'Apt. 555', 'Phoenix', 'AZ','55555', NULL, 'NEWSTUDENT1','t', 'YEAR2-08-20', 'YEAR2-08-20','COACHID','COACHID', '1', 'TASKID1', 'TASKID1', 'TASKID1', 'Student is good at x, y, and z.', 'COACHID', 't', 'SPYEAR3', 'YEAR3', null, '0a640a2a-409d-1271-8140-d0afceae00f1', 'YEAR3-09-13 09:22:00.091', null,'YEAR3', 'SPYEAR3', 'f', 'f', '', '', '', '', '', '', 'TASKID1', 'Y', 'DemoCounty','user', null, null);
+	    'demo@trainingssp.com', '', 'NEWSTUDENT1','(555) 555-5555', '', '','123 W. Demo St.', 'Apt. 555', 'Phoenix', 'AZ','55555', NULL, 'NEWSTUDENT1','t', 'YEAR2-08-20', 'YEAR2-08-20','COACHID','COACHID', '1', 'TASKID1', 'TASKID1', 'TASKID1', 'Student is good at x, y, and z.', 'COACHID', 't', 'SPYEAR3', 'YEAR3', 'YEAR3-09-10 09:22:00.091', '0a640a2a-409d-1271-8140-d0afceae00f1', 'YEAR3-09-13 09:22:00.091', null,'YEAR3', 'SPYEAR3', 'f', 'f', '', '', '', '', '', '', 'TASKID1', 'Y', 'DemoCounty','user', null, null);
 
 
 INSERT INTO person_challenge(
@@ -468,9 +468,12 @@ VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE 
     'demo2@trainingssp.com', '', 'PROGRESSINGSTUDENT2','(555) 555-5412', '', '','321 W. Demo St.', 'Apt. 222', 'Phoenix', 'AZ', 
 '55555', NULL, 'PROGRESSINGSTUDENT2','t', 'YEAR1-08-20', 'YEAR1-08-20', 'COACHID', 
     'COACHID', '1', 'TASKID2', 'TASKID2', 'TASKID2', 'Patricia has strengths in writing, math, and work ethic.', 'COACHID', 't', 
-    'FAYEAR1', 'YEAR1', null, 
+    'FAYEAR1', 'YEAR1', 'YEAR1-09-10 09:22:00.091', 
     'b2d05919-5056-a51a-80bd-03e5288de771', 'YEAR1-09-13 09:22:00.091', null, 
     'YEAR1', 'FAYEAR1', 'f', 'f', '', '', '', '', '', '', 'TASKID2', 'Y', 'DemoCounty','user', null, null);
+
+INSERT INTO appointment(id, created_date, modified_date, created_by, modified_by, object_status, person_id, start_time, end_time, attended)
+    VALUES ((SELECT generateUUID()), 'YEAR3-09-13 09:22:00.092', 'YEAR3-09-13 09:22:00.092', 'COACHID', 'COACHID', '1', (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), '2013-11-23 09:30:00', '2013-11-23 14:00:00', FALSE); 
 
 
 INSERT INTO person_challenge(
@@ -661,7 +664,7 @@ VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE 
 '312 N. Demo St.', 'Apt. 321', 'Phoenix', 'AZ', '55555', NULL,
 'STRUGGLINGSTUDENT3', 't', 'YEAR1-08-20', 'YEAR1-08-20', 'COACHID', 
     'COACHID', '1', 'TASKID3', null, null, '', 'COACHID', 't', 
-    'FAYEAR1', 'YEAR1', null, 
+    'FAYEAR1', 'YEAR1', 'YEAR1-09-10 09:22:00.091', 
     'b2d05919-5056-a51a-80bd-03e5288de771', 'YEAR1-09-13 09:22:00.091', null, 
     'YEAR1', 'FAYEAR1', 'f', 'f', '', '', '', '', '', '', 'TASKID3', 'Y', 'DemoCounty', 'user', null, null);
 

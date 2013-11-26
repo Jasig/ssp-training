@@ -86,8 +86,14 @@ class PortalPasswordGenerator {
 
    public static void main(String[] args) {
    	PortalPasswordGenerator sspTrainingPasswordGen =  new PortalPasswordGenerator();
-   	final String pWord = sspTrainingPasswordGen.encryptPassword(args[0]);
-	println("Password for " +args[0] +" = [" +pWord +"].\n");
+        
+        if ( args.size() > 1 ) {      	
+            final String valid = sspTrainingPasswordGen.validatePassword(args[0], args[1]);
+            println("Password is valid");
+        } else {
+            final String pWord = sspTrainingPasswordGen.encryptPassword(args[0]);
+            println("Password for " +args[0] +" = [" +pWord +"].\n");
+        }
    }
 
 }

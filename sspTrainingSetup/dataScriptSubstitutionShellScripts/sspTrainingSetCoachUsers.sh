@@ -32,17 +32,31 @@
 #	  4th arg string lastname for the new Coach
 #	  5th arg string uuid for the new Coach  (string plaintext of propper uuid form)
 #
+#	  6th OPTIONAL arg number=1 to tell script to output to file 
+#	 	instead of the db. File is set to 
+#           ../postgres/sspTrainingDataCompiled(TODAY'S DATE).sql
+#
+#
 # Note: Requires Postgres 8.X or higher (SQL Script Dependency)
 #
 
 SQLFILEDIR="$(dirname $0)/../dataScripts"
 SETCOACHUSERSSQLFILE="sspTrainingAddCoachUsers.sql"
+DATE=$(date +"%m-%d-%Y")
+OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 
 if [ -e "$SQLFILEDIR/$SETCOACHUSERSSQLFILE" ]; then
     if [ "$#" -eq 5 ]; then        
 
 	sed "s@COACHUSERNAME@$1@g;s@COACHPASSWORD@$2@g;s@COACHFIRSTNAME@$3@g;s@COACHLASTNAME@$4@g;s@COACHUUID@$5@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE | psql ssp -U postgres
     	exit $?
+
+    #Print To File Option
+    elif [ "$#" -eq 6 ] && [ "$6" -eq 1 ]; then
+	sed "s@COACHUSERNAME@$1@g;s@COACHPASSWORD@$2@g;s@COACHFIRSTNAME@$3@g;s@COACHLASTNAME@$4@g;s@COACHUUID@$5@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE >> $OUTPUTFILE
+	exit $?
+    #End Print To File Option
+
     else
 	echo "Improper number of input arguments script: sspTrainingAddCoachUsers.sql! Need 5 and $# were inputted."
 	exit 1

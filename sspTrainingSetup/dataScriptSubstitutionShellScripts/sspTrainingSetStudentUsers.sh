@@ -31,17 +31,30 @@
 #	  3rd arg string firstname for the new Student Login
 #	  4th arg string lastname for the new Student Login
 #
+#	  5th OPTIONAL arg number=1 to tell script to output to file 
+#	 	instead of the db. File is set to 
+#           ../postgres/sspTrainingDataCompiled(TODAY'S DATE).sql
+#
 # Note: Requires Postgres 8.X or higher (SQL Script Dependency)
 #
 
 SQLFILEDIR="$(dirname $0)/../dataScripts"
 SETSTUDENTUSERSSQLFILE="sspTrainingAddStudentUsers.sql"
+DATE=$(date +"%m-%d-%Y")
+OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 
 if [ -e "$SQLFILEDIR/$SETSTUDENTUSERSSQLFILE" ]; then
     if [ "$#" -eq 4 ]; then        
 
 	sed "s@STUDENTUSERNAME@$1@g;s@STUDENTPASSWORD@$2@g;s@STUDENTFIRSTNAME@$3@g;s@STUDENTLASTNAME@$4@g" $SQLFILEDIR/$SETSTUDENTUSERSSQLFILE | psql ssp -U postgres
         exit $?
+
+    #Print To File Option
+    elif [ "$#" -eq 5 ] && [ "$5" -eq 1 ]; then
+	sed "s@STUDENTUSERNAME@$1@g;s@STUDENTPASSWORD@$2@g;s@STUDENTFIRSTNAME@$3@g;s@STUDENTLASTNAME@$4@g" $SQLFILEDIR/$SETSTUDENTUSERSSQLFILE >> $OUTPUTFILE
+        exit $?
+    #End Print To File Option
+
     else
 	echo "Improper number of input arguments in script: sspTrainingAddStudentUsers! Need 4 and $# were inputted."
 	exit 1

@@ -45,6 +45,11 @@
 #	  14th arg string UUID for the Assigned Coach UUID
 #	  15th-19th string UUID for tasks, must be unique
 #
+#
+#	  20th OPTIONAL arg number=1 to tell script to output to file 
+#	 	instead of the db. File is set to 
+#           ../postgres/sspTrainingDataCompiled(TODAY'S DATE).sql
+#
 # Note: Requires Postgres 8.X or higher (SQL Script Dependency)
 #
 
@@ -54,20 +59,21 @@ SETSTUDENTSINTERNALSQLFILE="sspTrainingSetStudentsInternal.sql"
 YEAR3=`date +'%Y'`
 YEAR2=`expr $YEAR3 - 1`
 YEAR1=`expr $YEAR3 - 2`
+DATE=$(date +"%m-%d-%Y")
+OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 
 if [ -f "$SQLFILEDIR/$SETSTUDENTSEXTERNALSQLFILE" ] && [ -f "$SQLFILEDIR/$SETSTUDENTSINTERNALSQLFILE" ]; then
-    if [ "$#" -eq 19 ]; then        
+    TASK1=${15}
+    TASK2=${16}
+    TASK3=${17}
+    TASK4=${18}
+    TASK5=${19}
+    NEWSTUDENTUSERNAME=$1
+    PROGSTUDENTUSERNAME=$5
+    STRUGSTUDENTUSERNAME=$9
+    COACHUUID=${14}
 
-	TASK1=${15}
-	TASK2=${16}
-	TASK3=${17}
-	TASK4=${18}
-	TASK5=${19}
-	NEWSTUDENTUSERNAME=$1
-	PROGSTUDENTUSERNAME=$5
-	STRUGSTUDENTUSERNAME=$9
-	COACHUUID=${14}
-
+    if [ "$#" -eq 19 ]; then
 	sed "s@NEWSTUDENT1@$NEWSTUDENTUSERNAME@g;s@NEWSTUDENTFIRSTNAME@$2@g;s@NEWSTUDENTMIDDLENAME@$3@g;s@NEWSTUDENTLASTNAME@$4@g;s@PROGRESSINGSTUDENT2@$PROGSTUDENTUSERNAME@g;s@PROGRESSINGSTUDENTFIRSTNAME@$6@g;s@PROGRESSINGSTUDENTMIDDLENAME@$7@g;s@PROGRESSINGSTUDENTLASTNAME@$8@g;s@STRUGGLINGSTUDENT3@$STRUGSTUDENTUSERNAME@g;s@STRUGGLINGSTUDENTFIRSTNAME@${10}@g;s@STRUGGLINGSTUDENTMIDDLENAME@${11}@g;s@STRUGGLINGSTUDENTLASTNAME@${12}@g;s@YEAR3@$YEAR3@g;s@YEAR2@$YEAR2@g;s@YEAR1@$YEAR1@g;s@COACHASSIGNED@${13}@g;s@COACHID@$COACHUUID@g;s@TASKID1@$TASK1@g;s@TASKID2@$TASK2@g;s@TASKID3@$TASK3@g;s@TASKID4@$TASK4@g;s@TASKID5@$TASK5@g" $SQLFILEDIR/$SETSTUDENTSEXTERNALSQLFILE | psql ssp -U postgres
 	
 	if [ $? -ne 0 ]; then
@@ -86,6 +92,28 @@ if [ -f "$SQLFILEDIR/$SETSTUDENTSEXTERNALSQLFILE" ] && [ -f "$SQLFILEDIR/$SETSTU
 
 	echo "Loading Internal Records Done"
     
+    #Print To File Option     
+    elif [ "$#" -eq 20 ] && [ "$20" -eq 1 ]; then
+
+        sed "s@NEWSTUDENT1@$NEWSTUDENTUSERNAME@g;s@NEWSTUDENTFIRSTNAME@$2@g;s@NEWSTUDENTMIDDLENAME@$3@g;s@NEWSTUDENTLASTNAME@$4@g;s@PROGRESSINGSTUDENT2@$PROGSTUDENTUSERNAME@g;s@PROGRESSINGSTUDENTFIRSTNAME@$6@g;s@PROGRESSINGSTUDENTMIDDLENAME@$7@g;s@PROGRESSINGSTUDENTLASTNAME@$8@g;s@STRUGGLINGSTUDENT3@$STRUGSTUDENTUSERNAME@g;s@STRUGGLINGSTUDENTFIRSTNAME@${10}@g;s@STRUGGLINGSTUDENTMIDDLENAME@${11}@g;s@STRUGGLINGSTUDENTLASTNAME@${12}@g;s@YEAR3@$YEAR3@g;s@YEAR2@$YEAR2@g;s@YEAR1@$YEAR1@g;s@COACHASSIGNED@${13}@g;s@COACHID@$COACHUUID@g;s@TASKID1@$TASK1@g;s@TASKID2@$TASK2@g;s@TASKID3@$TASK3@g;s@TASKID4@$TASK4@g;s@TASKID5@$TASK5@g" $SQLFILEDIR/$SETSTUDENTSEXTERNALSQLFILE >> $OUTPUTFILE
+	
+	if [ $? -ne 0 ]; then
+      	   echo "Printing External Records To File Failed"
+	   exit $?
+   	fi
+
+	echo "Printing External Records To File Done"
+
+	sed "s@NEWSTUDENT1@$NEWSTUDENTUSERNAME@g;s@PROGRESSINGSTUDENT2@$PROGSTUDENTUSERNAME@g;s@STRUGGLINGSTUDENT3@$STRUGSTUDENTUSERNAME@g;s@COACHID@$COACHUUID@g;s@YEAR3@$YEAR3@g;s@YEAR2@$YEAR2@g;s@YEAR1@$YEAR1@g;s@TASKID1@$TASK1@g;s@TASKID2@$TASK2@g;s@TASKID3@$TASK3@g;s@TASKID4@$TASK4@g;s@TASKID5@$TASK5@g" $SQLFILEDIR/$SETSTUDENTSINTERNALSQLFILE >> $OUTPUTFILE
+
+        if [ $? -ne 0 ]; then
+      	   echo "Printing Internal Records To File Failed"
+	   exit $?
+   	fi
+
+	echo "Printing Internal Records To File Done"	
+    #End Print To File Option
+
     else
 	echo "Improper number of input arguments! Need 19 and $# were inputted."
 	exit 1

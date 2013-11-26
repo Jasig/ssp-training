@@ -34,19 +34,27 @@
 #	  3rd arg string firstname for the new Faculty
 #	  4th arg string lastname for the new Faculty
 #
+#	  5th OPTIONAL arg number=1 to tell script to output to file 
+#	 	instead of the db. File is set to 
+#           ../postgres/sspTrainingDataCompiled(TODAY'S DATE).sql
+#
+#
 # Note: Requires Postgres 8.X or higher (SQL Script Dependency)
 #
 
 SQLFILEDIR="$(dirname $0)/../dataScripts"
 SETFACULTYUSERSSQLFILE="sspTrainingDriveAddFacultyUsers.sql"
 SETFACULTYEXTERNALSQLFILE="sspTrainingSetFacultyExternal.sql"
-
+OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 YEAR3=`date +'%Y'`
+DATE=$(date +"%m-%d-%Y")
+OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 
 if [ -f "$SQLFILEDIR/$SETFACULTYUSERSSQLFILE" ] && [ -f "$SQLFILEDIR/$SETFACULTYEXTERNALSQLFILE" ]; then
-    if [ "$#" -eq 4 ]; then        
 
-	FACULTYUSER=$1	
+    FACULTYUSER=$1	
+
+    if [ "$#" -eq 4 ]; then	
 
 	sed "s@FACULTYUSERNAME@$1@g;s@FACULTYPASSWORD@$2@g;s@FACULTYFIRSTNAME@$3@g;s@FACULTYLASTNAME@$4@g" $SQLFILEDIR/$SETFACULTYUSERSSQLFILE | psql ssp -U postgres
         if [ $? -ne 0 ]; then
@@ -64,6 +72,28 @@ if [ -f "$SQLFILEDIR/$SETFACULTYUSERSSQLFILE" ] && [ -f "$SQLFILEDIR/$SETFACULTY
    	fi
 
 	echo "Adding External Faculty and Course and Roster Records Complete"
+    
+     #Print To File Option
+     elif [ "$#" -eq 5 ] && [ "$5" -eq 1 ]; then
+	
+	sed "s@FACULTYUSERNAME@$1@g;s@FACULTYPASSWORD@$2@g;s@FACULTYFIRSTNAME@$3@g;s@FACULTYLASTNAME@$4@g" $SQLFILEDIR/$SETFACULTYUSERSSQLFILE >> $OUTPUTFILE
+        if [ $? -ne 0 ]; then
+      	   echo "Printing Faculty User Records to File Failed"
+	   exit $?
+   	fi
+
+	echo "Printing Faculty User Records To File Complete"
+
+	sed "s@FACULTYUSER@$FACULTYUSER@g;s@YEAR3@$YEAR3@g" $SQLFILEDIR/$SETFACULTYEXTERNALSQLFILE >> $OUTPUTFILE
+	
+	if [ $? -ne 0 ]; then
+      	   echo "Printing External Faculty Course and Roster Records to File Failed"
+	   exit $?
+   	fi
+
+	echo "Printing External Faculty and Course and Roster Records to File Complete"
+    #End Print To File Option
+
     else
 	echo "Improper number of input arguments in script: sspTrainingSetFacultyExternal! Need 4 and $# were inputted."
 	exit 1
