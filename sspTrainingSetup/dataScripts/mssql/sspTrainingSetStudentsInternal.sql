@@ -1581,6 +1581,7 @@ VALUES ((SELECT NEWID()), '$(YEAR3)-09-13 13:27:34.544', '$(YEAR3)-09-13 13:27:3
 1, (SELECT id FROM person WHERE school_id = '$(PROGRESSINGSTUDENT2)'), '$(TASKID2)', 'CST205', 'CST-205', 
 'Computer Organization and Machine Language', ' ', 'SU2016', 3.00, 0, 0, '', '', 0, NULL);
 
+GO
 
 -- ***END OF SQL SCRIPT***
 

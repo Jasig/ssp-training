@@ -43,12 +43,11 @@
 --Function to Delete Users in SSP-Platform 
 
 IF object_id('deleteUsersFromPlatform', 'p') IS NOT NULL
-    exec ('DROP PROCEDURE addUsersToPlatform')
+    exec ('DROP PROCEDURE addUsersToPlatform');
 GO
 
 CREATE PROCEDURE deleteUsersFromPlatform @USERNAME VARCHAR(25)
 AS
-  BEGIN
      IF EXISTS(SELECT * FROM up_person_dir WHERE user_name = @USERNAME)
            DECLARE @temp bigint;
 		   
@@ -65,10 +64,11 @@ AS
               DELETE FROM up_person_dir WHERE user_name = @USERNAME;
 	      DELETE FROM up_user WHERE user_name = @USERNAME;
               DELETE FROM person WHERE username = @USERNAME;  
-     END; 
-END;
+     END;
+
 GO
--- End Function
+
+--End Function
 
 
 

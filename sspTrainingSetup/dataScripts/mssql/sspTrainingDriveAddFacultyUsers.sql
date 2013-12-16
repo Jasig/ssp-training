@@ -45,12 +45,11 @@
 
 
 IF object_id('addFacultyUsersToPlatform', 'p') IS NOT NULL
-    exec ('DROP PROCEDURE addFacultyUsersToPlatform')
+   exec('DROP PROCEDURE addFacultyUsersToPlatform');
 GO
 
 CREATE PROCEDURE addFacultyUsersToPlatform @USERNAME VARCHAR(25), @PASSWORD VARCHAR(256), @FIRSTNAME VARCHAR(50), @LASTNAME VARCHAR(50)
 AS
-  BEGIN
       DECLARE @facultyUserDirId bigint;
       DECLARE @facultyUserUserId bigint;
       DECLARE @facultyIdAttr bigint; 
@@ -164,18 +163,13 @@ AS
          --Increment the sequences / Fixes error in ssp-platform admin on add/edit a user after data load 
          UPDATE UP_PERSON_DIR_SEQ SET next_val = (@facultyUserDirId + 12);	
 	 UPDATE UP_PERSON_ATTR_SEQ SET next_val = (@facultyIdAttr+62);
- END;
 
 GO
 
--- End Functions
+--End Functions
 
 
---Begin Add Faculty User Section (You can edit below this line)
---   FORM: EXEC addFacultyUsersToPlatform  @USERNAME="$(COACHUSERNAME)", @PASSWORD="$(COACHPASSWORD)", @FIRSTNAME="$(COACHFIRSTNAME)",  @LASTNAME="$(COACHLASTNAME)";
---   GO
-
-   EXEC addFacultyUsersToPlatform  @USERNAME="$(FACULTYUSERNAME)", @PASSWORD="$(FACULTYPASSWORD)", @FIRSTNAME="$(FACULTYFIRSTNAME)",  @LASTNAME="$(FACULTYLASTNAME)";
-   GO 
+EXEC addFacultyUsersToPlatform  @USERNAME="$(FACULTYUSERNAME)", @PASSWORD="$(FACULTYPASSWORD)", @FIRSTNAME="$(FACULTYFIRSTNAME)",  @LASTNAME="$(FACULTYLASTNAME)";
+    
   
 --End Add Faculty Users to Platform Script

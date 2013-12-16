@@ -8203,6 +8203,8 @@ INSERT INTO map_template_course (id, created_date, modified_date, created_by, mo
 INSERT INTO map_template_course (id, created_date, modified_date, created_by, modified_by, object_status, template_id, formatted_course, course_code, course_title, course_description, term_code, credit_hours, is_dev, order_in_term, contact_notes, student_notes, is_important, elective_id) VALUES ('0a640a2a-409d-1271-8140-e72485e5031c', '2013-09-03 21:04:25.189', '2013-09-03 21:04:25.189', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '0a640a2a-409d-1271-8140-e72485e4030c', 'AUMT251', 'AUMT-251', 'Automotive Service', ' Course: AUMT251 is not currently offered in the selected term.', 'SU2015', 4.00, 0, 0, '', '', 0, NULL);
 INSERT INTO map_template_course (id, created_date, modified_date, created_by, modified_by, object_status, template_id, formatted_course, course_code, course_title, course_description, term_code, credit_hours, is_dev, order_in_term, contact_notes, student_notes, is_important, elective_id) VALUES ('0a640a2a-409d-1271-8140-e72485e5031d', '2013-09-03 21:04:25.189', '2013-09-03 21:04:25.189', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '0a640a2a-409d-1271-8140-e72485e4030c', 'GEO172', 'GEO-172', 'Principles of Geography', ' Course: GEO172 is not currently offered in the selected term.', 'SU2015', 3.00, 0, 1, '', '', 0, '3122e73b-dd86-4f23-af05-22c2abd93414');
 
+GO
+
 --END INSERTS
 
 --

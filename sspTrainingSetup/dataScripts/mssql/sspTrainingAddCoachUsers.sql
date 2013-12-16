@@ -49,13 +49,11 @@
 
 
 IF object_id('addUsersToPlatform', 'p') IS NOT NULL
-    exec ('DROP PROCEDURE addUsersToPlatform')
+    exec ('DROP PROCEDURE addUsersToPlatform');
 GO
 
 CREATE PROCEDURE addUsersToPlatform @USERNAME VARCHAR(25), @PASSWORD VARCHAR(256), @FIRSTNAME VARCHAR(50), @LASTNAME VARCHAR(50), @UUID VARCHAR(36)
 AS
-  BEGIN
-
      DECLARE @userDirId bigint;
      DECLARE @userUserId bigint;  
      DECLARE @userAttrId bigint;       
@@ -202,16 +200,11 @@ AS
          --Increment the sequences / Fixes error in ssp-platform admin on add/edit a user after data load 
          UPDATE UP_PERSON_DIR_SEQ SET next_val = (@userDirId + 12);	
 	 UPDATE UP_PERSON_ATTR_SEQ SET next_val = (@userAttrId+92);
-    END; 
-GO 
--- End Function
 
+GO
 
---Begin Add User Section (You can edit below this line)
---   FORM: EXEC addUsersToPlatform  @USERNAME="$(COACHUSERNAME)", @PASSWORD="$(COACHPASSWORD)", @FIRSTNAME="$(COACHFIRSTNAME)",  @LASTNAME="$(COACHLASTNAME)", @UUID="$(COACHUUID)";
---   GO
+--End Function
 
-   EXEC addUsersToPlatform  @USERNAME="$(COACHUSERNAME)", @PASSWORD="$(COACHPASSWORD)", @FIRSTNAME="$(COACHFIRSTNAME)",  @LASTNAME="$(COACHLASTNAME)", @UUID="$(COACHUUID)";
-   GO
-  
+EXEC addUsersToPlatform  @USERNAME="$(COACHUSERNAME)", @PASSWORD="$(COACHPASSWORD)", @FIRSTNAME="$(COACHFIRSTNAME)",  @LASTNAME="$(COACHLASTNAME)", @UUID="$(COACHUUID)";
+
 --End Add Users to Platform Script

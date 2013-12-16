@@ -46,12 +46,11 @@
 --Function to Set Student Users into SSP-Platform for SSP Training
 
 IF object_id('addStudentUsersToPlatform', 'p') IS NOT NULL
-    exec ('DROP PROCEDURE addStudentUsersToPlatform')
+    exec('DROP PROCEDURE addStudentUsersToPlatform');
 GO
 
 CREATE PROCEDURE addStudentUsersToPlatform @USERNAME VARCHAR(25), @PASSWORD VARCHAR(256), @FIRSTNAME VARCHAR(50), @LASTNAME VARCHAR(50)
 AS
-  BEGIN
      DECLARE @studentUserDirId bigint;
      DECLARE @studentUserUserId bigint;  
      DECLARE @studentIdAttr bigint;    
@@ -158,17 +157,12 @@ AS
 
          --Increment the sequences / Fixes error in ssp-platform admin on add/edit a user after data load 
          UPDATE UP_PERSON_DIR_SEQ SET next_val = (@studentUserDirId + 12);	
-	 UPDATE UP_PERSON_ATTR_SEQ SET next_val = (@studentIdAttr+62);	
-END;
+	 UPDATE UP_PERSON_ATTR_SEQ SET next_val = (@studentIdAttr+62);
+
 GO
--- End Function
 
-
---Begin Add Student User Section (You can edit below this line)
---   FORM: EXEC addStudentUsersToPlatform  @USERNAME="$(STUDENTUSERNAME)", @PASSWORD="$(STUDENTPASSWORD)", @FIRSTNAME="$(STUDENTFIRSTNAME)",  @LASTNAME="$(STUDENTLASTNAME)";
---GO
+--End Function
 
 EXEC addStudentUsersToPlatform  @USERNAME="$(STUDENTUSERNAME)", @PASSWORD="$(STUDENTPASSWORD)", @FIRSTNAME="$(STUDENTFIRSTNAME)",  @LASTNAME="$(STUDENTLASTNAME)";
-GO
   
 --End Add Student Users to Platform Script

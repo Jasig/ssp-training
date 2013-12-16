@@ -61,12 +61,11 @@ DELETE FROM external_faculty_course WHERE faculty_school_id = '$(FACULTYUSER)';
 --Function to Assign Students To Faculty Courses for SSP Training
 
 IF object_id('assignStudentsToFacultyCourse', 'p') IS NOT NULL
-    exec ('DROP PROCEDURE assignStudentsToFacultyCourse')
+    exec ('DROP PROCEDURE assignStudentsToFacultyCourse');
 GO
 
 CREATE PROCEDURE assignStudentsToFacultyCourse @FACULTYSCHOOLID VARCHAR(50)
 AS
-  BEGIN
      DECLARE @fallFormattedCourse VARCHAR(35);
      DECLARE @fallTermCode VARCHAR(25);
      DECLARE @fallSectionCode VARCHAR(128);
@@ -104,9 +103,9 @@ AS
      SELECT TOP 10 @FACULTYSCHOOLID, school_id, first_name, middle_name, last_name, primary_email_address, @springTermCode, @springFormattedCourse, 'E', @springSectionCode, @springSectionNumber
      FROM person WHERE student_type_id IS NOT NULL ORDER BY NEWID();
 
-END;
 GO
--- End Function
+
+--End Function
 
 
 
@@ -117,9 +116,12 @@ GO
 
 INSERT INTO external_faculty_course(faculty_school_id, term_code, formatted_course, title, section_code, section_number)
 VALUES ('$(FACULTYUSER)', (SELECT TOP 1 code FROM external_term WHERE name = 'Spring $(YEAR3)'), (SELECT TOP 1 formatted_course FROM external_course ORDER BY NEWID()), 'x', (SELECT NEWID()), (SELECT RIGHT(REPLICATE('0',8) + CONVERT(VARCHAR(100),CAST(RAND(CAST(NEWID() AS VARBINARY(128))) * 100000000 AS INT)),8)));
+
 GO
 
 EXEC assignStudentsToFacultyCourse @FACULTYSCHOOLID="$(FACULTYUSER)";
+
+
 GO
 
 --***END OF SQL SCRIPT***
