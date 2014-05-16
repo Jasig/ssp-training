@@ -415,7 +415,7 @@ INSERT INTO external_student_transcript_course(
 	    section_code, faculty_school_id, course_code)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CRIJ', '130', 'CRIJ130', '211', 'Introduction to Criminal Justice', 'Introduction to Criminal Justice',
             'A', 4.00, 'FA$(YEAR1)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ130-211', 'jmartinez110', 'CRIJ13-211');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ130-211', 'jmartinez110', 'CRIJ13211');
 
 
 INSERT INTO external_student_transcript_course(
@@ -515,7 +515,7 @@ INSERT INTO external_student_transcript_course(
 	    section_code, faculty_school_id, course_code)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '105', 'CST105', '304', 'Introduction to Computing I', 'Computers Intro',
             'A-', 3, 'FA$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST105-304', 'rjones330');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST105-304', 'rjones330', 'CST105304');
 
 
 
@@ -605,7 +605,7 @@ INSERT INTO external_student_transcript_course(
 	    section_code, faculty_school_id, course_code)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '262', 'CST262', '240', 'UNIX Operating System', 'Introduction to the UNIX/LINUX operating system',
             'A-', 3, 'SP$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST262-240', 'dmartinez340');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST262-240', 'dmartinez340', 'CST262240');
 
 
 INSERT INTO external_student_transcript_course(

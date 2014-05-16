@@ -24,10 +24,15 @@
  * This SQL File contains a data dump from a Postgres SSP database
  *  that contained high-quality demo reference and content data.
  *
- * To upload this file into a blank/default database, you can use
- *  the command line.
+ * To use this file substitute the placeholders below via some other script
+ *  or manually with the 4 digit year. 
  *
- *    psql -U postgres -d ssp -f /pathToThisFile/sspTrainingImmutableStartupContent.sql
+ * Substitute:   
+ *	$(YEAR)# = the year(s) to use in the script 
+ *        	(YEAR1 and YEAR2 are before YEAR3 and YEAR3 is usually is equal to the current year).
+ *       Note: Added $(YEAR4), YEAR5, YEAR6, YEAR7, YEAR8, YEAR9 and YEARDEC (10) for future terms/map items!
+ *
+ *      TWODIGITYEAR# = same as above for years, except the last two digits i.e. 1956 would be 56
  *
  * This script works best on blank databases, however a typical workflow is to
  *  do an initportal or initdb for ssp-platform and then startup tomcat which
@@ -323,7 +328,7 @@ INSERT INTO challenge_category (id, created_date, modified_date, created_by, mod
 -- Data for Name: challenge_referral; Type: TABLE DATA; Schema: public; Owner: sspadmin
 --
 
-INSERT INTO challenge_referral (id, name, description, created_date, modified_date, created_by, modified_by, object_status, public_description, show_in_self_help_guide, show_in_student_intake, link) VALUES ('0a640a2a-40e7-15de-8141-13495bef00fe', 'Test', 'Description', '$(YEAR3)-09-12 10:47:56.783', '$(YEAR3)-09-12 10:47:56.783', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '', 0, NULL, 'http://www.pinterest.com/all/food_drink/');
+INSERT INTO challenge_referral (id, name, description, created_date, modified_date, created_by, modified_by, object_status, public_description, show_in_self_help_guide, show_in_student_intake, link) VALUES ('0a640a2a-40e7-15de-8141-13495bef00fe', 'Test', 'Description', '$(YEAR3)-09-12 10:47:56.783', '$(YEAR3)-09-12 10:47:56.783', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '', 0, 0, 'http://www.pinterest.com/all/food_drink/');
 INSERT INTO challenge_referral (id, name, description, created_date, modified_date, created_by, modified_by, object_status, public_description, show_in_self_help_guide, show_in_student_intake, link) VALUES ('0baf5091-398d-408d-81d9-3763695dbd7a', 'Holistic Counseling - Process', 'Holistic case management process to facilitate Student Success', '$(YEAR2)-03-20 00:00:00', '$(YEAR3)-09-03 11:52:56.944', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, 'Holistic case management process to facilitate Student Success', 0, 0, '');
 INSERT INTO challenge_referral (id, name, description, created_date, modified_date, created_by, modified_by, object_status, public_description, show_in_self_help_guide, show_in_student_intake, link) VALUES ('59ac3691-ea0d-4237-a468-0573ef07e895', 'Resource Room', 'RESOURCE ROOM:  Visit Counseling Services ''Resource Room'' for additional resources (e.g. books brochures videos) 10424 555-2752 www.studentsuccessplan.org', '$(YEAR2)-03-20 00:00:00', '$(YEAR3)-09-03 11:59:29.206', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, 'RESOURCE ROOM:  Visit Counseling Services ''Resource Room'' for additional resources (e.g. books brochures videos) 10424 555-2752 www.studentsuccessplan.org', 1, 1, 'www.studentsuccessplan.org');
 INSERT INTO challenge_referral (id, name, description, created_date, modified_date, created_by, modified_by, object_status, public_description, show_in_self_help_guide, show_in_student_intake, link) VALUES ('75e20872-17c8-436e-a3c0-07319f818c26', 'MHS Community Referral', 'Contact insurance company for list of approved providers who offer mental health services.', '$(YEAR2)-03-20 00:00:00', '$(YEAR3)-09-03 12:07:46.71', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, 'Contact insurance company for list of approved providers who offer mental health services.', 0, 0, '');
@@ -2732,7 +2737,6 @@ INSERT INTO external_course_term (course_code, term_code) VALUES ('FIN-162', 'FA
 INSERT INTO external_course_term (course_code, term_code) VALUES ('PHY-205', 'FA$(YEAR4)');
 INSERT INTO external_course_term (course_code, term_code) VALUES ('HST-417', 'FA$(YEAR4)');
 INSERT INTO external_course_term (course_code, term_code) VALUES ('SCL-476', 'FA$(YEAR4)');
-INSERT INTO external_course_term (course_code, term_code) VALUES ('MAT-324', 'FA$(YEAR4)');
 INSERT INTO external_course_term (course_code, term_code) VALUES ('POL-433', 'FA$(YEAR4)');
 INSERT INTO external_course_term (course_code, term_code) VALUES ('COM-122', 'FA$(YEAR4)');
 INSERT INTO external_course_term (course_code, term_code) VALUES ('MIC-134', 'WN$(YEAR4)');
@@ -7369,7 +7373,7 @@ INSERT INTO map_template (id, created_date, modified_date, created_by, modified_
 -- Data for Name: map_template_course; Type: TABLE DATA; Schema: public; Owner: sspadmin
 --
 
-INSERT INTO map_template_course (id, created_date, modified_date, created_by, modified_by, object_status, template_id, formatted_course, course_code, course_title, course_description, term_code, credit_hours, is_dev, order_in_term, contact_notes, student_notes, is_important, elective_id) VALUES ('0a640a2a-409d-1271-8140-e70e89ca02a5', '$(YEAR3)-09-03 20:40:24.394', '$(YEAR3)-09-03 20:40:24.394', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '0a640a2a-409d-1271-8140-e7020c490285', 'MAT150', 'MAT-150', 'Mathematics for Business and Economics', ' Course: MAT150 is not currently offered in the selected term.', 'FA$(YEAR3)', 3.00, 0, 0, '', '', 0, 0);
+INSERT INTO map_template_course (id, created_date, modified_date, created_by, modified_by, object_status, template_id, formatted_course, course_code, course_title, course_description, term_code, credit_hours, is_dev, order_in_term, contact_notes, student_notes, is_important, elective_id) VALUES ('0a640a2a-409d-1271-8140-e70e89ca02a5', '$(YEAR3)-09-03 20:40:24.394', '$(YEAR3)-09-03 20:40:24.394', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '0a640a2a-409d-1271-8140-e7020c490285', 'MAT150', 'MAT-150', 'Mathematics for Business and Economics', ' Course: MAT150 is not currently offered in the selected term.', 'FA$(YEAR3)', 3.00, 0, 0, '', '', 0, NULL);
 INSERT INTO map_template_course (id, created_date, modified_date, created_by, modified_by, object_status, template_id, formatted_course, course_code, course_title, course_description, term_code, credit_hours, is_dev, order_in_term, contact_notes, student_notes, is_important, elective_id) VALUES ('0a640a2a-409d-1271-8140-e70e89ca02a6', '$(YEAR3)-09-03 20:40:24.394', '$(YEAR3)-09-03 20:40:24.394', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '0a640a2a-409d-1271-8140-e7020c490285', 'ENG101', 'ENG-101', 'English Composition I', ' Course: ENG101 is not currently offered in the selected term.', 'FA$(YEAR3)', 3.00, 0, 1, '', '', 0, NULL);
 INSERT INTO map_template_course (id, created_date, modified_date, created_by, modified_by, object_status, template_id, formatted_course, course_code, course_title, course_description, term_code, credit_hours, is_dev, order_in_term, contact_notes, student_notes, is_important, elective_id) VALUES ('0a640a2a-409d-1271-8140-e70e89cc02a7', '$(YEAR3)-09-03 20:40:24.396', '$(YEAR3)-09-03 20:40:24.396', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '0a640a2a-409d-1271-8140-e7020c490285', 'CST101', 'CST-101', 'Programming Fundamentals I', ' Course: CST101 is not currently offered in the selected term.', 'FA$(YEAR3)', 3.00, 0, 2, '', '', 0, NULL);
 INSERT INTO map_template_course (id, created_date, modified_date, created_by, modified_by, object_status, template_id, formatted_course, course_code, course_title, course_description, term_code, credit_hours, is_dev, order_in_term, contact_notes, student_notes, is_important, elective_id) VALUES ('0a640a2a-409d-1271-8140-e70e89cc02a8', '$(YEAR3)-09-03 20:40:24.396', '$(YEAR3)-09-03 20:40:24.396', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', '58ba5ee3-734e-4ae9-b9c5-943774b4de41', 1, '0a640a2a-409d-1271-8140-e7020c490285', 'HST201', 'HST-201', 'U.S. History I', ' Course: HST201 is not currently offered in the selected term.', 'FA$(YEAR3)', 3.00, 0, 3, '', '', 0, NULL);

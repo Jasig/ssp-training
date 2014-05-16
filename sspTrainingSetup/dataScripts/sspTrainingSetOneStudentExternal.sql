@@ -19,9 +19,9 @@
 
 
 /*
- * *** SSP TRAINING SET INDIVIDUAL USER EXTERNAL DATA FOR 3 USE CASE STUDENTS ***
+ * *** SSP TRAINING SET INDIVIDUAL USER EXTERNAL DATA FOR 1 EXTERNAL ONLY USE CASE ***
  *
- * This SQL File sets 3 high quality use case students with external data that makes
+ * This SQL File sets one student with external data only that makes
  *  them useful for demonstrations, user training, and other scenarios. 
  *
  * The database must be setup with reference data and the basic SSP required table structure.

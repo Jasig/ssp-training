@@ -19,9 +19,9 @@
 
 
 /*
- * *** SSP TRAINING SET INDIVIDUAL USER EXTERNAL DATA FOR 3 USE CASE STUDENTS MSSQL Version***
+ * *** SSP TRAINING SET INDIVIDUAL USER EXTERNAL DATA FOR 1 USE CASE STUDENT MSSQL Version***
  *
- * This SQL File sets 3 high quality use case students with external data that makes
+ * This SQL File sets 1 high quality use case student with external data that makes
  *  them useful for demonstrations, user training, and other scenarios. 
  *
  * The database must be setup with reference data and the basic SSP required table structure.
@@ -82,7 +82,7 @@ VALUES ('$(EXTERNALSYNC1)', '$(EXTERNALSYNC1)', '$(EXTERNALSYNCFIRSTNAME)', '$(E
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name,
             test_date, score, status, discriminator, outcome)
-VALUES ('$(EXTERNALSYNC1)', 'Scholastic Assessment Test','SAT', 'COMP', 'COMP', '$(YEAR2)-04-11', '1585.00', 'Accepted', '1'. 'Satisfactory');
+VALUES ('$(EXTERNALSYNC1)', 'Scholastic Assessment Test','SAT', 'COMP', 'COMP', '$(YEAR2)-04-11', '1585.00', 'Accepted', '1', 'Satisfactory');
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name, test_date, score, status)
