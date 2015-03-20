@@ -1,18 +1,18 @@
 /**
- * Licensed to Jasig under one or more contributor license
+ * Licensed to Apereo under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Jasig licenses this file to you under the Apache License,
+ * Apereo licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a
- * copy of the License at:
+ * except in compliance with the License.  You may obtain a
+ * copy of the License at the following location:
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -187,6 +187,7 @@ class SSPTrainingSetup {
             int coachCount = 0;
             int externalSyncIndex = 0;
             def coachUUID = "";
+            def studentUUID = "";
             def setStudentsCmd = "";
 
             //insert reference content needed by students and coaches
@@ -233,10 +234,11 @@ class SSPTrainingSetup {
                     //student password found add to uPortal users
                     println "Inserting Student User... "
                                 def studentPasswordEncrypt = sspTrainingSetup.encryptPassword(studentLine[4].trim());
+                                studentUUID = UUID.randomUUID();
 
                     def setStudentUserCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
                             addStudentUserScript + commandFileType + studentLine[3] + " " + studentPasswordEncrypt +
-                            " " + studentLine[0] + " " + studentLine[2] + fileParam;
+                            " " + studentLine[0] + " " + studentLine[2] + " " + studentUUID + fileParam;
                     def setStudentUserProcess = setStudentUserCommand.execute()
 
                     setStudentUserProcess.waitFor()
@@ -302,18 +304,19 @@ class SSPTrainingSetup {
                  println "File :" +args[2] +" doesn't exist!\n"
              } else {
                  println "\nInserting Faculty Users... "
-
+                 def facultyUUID = "";
                  listOfFacultyUsersTxtFile.eachLine { line ->
 
                      if ( !line.isAllWhitespace() && !line.contains('//') ) {
-
+                         
+                         facultyUUID = UUID.randomUUID();
                          def (facultyFirst, facultyLast, facultyUserName, facultyPassword) = line.split(' ');
 
                          def passwordEncrypt = sspTrainingSetup.encryptPassword(facultyPassword.trim());
 
                          def setFacultyCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
                                  addFacultyScript + commandFileType + facultyUserName + " " + passwordEncrypt + " " +
-                                 facultyFirst + " " + facultyLast + fileParam;
+                                 facultyFirst + " " + facultyLast + " " + facultyUUID + fileParam;
                          def setFacultyProcess = setFacultyCommand.execute()
 
                          setFacultyProcess.waitFor()

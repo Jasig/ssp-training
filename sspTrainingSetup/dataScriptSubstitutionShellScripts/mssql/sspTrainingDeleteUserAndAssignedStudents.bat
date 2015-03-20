@@ -1,23 +1,25 @@
 @ECHO OFF
 
 goto endOfComments
-rem Licensed to Jasig under one or more contributor license
-rem agreements. See the NOTICE file distributed with this work
-rem for additional information regarding copyright ownership.
-rem Jasig licenses this file to you under the Apache License,
-rem Version 2.0 (the "License"); you may not use this file
-rem except in compliance with the License. You may obtain a
-rem copy of the License at:
-rem
-rem http://www.apache.org/licenses/LICENSE-2.0
-rem
-rem Unless required by applicable law or agreed to in writing,
-rem software distributed under the License is distributed on
-rem an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-rem KIND, either express or implied. See the License for the
-rem specific language governing permissions and limitations
-rem under the License.
-rem
+
+rem * Licensed to Apereo under one or more contributor license
+rem * agreements. See the NOTICE file distributed with this work
+rem * for additional information regarding copyright ownership.
+rem * Apereo licenses this file to you under the Apache License,
+rem * Version 2.0 (the "License"); you may not use this file
+rem * except in compliance with the License.  You may obtain a
+rem * copy of the License at the following location:
+rem *
+rem *   http://www.apache.org/licenses/LICENSE-2.0
+rem *
+rem * Unless required by applicable law or agreed to in writing,
+rem * software distributed under the License is distributed on an
+rem * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+rem * KIND, either express or implied.  See the License for the
+rem * specific language governing permissions and limitations
+rem * under the License.
+rem */
+
 
 rem
 rem *** SSP Delete Coach/Users and their Assigned Students From SSP Training Script MSSQL Version***
@@ -62,7 +64,7 @@ if exist "%SQLFILEDIR%/%DELETEUSERSSQLFILE%" (
     rem Print To File Option
     ) else if "%cmdArgNumber%" == "5" (
          if "%5" == "1" (
-             rem sqlcmd  -d ssp -i %SQLFILEDIR%/%DELETEUSERSSQLFILE% -v COACHUSERNAME="%1" NEWSTUDENT1="%2" PROGRESSINGSTUDENT2="%3" STRUGGLINGSTUDENT3="%4" >> %OUTPUTFILE%
+             sqlcmd  -d ssp -i %SQLFILEDIR%/%DELETEUSERSSQLFILE% -v COACHUSERNAME="%1" NEWSTUDENT1="%2" PROGRESSINGSTUDENT2="%3" STRUGGLINGSTUDENT3="%4" -e >> %OUTPUTFILE%
             exit /b %errorlevel%
          ) else (
             echo Improper fifth argument! Expected: 1  Recieved: %5 

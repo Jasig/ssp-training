@@ -1,0 +1,76 @@
+//  SSP TRAINING OTHER ROLES LIST
+//
+//This file should contain the list of faculty, manager, supportstaff, and developer logins
+//
+//Format: firstname lastname username password(plain text)
+//
+//Note: At this time apostraphes in names are not allowed
+//   O'Hara should become OHara due to script limitations
+//
+//Delimination: Space on line and entry by line
+// '//' Comments and Whitespace are ignored. 
+
+
+
+//Begin Faculty List
+
+Demo Faculty1 faculty1 password0
+
+Demo Faculty2 faculty2 password0
+
+Demo Faculty3 faculty3 password0
+
+Demo Faculty4 faculty4 password0
+
+Demo Faculty5 faculty5 password0
+
+//End of Faculty List
+
+
+//Spacer Between Roles Do Not Delete or Modify Spacing
+
+
+//Begin Manager List
+
+Demo Manager1 manager1 password0
+
+Demo Manager2 manager2 password0
+
+Demo Manager3 manager3 password0
+
+Demo Manager4 manager4 password0
+
+Demo Manager5 manager5 password0
+
+//End of Manager List
+
+
+//Spacer Between Roles Do Not Delete or Modify Spacing
+
+
+//Begin Support Staff List
+
+Demo SupportStaff1 supportstaff1 password0
+
+Demo SupportStaff2 supportstaff2 password0
+
+Demo SupportStaff3 supportstaff3 password0
+
+Demo SupportStaff4 supportstaff4 password0
+
+Demo SupportStaff5 supportstaff5 password0
+
+//End of Support Staff List
+
+
+//Spacer Between Roles Do Not Delete or Modify Spacing
+
+
+//Begin Developer List
+
+Demo Developer1 developer1 password0
+
+//End of Support Staff List
+
+
+//End of File Other Roles List

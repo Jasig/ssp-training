@@ -1,23 +1,25 @@
 @ECHO OFF
 
 goto endOfComments
-rem Licensed to Jasig under one or more contributor license
-rem agreements. See the NOTICE file distributed with this work
-rem for additional information regarding copyright ownership.
-rem Jasig licenses this file to you under the Apache License,
-rem Version 2.0 (the "License"); you may not use this file
-rem except in compliance with the License. You may obtain a
-rem copy of the License at:
 
-rem http://www.apache.org/licenses/LICENSE-2.0
-rem
-rem Unless required by applicable law or agreed to in writing,
-rem software distributed under the License is distributed on
-rem an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-rem KIND, either express or implied. See the License for the
-rem specific language governing permissions and limitations
-rem under the License.
-rem
+rem * Licensed to Apereo under one or more contributor license
+rem * agreements. See the NOTICE file distributed with this work
+rem * for additional information regarding copyright ownership.
+rem * Apereo licenses this file to you under the Apache License,
+rem * Version 2.0 (the "License"); you may not use this file
+rem * except in compliance with the License.  You may obtain a
+rem * copy of the License at the following location:
+rem *
+rem *   http://www.apache.org/licenses/LICENSE-2.0
+rem *
+rem * Unless required by applicable law or agreed to in writing,
+rem * software distributed under the License is distributed on an
+rem * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+rem * KIND, either express or implied.  See the License for the
+rem * specific language governing permissions and limitations
+rem * under the License.
+rem */
+
 
 rem
 rem *** SSP Insert Coach/Users into SSP Training Script MSSQL Version***
@@ -44,7 +46,7 @@ rem
 :endOfComments
 
 set "SQLFILEDIR=%~dp0..\..\dataScripts\mssql"
-set "SETCOACHUSERSSQLFILE=sspTrainingAddCoachUsers.sql"
+set "SETCOACHUSERSSQLFILE=sspTrainingAddUsers.sql"
 set YEAR3=%date:~10,4%
 set /a YEAR2=%YEAR3%-1
 set FILEDATESTAMP=%date:~4,2%-%date:~7,2%-%date:~10,4%
@@ -53,7 +55,7 @@ set "OUTPUTFILE=%~dp0..\..\..\mssql\sspTrainingDataCompiled%FILEDATESTAMP%.sql"
 if exist "%SQLFILEDIR%/%SETCOACHUSERSSQLFILE%" (
     if "%6" == "" (        
        if NOT %5 == "" ( 
-          sqlcmd  -d ssp -i %SQLFILEDIR%\%SETCOACHUSERSSQLFILE% -v COACHUSERNAME="%1" COACHPASSWORD="%2==" COACHFIRSTNAME="%3" COACHLASTNAME="%4" COACHUUID="%5" YEAR3="%YEAR3%" YEAR2="%YEAR2%" COACHASSIGNED="%5"  
+          sqlcmd -d ssp -i %SQLFILEDIR%\%SETCOACHUSERSSQLFILE% -v USERNAME="%1" USERPASSWORD="%2==" USERFIRSTNAME="%3" USERLASTNAME="%4" USERUUID="%5" USERROLE="COACH" USER_IS_MAP_TEMPLATE_ADMIN="0"  
 
           exit /b %errorlevel%
 
@@ -66,7 +68,7 @@ if exist "%SQLFILEDIR%/%SETCOACHUSERSSQLFILE%" (
     ) else if "%7" == "" (
          if "%6" == "1" (
 
-	    rem sqlcmd  -d ssp -i %SQLFILEDIR%\%SETCOACHUSERSSQLFILE% -v COACHUSERNAME="%1" COACHPASSWORD="%2==" COACHFIRSTNAME="%3" COACHLASTNAME="%4" COACHUUID="%5" YEAR3="%YEAR3%" YEAR2="%YEAR2%" COACHASSIGNED="%5" >> %OUTPUTFILE%  
+	    sqlcmd -d ssp -i %SQLFILEDIR%\%SETCOACHUSERSSQLFILE% -v USERNAME="%1" USERPASSWORD="%2==" USERFIRSTNAME="%3" USERLASTNAME="%4" USERUUID="%5" USERROLE="COACH" USER_IS_MAP_TEMPLATE_ADMIN="0" -e >> %OUTPUTFILE%  
   	    
             exit /b %errorlevel%
 

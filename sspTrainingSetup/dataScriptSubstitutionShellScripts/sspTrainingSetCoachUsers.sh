@@ -1,22 +1,23 @@
 #!/bin/sh
 
-# Licensed to Jasig under one or more contributor license
-# agreements. See the NOTICE file distributed with this work
-# for additional information regarding copyright ownership.
-# Jasig licenses this file to you under the Apache License,
-# Version 2.0 (the "License"); you may not use this file
-# except in compliance with the License. You may obtain a
-# copy of the License at:
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on
-# an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations
-# under the License.
-#
+#/**
+# * Licensed to Apereo under one or more contributor license
+# * agreements. See the NOTICE file distributed with this work
+# * for additional information regarding copyright ownership.
+# * Apereo licenses this file to you under the Apache License,
+# * Version 2.0 (the "License"); you may not use this file
+# * except in compliance with the License.  You may obtain a
+# * copy of the License at the following location:
+# *
+# *   http://www.apache.org/licenses/LICENSE-2.0
+# *
+# * Unless required by applicable law or agreed to in writing,
+# * software distributed under the License is distributed on an
+# * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# * KIND, either express or implied.  See the License for the
+# * specific language governing permissions and limitations
+# * under the License.
+# */
 
 #
 # *** SSP Insert Coach/Users into SSP Training Script ***
@@ -41,19 +42,19 @@
 #
 
 SQLFILEDIR="$(dirname $0)/../dataScripts"
-SETCOACHUSERSSQLFILE="sspTrainingAddCoachUsers.sql"
+SETCOACHUSERSSQLFILE="sspTrainingAddUsers.sql"
 DATE=$(date +"%m-%d-%Y")
 OUTPUTFILE="../postgres/sspTrainingDataCompiled$DATE.sql"
 
 if [ -e "$SQLFILEDIR/$SETCOACHUSERSSQLFILE" ]; then
     if [ "$#" -eq 5 ]; then        
 
-	sed "s@COACHUSERNAME@$1@g;s@COACHPASSWORD@$2@g;s@COACHFIRSTNAME@$3@g;s@COACHLASTNAME@$4@g;s@COACHUUID@$5@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE | psql ssp -U postgres
+		sed "s@USERNAME@$1@g;s@USERPASSWORD@$2@g;s@USERFIRSTNAME@$3@g;s@USERLASTNAME@$4@g;s@USERUUID@$5@g;s@USERROLE@COACH@g;s@IS_MAP_TEMPLATE_ADMIN@false@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE | psql ssp -U postgres
     	exit $?
 
     #Print To File Option
     elif [ "$#" -eq 6 ] && [ "$6" -eq 1 ]; then
-	sed "s@COACHUSERNAME@$1@g;s@COACHPASSWORD@$2@g;s@COACHFIRSTNAME@$3@g;s@COACHLASTNAME@$4@g;s@COACHUUID@$5@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE >> $OUTPUTFILE
+		sed "s@USERNAME@$1@g;s@USERPASSWORD@$2@g;s@USERFIRSTNAME@$3@g;s@USERLASTNAME@$4@g;s@USERUUID@$5@g;s@USERROLE@COACH@g;s@IS_MAP_TEMPLATE_ADMIN@false@g" $SQLFILEDIR/$SETCOACHUSERSSQLFILE >> $OUTPUTFILE
 	exit $?
     #End Print To File Option
 

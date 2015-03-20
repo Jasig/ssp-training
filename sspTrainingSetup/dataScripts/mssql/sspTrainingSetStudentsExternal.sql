@@ -1,18 +1,18 @@
 /**
- * Licensed to Jasig under one or more contributor license
+ * Licensed to Apereo under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Jasig licenses this file to you under the Apache License,
+ * Apereo licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a
- * copy of the License at:
+ * except in compliance with the License.  You may obtain a
+ * copy of the License at the following location:
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -78,6 +78,7 @@ DELETE FROM external_student_test WHERE school_id = '$(NEWSTUDENT1)';
 DELETE FROM external_student_transcript WHERE school_id = '$(NEWSTUDENT1)';
 DELETE FROM external_student_transcript_course WHERE school_id = '$(NEWSTUDENT1)';
 DELETE FROM external_student_transcript_term  WHERE school_id = '$(NEWSTUDENT1)';
+DELETE FROM external_student_risk_indicator where school_id = '$(NEWSTUDENT1)';
 
 DELETE FROM external_faculty_course_roster WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_person WHERE school_id = '$(PROGRESSINGSTUDENT2)';
@@ -91,6 +92,18 @@ DELETE FROM external_student_transcript WHERE school_id = '$(PROGRESSINGSTUDENT2
 DELETE FROM external_student_transcript_course WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_student_transcript_term  WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 
+DELETE FROM external_faculty_course_roster WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_person WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_person_note WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_person_planning_status WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_registration_status_by_term WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_academic_program WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_financial_aid WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_test WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_transcript WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_transcript_course WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_transcript_term  WHERE school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_risk_indicator where school_id = '$(PROGRESSINGSTUDENT2)';
 
 DELETE FROM external_faculty_course_roster WHERE school_id = '$(STRUGGLINGSTUDENT3)';
 DELETE FROM external_person WHERE school_id = '$(STRUGGLINGSTUDENT3)';
@@ -104,14 +117,24 @@ DELETE FROM external_student_transcript WHERE school_id = '$(STRUGGLINGSTUDENT3)
 DELETE FROM external_student_transcript_course WHERE school_id = '$(STRUGGLINGSTUDENT3)';
 DELETE FROM external_student_transcript_term  WHERE school_id = '$(STRUGGLINGSTUDENT3)';
 
+DELETE FROM external_faculty_course_roster WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_person WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_person_note WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_person_planning_status WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_registration_status_by_term WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_student_academic_program WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_student_financial_aid WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_student_test WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_student_transcript WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_student_transcript_course WHERE school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_student_transcript_term  WHERE school_id = '$(STRUGGLINGSTUDENT3)';
 DELETE FROM external_student_financial_aid_file WHERE school_id = '$(NEWSTUDENT1)';
-DELETE FROM external_student_financial_aid_file WHERE school_id = $(PROGRESSINGSTUDENT2);
+DELETE FROM external_student_financial_aid_file WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_student_financial_aid_file WHERE school_id = '$(STRUGGLINGSTUDENT3)';
-
 DELETE FROM external_student_financial_aid_award_term WHERE school_id = '$(NEWSTUDENT1)';
-DELETE FROM external_student_financial_aid_award_term WHERE school_id = $(PROGRESSINGSTUDENT2);
+DELETE FROM external_student_financial_aid_award_term WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_student_financial_aid_award_term WHERE school_id = '$(STRUGGLINGSTUDENT3)';
-
+DELETE FROM external_student_risk_indicator where school_id = '$(STRUGGLINGSTUDENT3)';
 */
 --End of Deletes
 
@@ -175,7 +198,7 @@ INSERT INTO external_student_transcript_term(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -185,7 +208,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -195,7 +218,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -205,7 +228,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -215,7 +238,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -226,7 +249,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -236,17 +259,16 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
-	    section_number, title, description, grade, credit_earned, term_code, 
-	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
-     VALUES ('$(NEWSTUDENT1)', 'PHL', '177', 'PHL177', '932', 'Introduction to Philosophy', 'Introduction to Philosophy',
-            'C', 3, 'FA$(YEAR3)', 'Institutional', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'PHL177-932', 'dmartinez340', 'PHL177932');
-
+            school_id, subject_abbreviation, number, formatted_course, 
+            section_number, title, description, grade, credit_earned, term_code, 
+            credit_type, first_name, middle_name, last_name, audited, status_code, 
+            section_code, faculty_school_id, course_code)
+     VALUES ('$(NEWSTUDENT1)', 'PHY', '131', 'PHY131', '932', 'Introduction to Physics', 'Introduction to Physics',
+            'C', 3, 'FAYEAR3', 'Institutional', 'NEWSTUDENTFIRSTNAME', 'NEWSTUDENTMIDDLENAME', 
+            'NEWSTUDENTLASTNAME', 'N', 'E', 'PHY131-932', 'dmartinez340', 'PHY-131');
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -255,10 +277,35 @@ INSERT INTO external_student_transcript_course(
             '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'MAT183-200', 'jmartinez110', 'MAT183200');
 
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(NEWSTUDENT1)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.CST102-645', 'Course: CST102-645',
+            'LOW RISK', 'Current profile and activity levels indicate a LOW RISK of failure in course: CST102-645');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(NEWSTUDENT1)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.ENG102-203', 'Course: ENG102-203',
+            'LOW RISK', 'Current profile and activity levels indicate a LOW RISK of failure in course: ENG102-203');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(NEWSTUDENT1)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.HST163-106', 'Course: HST163-106',
+            'LOW RISK', 'Current profile and activity levels indicate a LOW RISK of failure in course: HST163-106');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(NEWSTUDENT1)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.PHY131-932', 'Course: PHY131-932',
+            'HIGH RISK', 'Current profile and activity levels indicate a HIGH RISK of failure in course: PHY131-932');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(NEWSTUDENT1)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.MAT183-200', 'Course: MAT183-200',
+            'LOW RISK', 'Current profile and activity levels indicate a LOW RISK of failure in course: MAT183-200');
 
 
 --$(PROGRESSINGSTUDENT2)
@@ -378,7 +425,7 @@ INSERT INTO external_student_transcript_term(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -388,7 +435,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -399,7 +446,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -409,7 +456,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -419,7 +466,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -429,7 +476,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -440,7 +487,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -451,7 +498,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -462,7 +509,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -472,7 +519,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -483,7 +530,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -497,7 +544,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -509,7 +556,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -520,7 +567,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -531,7 +578,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -542,7 +589,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -556,7 +603,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -568,7 +615,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -579,7 +626,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -589,7 +636,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -599,7 +646,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -609,7 +656,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -619,7 +666,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -629,7 +676,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -639,7 +686,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -650,7 +697,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -660,10 +707,35 @@ INSERT INTO external_student_transcript_course(
 
 
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(PROGRESSINGSTUDENT2)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.CST230-230', 'Course: CST230-230',
+            'NO RISK', 'Current profile and activity levels indicate NO RISK of failure in course: CST230-230');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(PROGRESSINGSTUDENT2)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.CST245-189', 'Course: CST245-189',
+            'NO RISK', 'Current profile and activity levels indicate NO RISK of failure in course: CST245-189');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(PROGRESSINGSTUDENT2)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.PHY215-485', 'Course: PHY215-485',
+            'NO RISK', 'Current profile and activity levels indicate NO RISK of failure in course: PHY215-485');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(PROGRESSINGSTUDENT2)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.HST210-287', 'Course: HST210-287',
+            'NO RISK', 'Current profile and activity levels indicate NO RISK of failure in course: HST210-287');
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(PROGRESSINGSTUDENT2)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.MAT324-112', 'Course: MAT324-112',
+            'NO RISK', 'Current profile and activity levels indicate NO RISK of failure in course: MAT324-112');
 
 --$(STRUGGLINGSTUDENT3)
 
@@ -768,7 +840,7 @@ INSERT INTO external_student_transcript_term(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -778,7 +850,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -788,7 +860,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -798,7 +870,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -808,7 +880,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -821,7 +893,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -831,7 +903,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -841,7 +913,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -851,7 +923,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -864,7 +936,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -875,7 +947,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -885,7 +957,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -896,7 +968,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -907,7 +979,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -917,7 +989,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -927,7 +999,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -937,7 +1009,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -947,7 +1019,7 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-	    school_id, subject_abbreviation, "number", formatted_course, 
+	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
 	    section_code, faculty_school_id, course_code)
@@ -956,13 +1028,17 @@ INSERT INTO external_student_transcript_course(
             '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT246-190', 'etaylor310', 'AUMT246190');
 
 
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(STRUGGLINGSTUDENT3)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.ENG076-100', 'Course: ENG076-100',
+            'HIGH RISK', 'Current profile and activity levels indicate a HIGH RISK of failure in course: ENG076-100');
 
-
-
-
-
-
-
+INSERT INTO external_student_risk_indicator (
+            school_id, model_code, model_name, indicator_code, indicator_name, indicator_value,
+            indicator_value_description)
+    VALUES ('$(STRUGGLINGSTUDENT3)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.AUMT246-190', 'Course: AUMT246-190',
+            'HIGH RISK', 'Current profile and activity levels indicate a HIGH RISK of failure in course: AUMT246-190');
 
 
 --External Course Data 

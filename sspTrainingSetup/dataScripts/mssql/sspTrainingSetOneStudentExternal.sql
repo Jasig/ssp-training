@@ -1,18 +1,18 @@
 /**
- * Licensed to Jasig under one or more contributor license
+ * Licensed to Apereo under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
- * Jasig licenses this file to you under the Apache License,
+ * Apereo licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a
- * copy of the License at:
+ * except in compliance with the License.  You may obtain a
+ * copy of the License at the following location:
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
@@ -40,7 +40,7 @@
  * Substitute: 
  *	$(EXTERNALSYNC1) = usernname of the New Student Use Case
  *	$(EXTERNALSYNCFIRSTNAME) = first name of New Student Use Case
- *	$(EXTERNALSYNCMIDDLENAME) = middle name of New Student Use Case
+ *	$('$(EXTERNALSYNCMIDDLENAME)') = middle name of New Student Use Case
  *	$(EXTERNALSYNCLASTNAME) = last name of New Student Use Case
  *
  *	$(COACHASSIGNED) = username for assigned coach
@@ -77,7 +77,7 @@ DELETE FROM external_student_transcript_term  WHERE school_id = '$(EXTERNALSYNC1
 --$(EXTERNALSYNC1)
 
 INSERT INTO external_person(school_id, username, first_name, middle_name, last_name, birth_date, primary_email_address, address_line_1, address_line_2, city, state, zip_code, home_phone, work_phone, office_location, office_hours, department_name, actual_start_term, actual_start_year, marital_status, ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('$(EXTERNALSYNC1)', '$(EXTERNALSYNC1)', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', '$(EXTERNALSYNCLASTNAME)', '1983-08-20','demo@trainingssp.com', '458 N. Demo St.', 'Apt. 852', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SP$(YEAR3)', '$(YEAR3)', 'Single', 'Caucasian/White', 'M', 1, 0.00, '$(COACHASSIGNED)', '', NULL, 'DemoCounty', 'Y', 'N', 'FTIC', '');         
+VALUES ('$(EXTERNALSYNC1)', '$(EXTERNALSYNC1)', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', '$(EXTERNALSYNCLASTNAME)', '1983-08-20','demo@trainingssp.com', '458 N. Demo St.', 'Apt. 852', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SP$(YEAR3)', '$(YEAR3)', 'Single', 'Caucasian/White', 'M', '1', 0.00, '$(COACHASSIGNED)', '', NULL, 'DemoCounty', 'Y', 'N', 'FTIC', '');         
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name,
@@ -85,8 +85,8 @@ INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code
 VALUES ('$(EXTERNALSYNC1)', 'Scholastic Assessment Test','SAT', 'COMP', 'COMP', '$(YEAR2)-04-11', '1585.00', 'Accepted', '1', 'Satisfactory');
 
 
-INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name, test_date, score, status)
-VALUES ('$(EXTERNALSYNC1)', 'American College Testing','ACT', 'COMP', 'COMP', '$(YEAR2)-04-15', '23', 'Accepted');
+INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name, test_date, score, status, discriminator, outcome)
+VALUES ('$(EXTERNALSYNC1)', 'American College Testing','ACT', 'COMP', 'COMP', '$(YEAR2)-04-15', '23', 'Accepted', '1', 'Satisfactory');
 
 
 INSERT INTO external_student_academic_program(school_id, degree_code, degree_name, program_code, program_name, 
@@ -109,7 +109,7 @@ INSERT INTO external_student_financial_aid_award_term (school_id, accepted, term
 
 INSERT INTO external_student_transcript(school_id, credit_hours_for_gpa, credit_hours_earned, credit_hours_attempted, 
             total_quality_points, grade_point_average, academic_standing, credit_hours_not_completed, credit_completion_rate, 		    gpa_trend_indicator, current_restrictions)
-VALUES ('$(EXTERNALSYNC1)', 9.00, 9.00, 9.00, 70.00, 2.10, 'Good', 1.00, 100.00, 'New', '');
+VALUES ('$(EXTERNALSYNC1)', 9.00, 9.00, 9.00, 70.00, 2.10, 'Good', 1.00, 100.00, 'New', 'None');
 
 
 INSERT INTO external_registration_status_by_term(
@@ -182,13 +182,13 @@ INSERT INTO external_student_transcript_course(
 
 
 INSERT INTO external_student_transcript_course(
-            school_id, subject_abbreviation, number, formatted_course, 
-            section_number, title, description, grade, credit_earned, term_code, 
-            credit_type, first_name, middle_name, last_name, audited, status_code, 
-            section_code, faculty_school_id, course_code)
+	    school_id, subject_abbreviation, number, formatted_course, 
+	    section_number, title, description, grade, credit_earned, term_code, 
+	    credit_type, first_name, middle_name, last_name, audited, status_code, 
+	    section_code, faculty_school_id, course_code)
      VALUES ('$(EXTERNALSYNC1)', 'HST', '133', 'HST133', '106', 'General History', 'General History',
             'B', 3, 'FA$(YEAR3)', 'Institutional', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'ENG102-203', 'jwilliams510', 'ENG102203');
+            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'HST133-106', 'jwilliams510', 'HST133106');
 
 
 INSERT INTO external_student_transcript_course(
