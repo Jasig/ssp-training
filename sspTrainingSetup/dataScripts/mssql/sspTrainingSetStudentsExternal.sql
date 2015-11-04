@@ -142,8 +142,8 @@ DELETE FROM external_student_risk_indicator where school_id = '$(STRUGGLINGSTUDE
 
 --$(NEWSTUDENT1)
 
-INSERT INTO external_person(school_id, username, first_name, middle_name, last_name, birth_date, primary_email_address, address_line_1, address_line_2, city, state, zip_code, home_phone, work_phone, office_location, office_hours, department_name, actual_start_term, actual_start_year, marital_status, ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('$(NEWSTUDENT1)', '$(NEWSTUDENT1)', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', '$(NEWSTUDENTLASTNAME)', '1983-08-20','demo@trainingssp.com', '123 N. Demo St.', 'Apt. 555', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SP$(YEAR3)', '$(YEAR3)', 'Single', 'Caucasian/White', 'M', 1, 0.00, '$(COACHASSIGNED)', '', NULL, 'DemoCounty', 'Y', 'N', 'FTIC', '');         
+INSERT INTO external_person(school_id, username, first_name, middle_name, last_name, birth_date, primary_email_address, address_line_1, address_line_2, city, state, zip_code, home_phone, work_phone, office_location, office_hours, department_name, actual_start_term, actual_start_year, marital_status, ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code, campus_code)
+VALUES ('$(NEWSTUDENT1)', '$(NEWSTUDENT1)', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', '$(NEWSTUDENTLASTNAME)', '1983-08-20','demo@trainingssp.com', '123 N. Demo St.', 'Apt. 555', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SP$(YEAR3)', '$(YEAR3)', 'Single', 'Caucasian/White', 'M', 1, 0.00, '$(COACHASSIGNED)', '', NULL, 'DemoCounty', 'Y', 'N', 'FTIC', '', '');         
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name,
@@ -175,8 +175,8 @@ INSERT INTO external_student_financial_aid_award_term (school_id, accepted, term
 
 
 INSERT INTO external_student_transcript(school_id, credit_hours_for_gpa, credit_hours_earned, credit_hours_attempted, 
-            total_quality_points, grade_point_average, academic_standing, credit_hours_not_completed, credit_completion_rate, 		    gpa_trend_indicator, current_restrictions)
-VALUES ('$(NEWSTUDENT1)', 9.00, 9.00, 9.00, 70.00, 2.10, 'Good', 1.00, 100.00, 'New', '');
+            total_quality_points, grade_point_average, academic_standing, credit_hours_not_completed, credit_completion_rate, 		    gpa_trend_indicator, current_restrictions, local_gpa, program_gpa)
+VALUES ('$(NEWSTUDENT1)', 9.00, 9.00, 9.00, 70.00, 2.10, 'Good', 1.00, 100.00, 'New', 'New Unknown', 3.20, 3.00);
 
 
 INSERT INTO external_registration_status_by_term(
@@ -194,6 +194,10 @@ INSERT INTO external_student_transcript_term(
 	    credit_hours_not_completed, credit_completion_rate, total_quality_points, 
 	    grade_point_average, term_code)
     VALUES ('$(NEWSTUDENT1)',9.00,9.00,0.00,9.00,9.00,2.00,2.10,'SP$(YEAR3)');
+
+
+INSERT INTO external_student_transcript_non_course(school_id, target_formatted_course, term_code, non_course_code, title, description, grade, credit_earned, credit_type, status_code)
+VALUES ('$(NEWSTUDENT1)', 'HST234', 'SP$(YEAR3)', 'HIST_TEST', 'History Test Override', 'History Test Placement/Override', 'P', 0.00, 'Institutional', 'E');
 
 
 
@@ -306,6 +310,25 @@ INSERT INTO external_student_risk_indicator (
             indicator_value_description)
     VALUES ('$(NEWSTUDENT1)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.MAT183-200', 'Course: MAT183-200',
             'LOW RISK', 'Current profile and activity levels indicate a LOW RISK of failure in course: MAT183-200');
+            
+INSERT INTO external_career_decision_status(school_id, code)
+VALUES ('$(NEWSTUDENT1)', 'U'); 
+
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(NEWSTUDENT1)', 'LMS_PARTICIPATION', 'LMS Participation', 'LMS_PARTICIPATION', 'LMS Participation', '49', 'LMS Participation 49');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(NEWSTUDENT1)', 'ATTENDANCE', 'Average Class Attendance', 'ATTENDANCE', 'Average Class Attendance', '40', 'ATTENDANCE 40');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(NEWSTUDENT1)', 'FIN_AID_GPA', 'Financial Aid GPA', 'FIN_AID_GPA', 'Financial Aid GPA', 2.44, 'The GPA that is considered when awarding Financial Aid');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(NEWSTUDENT1)', 'LIBRARY', 'Library/Learning Resource Access', 'LIBRARY', 'Library/Learning Resource Access', '1', 'LIBRARY 1');
+
+
+          
 
 
 --$(PROGRESSINGSTUDENT2)
@@ -316,8 +339,8 @@ INSERT INTO external_person( school_id, username, first_name, middle_name, last_
             state, zip_code, home_phone, work_phone, office_location, office_hours, 
             department_name, actual_start_term, actual_start_year, marital_status, 
             ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, 
-            photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('$(PROGRESSINGSTUDENT2)', '$(PROGRESSINGSTUDENT2)', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', '$(PROGRESSINGSTUDENTLASTNAME)', '1988-01-04', 'demo@trainingssp.com', '312 N. Demo St.', 'Apt. 012', 'Phoenix', 'AZ', '55555', '(555) 555-5423', '', '', '', '', 'FA$(YEAR1)', '$(YEAR1)', 'Separated', 'Caucasian/White', 'F', 1, 0.00, '$(COACHASSIGNED)', '', NULL,'DemoCounty','Y','N','RET','');
+            photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code, campus_code)
+VALUES ('$(PROGRESSINGSTUDENT2)', '$(PROGRESSINGSTUDENT2)', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', '$(PROGRESSINGSTUDENTLASTNAME)', '1988-01-04', 'demo@trainingssp.com', '312 N. Demo St.', 'Apt. 012', 'Phoenix', 'AZ', '55555', '(555) 555-5423', '', '', '', '', 'FA$(YEAR1)', '$(YEAR1)', 'Separated', 'Caucasian/White', 'F', 1, 0.00, '$(COACHASSIGNED)', '', NULL,'DemoCounty','Y','N','RET','', 'WEST');
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name, test_date, score, status, discriminator, outcome)
@@ -350,8 +373,8 @@ INSERT INTO external_student_financial_aid_award_term (school_id, accepted, term
 
 
 INSERT INTO external_student_transcript(school_id, credit_hours_for_gpa, credit_hours_earned, credit_hours_attempted, 
-            total_quality_points, grade_point_average, academic_standing, credit_hours_not_completed, credit_completion_rate, 		    gpa_trend_indicator, current_restrictions)
-VALUES ('$(PROGRESSINGSTUDENT2)', 63.00, 63.00, 63.00, 131.00, 3.64, 'Good', 1.00, 100.00, 'Progressing', '');
+            total_quality_points, grade_point_average, academic_standing, credit_hours_not_completed, credit_completion_rate, 		    gpa_trend_indicator, current_restrictions, local_gpa, program_gpa)
+VALUES ('$(PROGRESSINGSTUDENT2)', 63.00, 63.00, 63.00, 131.00, 3.64, 'Good', 1.00, 100.00, 'Progressing', 'None', 3.94, 3.82);
 
 
 INSERT INTO external_registration_status_by_term(
@@ -422,6 +445,9 @@ INSERT INTO external_student_transcript_term(
             grade_point_average, term_code)
     VALUES ('$(PROGRESSINGSTUDENT2)',15.00,15.00,15.00,0.00,15.00,90.00,3.74,'SP$(YEAR3)');
 
+
+INSERT INTO external_student_transcript_non_course(school_id, target_formatted_course, term_code, non_course_code, title, description, grade, credit_earned, credit_type, status_code)
+VALUES ('$(PROGRESSINGSTUDENT2)', 'MAT183', 'SP$(YEAR3)', 'MATH_TEST', 'Math Test Override', 'College Math Test Placement/Override', 'P', 0.00, 'Institutional', 'E');
 
 
 INSERT INTO external_student_transcript_course(
@@ -736,6 +762,25 @@ INSERT INTO external_student_risk_indicator (
             indicator_value_description)
     VALUES ('$(PROGRESSINGSTUDENT2)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.MAT324-112', 'Course: MAT324-112',
             'NO RISK', 'Current profile and activity levels indicate NO RISK of failure in course: MAT324-112');
+            
+INSERT INTO external_career_decision_status(school_id, code)
+VALUES ('$(PROGRESSINGSTUDENT2)', 'D');  
+
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(PROGRESSINGSTUDENT2)', 'LMS_PARTICIPATION', 'LMS Participation', 'LMS_PARTICIPATION', 'LMS Participation', '99', 'LMS Participation 49');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(PROGRESSINGSTUDENT2)', 'ATTENDANCE', 'Average Class Attendance', 'ATTENDANCE', 'Average Class Attendance', '98', 'ATTENDANCE 40');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(PROGRESSINGSTUDENT2)', 'FIN_AID_GPA', 'Financial Aid GPA', 'FIN_AID_GPA', 'Financial Aid GPA', 3.20, 'The GPA that is considered when awarding Financial Aid');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(PROGRESSINGSTUDENT2)', 'LIBRARY', 'Library/Learning Resource Access', 'LIBRARY', 'Library/Learning Resource Access', '40', 'LIBRARY 40');
+
+
+
 
 --$(STRUGGLINGSTUDENT3)
 
@@ -744,8 +789,8 @@ INSERT INTO external_person( school_id, username, first_name, middle_name, last_
             state, zip_code, home_phone, work_phone, office_location, office_hours, 
             department_name, actual_start_term, actual_start_year, marital_status, 
             ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, 
-            photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('$(STRUGGLINGSTUDENT3)', '$(STRUGGLINGSTUDENT3)', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', '$(STRUGGLINGSTUDENTLASTNAME)', '1986-10-24', 'demo@trainingssp.com', '321 W. Demo St.', 'Apt. 214', 'Phoenix', 'AZ', '55555', '(555) 555-5412', '', '', '', '', 'FA$(YEAR1)', '$(YEAR1)', 'Separated', 'Caucasian/White', 'M', 1, 0.00, '$(COACHASSIGNED)', '', NULL,'DemoCounty','Y','N','EAL','');
+            photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code, campus_code)
+VALUES ('$(STRUGGLINGSTUDENT3)', '$(STRUGGLINGSTUDENT3)', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', '$(STRUGGLINGSTUDENTLASTNAME)', '1986-10-24', 'demo@trainingssp.com', '321 W. Demo St.', 'Apt. 214', 'Phoenix', 'AZ', '55555', '(555) 555-5412', '', '', '', '', 'FA$(YEAR1)', '$(YEAR1)', 'Separated', 'Caucasian/White', 'M', 1, 0.00, '$(COACHASSIGNED)', '', NULL,'DemoCounty','Y','N','EAL','', 'NORTH');
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name, test_date, score, status, discriminator, outcome)
 VALUES ('$(STRUGGLINGSTUDENT3)', 'Scholastic Assessment Test','SAT', 'COMP', 'COMP', '$(YEAR1)-01-01', '1000.00', 'Accepted', '1', 'Try again was sick');
@@ -778,8 +823,8 @@ INSERT INTO external_student_financial_aid_award_term (school_id, accepted, term
 
 
 INSERT INTO external_student_transcript(school_id, credit_hours_for_gpa, credit_hours_earned, credit_hours_attempted, 
-            total_quality_points, grade_point_average, academic_standing, credit_hours_not_completed, credit_completion_rate, 		    gpa_trend_indicator, current_restrictions)
-VALUES ('$(STRUGGLINGSTUDENT3)', 35.00, 31.00, 36.00, 85.00, 1.82, 'Probation', 5.00, 86.00, 'Down', '');
+            total_quality_points, grade_point_average, academic_standing, credit_hours_not_completed, credit_completion_rate, 		    gpa_trend_indicator, current_restrictions, local_gpa, program_gpa)
+VALUES ('$(STRUGGLINGSTUDENT3)', 35.00, 31.00, 36.00, 85.00, 1.82, 'Probation', 5.00, 86.00, 'Down', 'On Academic Probation', 1.50, 2.00);
 
 
 INSERT INTO external_person_planning_status(
@@ -837,6 +882,8 @@ INSERT INTO external_student_transcript_term(
     VALUES ('$(STRUGGLINGSTUDENT3)',6.00,6.00,9.00,3.00,0.80,0.00,0.77,'SP$(YEAR3)');
 
 
+INSERT INTO external_student_transcript_non_course(school_id, target_formatted_course, term_code, non_course_code, title, description, grade, credit_earned, credit_type, status_code)
+VALUES ('$(STRUGGLINGSTUDENT3)', 'ENG100', 'SP$(YEAR3)', 'ENG_TEST', 'English Test Override', 'College English Test Placement/Override', 'P', 0.00, 'Institutional', 'E');
 
 
 INSERT INTO external_student_transcript_course(
@@ -1040,8 +1087,24 @@ INSERT INTO external_student_risk_indicator (
     VALUES ('$(STRUGGLINGSTUDENT3)', 'apereo.lai.course', 'Apereo LAI', 'apereo.lai.course.AUMT246-190', 'Course: AUMT246-190',
             'HIGH RISK', 'Current profile and activity levels indicate a HIGH RISK of failure in course: AUMT246-190');
 
+INSERT INTO external_career_decision_status(school_id, code)
+VALUES ('$(STRUGGLINGSTUDENT3)', 'I'); 
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(STRUGGLINGSTUDENT3)', 'LMS_PARTICIPATION', 'LMS Participation', 'LMS_PARTICIPATION', 'LMS Participation', '99', 'LMS Participation 49');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(STRUGGLINGSTUDENT3)', 'ATTENDANCE', 'Average Class Attendance', 'ATTENDANCE', 'Average Class Attendance', '98', 'ATTENDANCE 40');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(STRUGGLINGSTUDENT3)', 'FIN_AID_GPA', 'Financial Aid GPA', 'FIN_AID_GPA', 'Financial Aid GPA', 1.82, 'The GPA that is considered when awarding Financial Aid');
+
+INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
+VALUES ('$(STRUGGLINGSTUDENT3)', 'LIBRARY', 'Library/Learning Resource Access', 'LIBRARY', 'Library/Learning Resource Access', '40', 'LIBRARY 40');
+             
 
 --External Course Data 
+
 /*
 INSERT INTO external_faculty_course(faculty_school_id, term_code, formatted_course, title, section_code,
 		section_number)

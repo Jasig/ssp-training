@@ -88,8 +88,8 @@ DELETE FROM external_student_transcript_term  WHERE school_id = 'EXTERNALSYNC1';
 
 --EXTERNALSYNC1
 
-INSERT INTO external_person(school_id, username, first_name, middle_name, last_name, birth_date, primary_email_address, address_line_1, address_line_2, city, state, zip_code, home_phone, work_phone, office_location, office_hours, department_name, actual_start_term, actual_start_year, marital_status, ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code)
-VALUES ('EXTERNALSYNC1', 'EXTERNALSYNC1', 'EXTERNALSYNCFIRSTNAME', 'EXTERNALSYNCMIDDLENAME', 'EXTERNALSYNCLASTNAME', '1983-08-20','demo@trainingssp.com', '458 N. Demo St.', 'Apt. 852', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SPYEAR3', 'YEAR3', 'Single', 'Caucasian/White', 'M', 't', 0.00, 'COACHASSIGNED', '', NULL, 'DemoCounty', 'Y', 'N', 'FTIC', '');         
+INSERT INTO external_person(school_id, username, first_name, middle_name, last_name, birth_date, primary_email_address, address_line_1, address_line_2, city, state, zip_code, home_phone, work_phone, office_location, office_hours, department_name, actual_start_term, actual_start_year, marital_status, ethnicity, gender, is_local, balance_owed, coach_school_id, cell_phone, photo_url, residency_county, f1_status, non_local_address, student_type_code, race_code, campus_code)
+VALUES ('EXTERNALSYNC1', 'EXTERNALSYNC1', 'EXTERNALSYNCFIRSTNAME', 'EXTERNALSYNCMIDDLENAME', 'EXTERNALSYNCLASTNAME', '1983-08-20','demo@trainingssp.com', '458 N. Demo St.', 'Apt. 852', 'Phoenix', 'AZ', '55555', '(555) 555-5555', '', '', '', '', 'SPYEAR3', 'YEAR3', 'Single', 'Caucasian/White', 'M', 't', 0.00, 'COACHASSIGNED', '', NULL, 'DemoCounty', 'Y', 'N', 'FTIC', '', 'DIST');         
 
 
 INSERT INTO external_student_test(school_id, test_name, test_code, sub_test_code, sub_test_name,

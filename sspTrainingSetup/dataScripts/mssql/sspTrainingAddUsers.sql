@@ -188,12 +188,14 @@ DECLARE @throwAwayInt bigint;
         END	 
       ELSE	 
 	BEGIN 
+	
+	SET @userEmail = 'demo'+@USERNAME+'@trainingssp.com';
+	 
 	 IF @USERROLE = 'FACULTY'
  	   BEGIN	
  		SET @roleTitle = '_Faculty';
  		SET @roleDepartment = '_Academic Faculty';
  		SET @sspRole = '_SSP_FACULTY';
- 		SET @userEmail = 'demofaculty@trainingssp.com';
  		SET @userBirthdate = '1960-07-07';
  		SET @userStreetAddress = '194 W. Demo St.';
  		SET @userAptAddress = 'Apt. 732';
@@ -209,7 +211,6 @@ DECLARE @throwAwayInt bigint;
  		SET @roleTitle = '_Manager';
  		SET @roleDepartment = '_Advising Management';
  		SET @sspRole = '_SSP_MANAGER';
- 		SET @userEmail = 'demomanager@trainingssp.com';
  		SET @userBirthdate = '1965-06-11';
  		SET @userStreetAddress = '253 W. Demo St.';
  		SET @userAptAddress = 'Apt. 456';
@@ -225,7 +226,6 @@ DECLARE @throwAwayInt bigint;
  		SET @roleTitle = '_Staff';
  		SET @roleDepartment = '_Advising Staff';
  		SET @sspRole = '_SSP_SUPPORT_STAFF';
- 		SET @userEmail = 'demosupportSET @trainingssp.com';
  		SET @userBirthdate = '1990-02-09';
  		SET @userStreetAddress = '834 W. Demo St.';
  		SET @userAptAddress = 'Apt. 123';
@@ -241,7 +241,6 @@ DECLARE @throwAwayInt bigint;
  		SET @roleTitle = '_Developer';
  		SET @roleDepartment = '_IT Development';
  		SET @sspRole = '_SSP_DEVELOPER';
- 		SET @userEmail = 'demodeveloperSET @trainingssp.com';
  		SET @userBirthdate = '1985-10-08';
  		SET @userStreetAddress = '789 W. Demo St.';
  		SET @userAptAddress = 'Apt. 886';
@@ -257,7 +256,6 @@ DECLARE @throwAwayInt bigint;
  	        SET @roleTitle = '_Senior Advisor';
  		SET @roleDepartment = '_Advising';
  		SET @sspRole = '_SSP_COACH';
- 		SET @userEmail = 'democoachSET @trainingssp.com';
  		SET @userBirthdate = '1970-05-05';
  		SET @userStreetAddress = '123 W. Demo St.';
  		SET @userAptAddress = 'Apt. 555';

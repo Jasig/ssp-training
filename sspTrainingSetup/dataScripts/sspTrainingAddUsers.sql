@@ -188,11 +188,11 @@ BEGIN
     	 
       ELSE	 
 	 
+	 userEmail = 'demo'||$1||'@trainingssp.com';
 	 IF $6 = 'FACULTY' THEN
  		roleTitle = '_Faculty';
  		roleDepartment = '_Academic Faculty';
- 		sspRole = '_SSP_FACULTY';
- 		userEmail = 'demofaculty@trainingssp.com';
+ 		sspRole = '_SSP_FACULTY'; 		
  		userBirthdate = '1960-07-07';
  		userStreetAddress = '194 W. Demo St.';
  		userAptAddress = 'Apt. 732';
@@ -206,7 +206,6 @@ BEGIN
  		roleTitle = '_Manager';
  		roleDepartment = '_Advising Management';
  		sspRole = '_SSP_MANAGER';
- 		userEmail = 'demomanager@trainingssp.com';
  		userBirthdate = '1965-06-11';
  		userStreetAddress = '253 W. Demo St.';
  		userAptAddress = 'Apt. 456';
@@ -220,7 +219,6 @@ BEGIN
  		roleTitle = '_Staff';
  		roleDepartment = '_Advising Staff';
  		sspRole = '_SSP_SUPPORT_STAFF';
- 		userEmail = 'demosupport@trainingssp.com';
  		userBirthdate = '1990-02-09';
  		userStreetAddress = '834 W. Demo St.';
  		userAptAddress = 'Apt. 123';
@@ -234,7 +232,6 @@ BEGIN
  		roleTitle = '_Developer';
  		roleDepartment = '_IT Development';
  		sspRole = '_SSP_DEVELOPER';
- 		userEmail = 'demodeveloper@trainingssp.com';
  		userBirthdate = '1985-10-08';
  		userStreetAddress = '789 W. Demo St.';
  		userAptAddress = 'Apt. 886';
@@ -248,7 +245,6 @@ BEGIN
  		roleTitle = '_Senior Advisor';
  		roleDepartment = '_Advising';
  		sspRole = '_SSP_COACH';
- 		userEmail = 'democoach@trainingssp.com';
  		userBirthdate = '1970-05-05';
  		userStreetAddress = '123 W. Demo St.';
  		userAptAddress = 'Apt. 555';

@@ -91,21 +91,21 @@ import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 
 class SSPTrainingSetup {
 
-   private static final String databaseIntermediateScriptLocation = "dataScriptSubstitutionShellScripts";
-   private static final String addReferenceContentScript = "sspTrainingAddReferenceContent";
-   private static final String addCoachUserScript = "sspTrainingSetCoachUsers";
-   private static final String addStudentUserScript = "sspTrainingSetStudentUsers";
-   private static final String addStudentDataScript = "sspTrainingSetStudents";
-   private static final String addExternalStudentScript = "sspTrainingSetOneExternalStudent";
-   private static final String addFacultyScript = "sspTrainingSetFacultyUsersAndCourses";
+    private static final String databaseIntermediateScriptLocation = "dataScriptSubstitutionShellScripts";
+    private static final String addReferenceContentScript = "sspTrainingAddReferenceContent";
+    private static final String addCoachUserScript = "sspTrainingSetCoachUsers";
+    private static final String addStudentUserScript = "sspTrainingSetStudentUsers";
+    private static final String addStudentDataScript = "sspTrainingSetStudents";
+    private static final String addExternalStudentScript = "sspTrainingSetOneExternalStudent";
+    private static final String addFacultyScript = "sspTrainingSetFacultyUsersAndCourses";
 
-   protected static final String MD5_PREFIX = "(MD5)";
-   protected static final String SHA256_PREFIX = "(SHA256)";
-    
-   private ConfigurablePasswordEncryptor md5Encryptor;    
-   private ConfigurablePasswordEncryptor sha256Encryptor;	
+    protected static final String MD5_PREFIX = "(MD5)";
+    protected static final String SHA256_PREFIX = "(SHA256)";
 
-   public SSPTrainingSetup() {  	 
+    private ConfigurablePasswordEncryptor md5Encryptor;
+    private ConfigurablePasswordEncryptor sha256Encryptor;
+
+    public SSPTrainingSetup() {
         sha256Encryptor = new ConfigurablePasswordEncryptor();
         SimpleDigesterConfig shaConfig = new SimpleDigesterConfig();
         shaConfig.setIterations(1000);
@@ -114,222 +114,304 @@ class SSPTrainingSetup {
         sha256Encryptor.setConfig(shaConfig);
     }
 
-    public String encryptPassword(String cleartext) {
+    private String encryptPassword(String cleartext) {
         String encrypted = sha256Encryptor.encryptPassword(cleartext);
         if (encrypted.endsWith("\n")) {
             encrypted = encrypted.substring(0, encrypted.length()-1);
         }
         encrypted = SHA256_PREFIX.concat(encrypted);
         return encrypted;
-    }	
-	
-  
-   public static void main(String[] args) {
+    }
 
-   def mssqlDir = "/";  //default acts as file separator otherwise holds location of mssql directory
-                          //form should be /directory/  need a separator before and after
-   def fileParam = ""; //defaults to empty, if file is specified will tell scripts to output data to a
-       //single file for backup or ease of use
-   def commandFileType = ".sh " //defaults to shell if mssql, then bat
-   def preCommand = "./"
+    public static void main(String[] args) {
 
-   if (args.size() < 2) {
-       println "\nYou must have command line arguments for the user/coach and student text files!\n\n"
-       System.exit(1);
-   } else {
+       def mssqlDir = "/";  //default acts as file separator otherwise holds location of mssql directory
+                              //form should be /directory/  need a separator before and after
+       def fileParam = ""; //defaults to empty, if file is specified will tell scripts to output data to a
+           //single file for backup or ease of use
+       def commandFileType = ".sh " //defaults to shell if mssql, then bat
+       def preCommand = "./"
 
-       if ( args.size() > 2 ) {
-           if ( args[2].equals("mssql") ) {
-               mssqlDir = "/mssql/";
-               commandFileType = ".bat ";
-               preCommand = "";
-           } else if ( args[2].equals("file") ) {
-               fileParam = " 1";
-           }
+       if (args.size() < 2) {
+           println "\nYou must have command line arguments for the user/coach and student text files!\n\n"
+           System.exit(1);
 
-           if ( args.size() > 3 ) {
-               if ( args[3].equals("mssql") ) {
+       } else {
+           if ( args.size() > 2 ) {
+               if ( args[2].equals("mssql") ) {
                    mssqlDir = "/mssql/";
                    commandFileType = ".bat ";
                    preCommand = "";
-               } else if ( args[3].equals("file") ) {
+               } else if ( args[2].equals("file") ) {
                    fileParam = " 1";
                }
-           }
 
-           if ( args.size() > 4 ) {
-               if ( args[4].equals("file") ) {
-                   fileParam = " 1";
+               if ( args.size() > 3 ) {
+                   if ( args[3].equals("mssql") ) {
+                       mssqlDir = "/mssql/";
+                       commandFileType = ".bat ";
+                       preCommand = "";
+                   } else if ( args[3].equals("file") ) {
+                       fileParam = " 1";
+                   }
                }
-           }
-       }
-	
-        SSPTrainingSetup sspTrainingSetup = new SSPTrainingSetup();
-        File listOfUsersTxtFile = new File(args[0]);
-        File listOfStudentsTxtFile = new File(args[1]);
-        def userFileLines = []
 
-        if ( !listOfUsersTxtFile.exists() ) {
-             println "File " +args[0] +" does not exist!"
-        } else {
-            listOfUsersTxtFile.eachLine { line ->
-                if ( !line.isAllWhitespace() && !line.contains('//') ) {
-                    userFileLines << line
-                }
-                 }
-        }
+               if ( args.size() > 4 ) {
+                   if ( args[4].equals("file") ) {
+                       fileParam = " 1";
+                   }
+               }
+           } //end check argument list for all possible combinations
 
+           //Begin Processing 3 Text Files if Exist
+            SSPTrainingSetup sspTrainingSetup = new SSPTrainingSetup();
+            File listOfUsersTxtFile = new File(args[0]);
+            File listOfStudentsTxtFile = new File(args[1]);
+            def userFileLines = []
 
-        if( !listOfStudentsTxtFile.exists() && !listOfUsersTxtFile.exists() ) {
-          println "File " +args[0] +" or " +args[1] +" does not exist!"
-        } else {
-            int index = 0;
-            int coachCount = 0;
-            int externalSyncIndex = 0;
-            def coachUUID = "";
-            def studentUUID = "";
-            def setStudentsCmd = "";
-
-            //insert reference content needed by students and coaches
-            println "\nInserting Reference Content (may take a few minutes)... "
-            def insertContentCmd = preCommand + databaseIntermediateScriptLocation + mssqlDir +
-                    addReferenceContentScript + commandFileType + fileParam;
-            def insertContentProcess = insertContentCmd.execute()
-
-           insertContentProcess.in.eachLine { line -> println line }
-           insertContentProcess.out.close()
-           insertContentProcess.waitFor()
-
-           println "Insert Reference Content return code: ${insertContentProcess.exitValue()}"
-           println "stderr: ${insertContentProcess.err.text}"
+            if ( !listOfUsersTxtFile.exists() ) {
+                 println "File " +args[0] +" does not exist!"
+            } else {
+                listOfUsersTxtFile.eachLine { line ->
+                    if ( !line.isAllWhitespace() && !line.contains('//') ) {
+                        userFileLines << line
+                    }
+                }  //end loop for list of user text file
+            } //end processing of users text file
 
 
-            listOfStudentsTxtFile.eachLine { line ->
-            if ( !line.isAllWhitespace() && !line.contains('//') && coachCount < userFileLines.size() ){
+            if( !listOfStudentsTxtFile.exists() && !listOfUsersTxtFile.exists() ) {
+              println "File " +args[0] +" or " +args[1] +" does not exist!"
+            } else {
+                int index = 0;
+                int coachCount = 0;
+                int externalSyncIndex = 0;
+                def coachUUID = "";
+                def studentUUID = "";
+                def setStudentsCmd = "";
 
-                def (coachFirst, coachLast, coachUserName, coachPassword) =
-                        userFileLines.get(coachCount).split(' ');
+                //insert reference content needed by students and coaches
+                println "\nInserting Reference Content (may take a few minutes)... "
+                def insertContentCmd = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                        addReferenceContentScript + commandFileType + fileParam;
+                def insertContentProcess = insertContentCmd.execute()
 
-                if ( index == 0 ) {
-                   //next or first coach
-                   println "\nInserting Coach... "
-                   coachUUID = UUID.randomUUID();
-                   def passwordEncrypt = sspTrainingSetup.encryptPassword(coachPassword.trim());
+                insertContentProcess.in.eachLine { line -> println line }
+                insertContentProcess.out.close()
+                insertContentProcess.waitFor()
 
-                   def setCoachesCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
-                           addCoachUserScript + commandFileType + coachUserName + " " + passwordEncrypt + " " +
-                           coachFirst + " " + coachLast + " " + coachUUID + fileParam;
-                   def setCoachesProcess = setCoachesCommand.execute()
+                println "Insert Reference Content return code: ${insertContentProcess.exitValue()}"
+                println "stderr: ${insertContentProcess.err.text}"
+                println "***Adding Reference Content Complete! ***\n\n"
 
-                   setCoachesProcess.waitFor()
-                   println "Add Coach User " + coachUserName + " return code: ${setCoachesProcess.exitValue()}"
-                   println "stdout: ${setCoachesProcess.in.text}"
-                   println "stderr: ${setCoachesProcess.err.text}"
+                println("Starting Coach Users, Students and Associated Data Load")
 
-                }
+                //Begin Processing Students Text File and Adding Coach Users and Students
+                listOfStudentsTxtFile.eachLine { line ->
+                    if ( !line.isAllWhitespace() && !line.contains('//') && coachCount < userFileLines.size() ) {
 
-                def studentLine = line.split(' ');
+                        def (coachFirst, coachLast, coachUserName, coachPassword) =
+                                userFileLines.get(coachCount).split(' ');
 
-                if ( studentLine.size() == 5 ) {
-                    //student password found add to uPortal users
-                    println "Inserting Student User... "
-                                def studentPasswordEncrypt = sspTrainingSetup.encryptPassword(studentLine[4].trim());
-                                studentUUID = UUID.randomUUID();
+                        if ( index == 0 ) {
+                           //next or first coach
+                           println "\nInserting Coach... "
+                           coachUUID = UUID.randomUUID();
+                           def passwordEncrypt = sspTrainingSetup.encryptPassword(coachPassword.trim());
 
-                    def setStudentUserCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
-                            addStudentUserScript + commandFileType + studentLine[3] + " " + studentPasswordEncrypt +
-                            " " + studentLine[0] + " " + studentLine[2] + " " + studentUUID + fileParam;
-                    def setStudentUserProcess = setStudentUserCommand.execute()
+                           def setCoachesCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                                   addCoachUserScript + commandFileType + coachUserName + " " + passwordEncrypt + " " +
+                                   coachFirst + " " + coachLast + " " + coachUUID + fileParam;
+                           def setCoachesProcess = setCoachesCommand.execute()
 
-                    setStudentUserProcess.waitFor()
-                    println "Set Student User: ${studentLine[3]} return code: ${setStudentUserProcess.exitValue()}"
-                    println "stdout: ${setStudentUserProcess.in.text}"
-                    println "stderr: ${setStudentUserProcess.err.text}"
-                }
+                           setCoachesProcess.waitFor()
+                           println "Add Coach User " + coachUserName + " return code: ${setCoachesProcess.exitValue()}"
+                           println "stdout: ${setCoachesProcess.in.text}"
+                           println "stderr: ${setCoachesProcess.err.text}"
 
-                setStudentsCmd += studentLine[3] + " " + studentLine[0] + " " + studentLine[1] +" "+studentLine[2]+" ";
+                        }
 
-                if ( index == 2 ) {
-                    //the 3 students
-                    println "Inserting the 3 Assigned Students... "
-                    setStudentsCmd += (coachUserName + " " + coachUUID + " " + UUID.randomUUID() + " " +
-                            UUID.randomUUID() + " " + UUID.randomUUID() + " " + UUID.randomUUID() + " " +
-                            UUID.randomUUID());
+                        def studentLine = line.split(' ');
 
-                    def setStudentsCompleteCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
-                            addStudentDataScript + commandFileType + setStudentsCmd + fileParam;
-                    def setStudentsProcess = setStudentsCompleteCommand.execute()
+                        if ( studentLine.size() == 5 ) {
+                            //student password found add to uPortal users
+                            println "Inserting Student User... "
+                                        def studentPasswordEncrypt = sspTrainingSetup.encryptPassword(studentLine[4].trim());
+                                        studentUUID = UUID.randomUUID();
 
-                    setStudentsProcess.waitFor()
-                    println "Add students for user# ${coachCount+1} return code: ${setStudentsProcess.exitValue()}"
-                    println "stdout: ${setStudentsProcess.in.text}"
-                    println "stderr: ${setStudentsProcess.err.text}"
+                            def setStudentUserCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                                    addStudentUserScript + commandFileType + studentLine[3] + " " + studentPasswordEncrypt +
+                                    " " + studentLine[0] + " " + studentLine[2] + " " + studentUUID + fileParam;
+                            def setStudentUserProcess = setStudentUserCommand.execute()
 
-                    coachCount++;
-                    index = 0;
-                    setStudentsCmd = "";
-                } else {
-                   index++;
-                }
-             } else if ( !line.isAllWhitespace() && !line.contains('//') && coachCount >= userFileLines.size() &&
-                    externalSyncIndex < coachCount ) {
-                //Add external sync student
-                println "Inserting external sync student... "
+                            setStudentUserProcess.waitFor()
+                            println "Set Student User: ${studentLine[3]} return code: ${setStudentUserProcess.exitValue()}"
+                            println "stdout: ${setStudentUserProcess.in.text}"
+                            println "stderr: ${setStudentUserProcess.err.text}"
+                        }
 
-                def (coachFirst, coachLast, coachUserName, coachPassword) =
-                    userFileLines.get((coachCount-coachCount+externalSyncIndex)).split(' ');
+                        setStudentsCmd += studentLine[3] + " " + studentLine[0] + " " + studentLine[1] +" "+studentLine[2]+" ";
 
-                def externalStudentLine = line.split(' ');
+                        if ( index == 2 ) {
+                            //the 3 students
+                            println "Inserting the 3 Assigned Students... "
+                            setStudentsCmd += (coachUserName + " " + coachUUID + " " + UUID.randomUUID() + " " +
+                                    UUID.randomUUID() + " " + UUID.randomUUID() + " " + UUID.randomUUID() + " " +
+                                    UUID.randomUUID());
 
-                def setExternalSyncStudent = preCommand + databaseIntermediateScriptLocation + mssqlDir +
-                        addExternalStudentScript + commandFileType + externalStudentLine[3] + " " +
-                        externalStudentLine[0] + " " + externalStudentLine[1] + " " + externalStudentLine[2] + " " +
-                        coachUserName + fileParam;
-               def setExternalSyncStudentProcess = setExternalSyncStudent.execute()
+                            def setStudentsCompleteCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                                    addStudentDataScript + commandFileType + setStudentsCmd + fileParam;
+                            def setStudentsProcess = setStudentsCompleteCommand.execute()
 
-                setExternalSyncStudentProcess.waitFor()
-                println "Add external sync student for user# ${externalSyncIndex+1} return code: ${setExternalSyncStudentProcess.exitValue()}"
-                println "stdout: ${setExternalSyncStudentProcess.in.text}"
-                println "stderr: ${setExternalSyncStudentProcess.err.text}"
+                            setStudentsProcess.waitFor()
+                            println "Add students for user# ${coachCount+1} return code: ${setStudentsProcess.exitValue()}"
+                            println "stdout: ${setStudentsProcess.in.text}"
+                            println "stderr: ${setStudentsProcess.err.text}"
 
-                externalSyncIndex++;
-            }
-           }
-         }
+                            coachCount++;
+                            index = 0;
+                            setStudentsCmd = "";
+                        } else {
+                           index++;
+                        }
 
-         if ( args.size() > 2 ) {
-             File listOfFacultyUsersTxtFile = new File(args[2]);
+                    } else if ( !line.isAllWhitespace() && !line.contains('//') && coachCount >= userFileLines.size() &&
+                            externalSyncIndex < coachCount ) {
+                        //Add external sync student
+                        println "Inserting external sync student... "
 
-             if ( !listOfFacultyUsersTxtFile.exists() ) {
+                        def (coachFirst, coachLast, coachUserName, coachPassword) =
+                            userFileLines.get((coachCount-coachCount+externalSyncIndex)).split(' ');
+
+                        def externalStudentLine = line.split(' ');
+
+                        def setExternalSyncStudent = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                                addExternalStudentScript + commandFileType + externalStudentLine[3] + " " +
+                                externalStudentLine[0] + " " + externalStudentLine[1] + " " + externalStudentLine[2] + " " +
+                                coachUserName + fileParam;
+                       def setExternalSyncStudentProcess = setExternalSyncStudent.execute()
+
+                        setExternalSyncStudentProcess.waitFor()
+                        println "Add external sync student for user# ${externalSyncIndex+1} return code: ${setExternalSyncStudentProcess.exitValue()}"
+                        println "stdout: ${setExternalSyncStudentProcess.in.text}"
+                        println "stderr: ${setExternalSyncStudentProcess.err.text}"
+
+                        externalSyncIndex++;
+
+                    } else {
+                        //Do Nothing
+                    }
+
+                } //end student text file loop
+                println "*** Adding Coach Users and Students with Data Complete! ***\n\n"
+            } //end processing of list of students text file
+
+           if ( args.size() > 2 ) {
+                File listOfOtherRolesTxtFile = new File(args[2]);
+
+                if ( !listOfOtherRolesTxtFile.exists() ) {
                  println "File :" +args[2] +" doesn't exist!\n"
-             } else {
-                 println "\nInserting Faculty Users... "
-                 def facultyUUID = "";
-                 listOfFacultyUsersTxtFile.eachLine { line ->
+                } else {
+                    println "\nInserting Other Roles... "
+                    def otherRoleUUID = "";
+                    def roleFlag = 0;  //0 = no role, 1 = faculty, 2 = manager 3 = support staff, 4 = developer
 
-                     if ( !line.isAllWhitespace() && !line.contains('//') ) {
-                         
-                         facultyUUID = UUID.randomUUID();
-                         def (facultyFirst, facultyLast, facultyUserName, facultyPassword) = line.split(' ');
+                    listOfOtherRolesTxtFile.eachLine { line ->
+                        if ( !line.isAllWhitespace() && !line.contains('//') && roleFlag == 1) {
+                            //Add faculty user
+                            otherRoleUUID = UUID.randomUUID();
+                            def (facultyFirst, facultyLast, facultyUserName, facultyPassword) = line.split(' ');
 
-                         def passwordEncrypt = sspTrainingSetup.encryptPassword(facultyPassword.trim());
+                            def passwordEncrypt = sspTrainingSetup.encryptPassword(facultyPassword.trim());
 
-                         def setFacultyCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                            def setFacultyCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
                                  addFacultyScript + commandFileType + facultyUserName + " " + passwordEncrypt + " " +
-                                 facultyFirst + " " + facultyLast + " " + facultyUUID + fileParam;
-                         def setFacultyProcess = setFacultyCommand.execute()
+                                 facultyFirst + " " + facultyLast + " " + otherRoleUUID + fileParam;
+                            def setFacultyProcess = setFacultyCommand.execute()
 
-                         setFacultyProcess.waitFor()
-                         println "Add Faculty User " + facultyUserName + " return code: ${setFacultyProcess.exitValue()}"
-                         println "stdout: ${setFacultyProcess.in.text}"
-                         println "stderr: ${setFacultyProcess.err.text}"
+                            setFacultyProcess.waitFor()
+                            println "Add Faculty User " + facultyUserName + " return code: ${setFacultyProcess.exitValue()}"
+                            println "stdout: ${setFacultyProcess.in.text}"
+                            println "stderr: ${setFacultyProcess.err.text}"
 
-                     }
-                 }
-             }
-          }
+                        } else if ( !line.isAllWhitespace() && !line.contains('//') && roleFlag == 2 ) {
+                            //Add manager user
+                            otherRoleUUID = UUID.randomUUID();
+                            def (managerFirst, managerLast, managerUserName, managerPassword) = line.split(' ');
 
-        println "\n\n***End of script SSPTrainingSetup***\n\n"
-     }
-   }
+                            def passwordEncrypt = sspTrainingSetup.encryptPassword(managerPassword.trim());
+
+                            def setManagerCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                                    addFacultyScript + commandFileType + managerUserName + " " + passwordEncrypt + " " +
+                                    managerFirst + " " + managerLast + " " + otherRoleUUID + fileParam;
+                            def setManagerProcess = setManagerCommand.execute()
+
+                            setManagerProcess.waitFor()
+                            println "Add Manager User " + managerUserName + " return code: ${setManagerProcess.exitValue()}"
+                            println "stdout: ${setManagerProcess.in.text}"
+                            println "stderr: ${setManagerProcess.err.text}"
+
+                        } else if ( !line.isAllWhitespace() && !line.contains('//') && roleFlag == 3 ) {
+                            //Add support staff user
+                            otherRoleUUID = UUID.randomUUID();
+                            def (supportStaffFirst, supportStaffLast, supportStaffUserName, supportStaffPassword) = line.split(' ');
+
+                            def passwordEncrypt = sspTrainingSetup.encryptPassword(supportStaffPassword.trim());
+
+                            def setSupportStaffCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                                 addFacultyScript + commandFileType + supportStaffUserName + " " + passwordEncrypt + " " +
+                                    supportStaffFirst + " " + supportStaffLast + " " + otherRoleUUID + fileParam;
+                            def setSupportStaffProcess = setSupportStaffCommand.execute()
+
+                            setSupportStaffProcess.waitFor()
+                            println "Add SupportStaff User " + supportStaffUserName + " return code: ${setSupportStaffProcess.exitValue()}"
+                            println "stdout: ${setSupportStaffProcess.in.text}"
+                            println "stderr: ${setSupportStaffProcess.err.text}"
+
+                        } else if ( !line.isAllWhitespace() && !line.contains('//') && roleFlag == 4 ) {
+                            //Add developer user
+                            otherRoleUUID = UUID.randomUUID();
+                            def (developerFirst, developerLast, developerUserName, developerPassword) = line.split(' ');
+
+                            def passwordEncrypt = sspTrainingSetup.encryptPassword(developerPassword.trim());
+
+                            def setDeveloperCommand = preCommand + databaseIntermediateScriptLocation + mssqlDir +
+                                    addFacultyScript + commandFileType + developerUserName + " " + passwordEncrypt + " " +
+                                    developerFirst + " " + developerLast + " " + otherRoleUUID + fileParam;
+                            def setDeveloperProcess = setDeveloperCommand.execute()
+
+                            setDeveloperProcess.waitFor()
+                            println "Add Developer User " + developerUserName + " return code: ${setDeveloperProcess.exitValue()}"
+                            println "stdout: ${setDeveloperProcess.in.text}"
+                            println "stderr: ${setDeveloperProcess.err.text}"
+
+                        } else if ( !line.isAllWhitespace() && line.contains('//') ) {
+                            //Determine SSP Role To Add
+                            if ( line.contains('Begin') ) {
+                                //Found role beginning change flag
+                                if ( line.contains('Faculty') ) {
+                                    roleFlag = 1
+                                } else if ( line.contains('Manager') ) {
+                                    roleFlag = 2
+                                } else if ( line.contains('Support Staff') ) {
+                                    roleFlag = 3
+                                } else if ( line.contains('Developer') ) {
+                                    roleFlag = 4
+                                } else {
+                                    //No valid role found
+                                    roleFlag = 0
+                                }
+                            }
+
+                        } else {
+                            //Do Nothing
+                        }
+                    } //end loop process other roles file lines
+                } //end processing other roles text file
+           }
+
+           println "\n\n***End of script SSPTrainingSetup***\n\n"
+
+       } //end else process 3 text files
+    } //end main
 } //end SSPTrainingSetup groovy

@@ -389,12 +389,12 @@ Comment: Talked with student.', 'b3d077a7-4055-0510-7967-4a09f93a0357',
 
 
 INSERT INTO early_alert(id, created_date, modified_date, created_by, modified_by, 
-object_status,course_name, course_title,person_id, comment, campus_id, course_term_code)
+object_status,course_name, course_title, email_cc, person_id, early_alert_reason_other_description, comment, campus_id, early_alert_suggestion_other_description, course_term_code, faculty_school_id, enrollment_status)
 VALUES ('$(TASKID1)','$(YEAR3)-02-12 12:45:29.044','$(YEAR3)-02-15 10:45:29.044',
 (SELECT id FROM person WHERE id = '$(COACHID)'),
-(SELECT id FROM person WHERE id = '$(COACHID)'),1,'MAT085','Introductory Algebra',
-(SELECT id FROM person WHERE school_id='$(NEWSTUDENT1)'),
-'Concerned about excessive absences.','901e104b-4dc7-43f5-a38e-581015e204e1','SP$(YEAR2)');
+(SELECT id FROM person WHERE id = '$(COACHID)'),1,'MAT085','Introductory Algebra', 'demo1@sspTraining.edu',
+(SELECT id FROM person WHERE school_id='$(NEWSTUDENT1)'), 'Student has continuing abscences',
+'Concerned about excessive absences.','901e104b-4dc7-43f5-a38e-581015e204e1', 'Suggest student attends class more or withdraws', 'SP$(YEAR2)', 'faculty1', 'E');
 
 
 INSERT INTO map_plan(id, created_date, modified_date, created_by, modified_by, object_status,person_id, owner_id, name, contact_title, contact_phone, contact_email, contact_name, contact_notes, student_notes, based_on_template_id, is_financial_aid, is_important, is_f1_visa, academic_goals, career_link,academic_link, program_code, catalog_year_code)
@@ -856,13 +856,12 @@ VALUES ('$(TASKID2)','$(YEAR2)-09-18 10:41:43.568','$(YEAR2)-09-21 09:41:43.568'
 'Do to lack of attendance and low test scores, he should consider withdrawing from this class.','0a640a2a-409d-1271-8140-d10a51770117','FA$(YEAR1)');
 
 
-INSERT INTO early_alert(id, created_date, modified_date, created_by, modified_by, object_status,course_name, 
-course_title,person_id, early_alert_reason_other_description, comment, closed_date, closed_by_id, campus_id, early_alert_suggestion_other_description, course_term_code)
+INSERT INTO early_alert(id, created_date, modified_date, created_by, modified_by, object_status,course_name, course_title, person_id, early_alert_reason_other_description, comment, closed_date, closed_by_id, campus_id, early_alert_suggestion_other_description, course_term_code, faculty_school_id, enrollment_status)
 VALUES ('$(TASKID3)','$(YEAR3)-03-01 09:41:43.568','$(YEAR3)-01-04 09:41:43.568',
 (SELECT id FROM person WHERE id = '$(COACHID)'),
 (SELECT id FROM person WHERE id = '$(COACHID)'),1,'AUMT245','Automotive Alternative Fuels',
 (SELECT id FROM person WHERE school_id ='$(STRUGGLINGSTUDENT3)'),
-'Bad grades and/or Attendance issues adn inability to follow instructions.', 'Please follow-up on other special concerns.','$(YEAR2)-09-04 09:58:27.887','$(COACHID)','901e104b-4dc7-43f5-a38e-581015e204e1', 'Possibly needs tutoring assistance or withdraw from this class.', 'SP$(YEAR2)');
+'Bad grades and/or Attendance issues adn inability to follow instructions.', 'Please follow-up on other special concerns.','$(YEAR2)-09-04 09:58:27.887','$(COACHID)','901e104b-4dc7-43f5-a38e-581015e204e1', 'Possibly needs tutoring assistance or withdraw from this class.', 'SP$(YEAR2)', 'faculty2', 'E');
 
 INSERT INTO early_alert(id, created_date, modified_date, created_by, modified_by, object_status,course_name, 
 course_title,person_id, comment, campus_id, course_term_code)
@@ -957,8 +956,7 @@ VALUES ('$(TASKID3)', '$(YEAR2)-09-04 09:55:30.522', '$(YEAR2)-09-04 09:55:30.52
 INSERT INTO early_alert_response(id, created_date, modified_date, created_by, modified_by, 
 object_status, early_alert_id, early_alert_outcome_id, early_alert_outcome_other_description, comment)
 VALUES ('$(TASKID4)', '$(YEAR3)-09-04 09:55:30.522', '$(YEAR3)-09-04 09:55:30.522', '$(COACHID)', 
-'$(COACHID)', '1', '$(TASKID2)', '7148606f-9034-4538-8fc2-c852a5c912ee', '', 'Notified student of options.');
-
+'COACHID', '1', '$(TASKID2)', '7148606f-9034-4538-8fc2-c852a5c912ee', 'Notified student recieving Early Alert of all Options (An option may or may not have been selected)', 'Notified student of options.');
 
 
 INSERT INTO early_alert_response_early_alert_outreach(early_alert_response_id, early_alert_outreach_id)
