@@ -79,6 +79,7 @@ DELETE FROM external_student_transcript WHERE school_id = '$(NEWSTUDENT1)';
 DELETE FROM external_student_transcript_course WHERE school_id = '$(NEWSTUDENT1)';
 DELETE FROM external_student_transcript_term  WHERE school_id = '$(NEWSTUDENT1)';
 DELETE FROM external_student_risk_indicator where school_id = '$(NEWSTUDENT1)';
+DELETE FROM external_student_special_service_group where school_id = '$(NEWSTUDENT1)';
 
 DELETE FROM external_faculty_course_roster WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_person WHERE school_id = '$(PROGRESSINGSTUDENT2)';
@@ -104,6 +105,7 @@ DELETE FROM external_student_transcript WHERE school_id = '$(PROGRESSINGSTUDENT2
 DELETE FROM external_student_transcript_course WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_student_transcript_term  WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_student_risk_indicator where school_id = '$(PROGRESSINGSTUDENT2)';
+DELETE FROM external_student_special_service_group where school_id = '$(PROGRESSINGSTUDENT2)';
 
 DELETE FROM external_faculty_course_roster WHERE school_id = '$(STRUGGLINGSTUDENT3)';
 DELETE FROM external_person WHERE school_id = '$(STRUGGLINGSTUDENT3)';
@@ -135,6 +137,7 @@ DELETE FROM external_student_financial_aid_award_term WHERE school_id = '$(NEWST
 DELETE FROM external_student_financial_aid_award_term WHERE school_id = '$(PROGRESSINGSTUDENT2)';
 DELETE FROM external_student_financial_aid_award_term WHERE school_id = '$(STRUGGLINGSTUDENT3)';
 DELETE FROM external_student_risk_indicator where school_id = '$(STRUGGLINGSTUDENT3)';
+DELETE FROM external_student_special_service_group where school_id = '$(STRUGGLINGSTUDENT3)';
 */
 --End of Deletes
 
@@ -205,50 +208,50 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'MAT', '085', 'MAT085', '801', 'Introductory Algebra', 'Preparation for college algebra',
 	    'B', 3, 'SP$(YEAR3)', 'Transfer', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-	    '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'MAT085-801', 'rjones210', 'MAT085801');
+	    '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'MAT085-801', 'rjones210', 'MAT085801', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'ENG', '101', 'ENG101', '694', 'English Composition I', 'Introduction to college english',
 	    'C+', 3, 'SP$(YEAR3)', 'Transfer', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-	    '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'ENG101-694', 'jmartinez110', 'ENG101694');
+	    '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'ENG101-694', 'jmartinez110', 'ENG101694', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'CST', '101', 'CST101', '541', 'Introduction to Computing I', 'Introduction to the fundamentals of computing',
 	    'D', 3, 'SP$(YEAR3)', 'Transfer', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-	    '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'CST101-541', 'dwilson220', 'CST101541');
+	    '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'CST101-541', 'dwilson220', 'CST101541', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'CST', '102', 'CST102', '645', 'Programming Fundamentals II', 'Programming Fundamentals II',
             'C', 3, 'FA$(YEAR3)', 'Institutional', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'CST102-645', 'etaylor310', 'CST102645');
+            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'CST102-645', 'etaylor310', 'CST102645', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'ENG', '102', 'ENG102', '203', 'English Composition II', 'English Composition II',
             'C', 3, 'FA$(YEAR3)', 'Institutional', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'ENG102-203', 'dmartinez340', 'ENG102203');
+            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'ENG102-203', 'dmartinez340', 'ENG102203', '82');
 
 
 
@@ -256,29 +259,29 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'HST', '163', 'HST163', '106', 'Survey History', 'Survey History',
             'C', 3, 'FA$(YEAR3)', 'Institutional', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'HST163-106', 'jwilliams510', 'HST163106');
+            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'HST163-106', 'jwilliams510', 'HST163106', '100');
 
 
 INSERT INTO external_student_transcript_course(
             school_id, subject_abbreviation, number, formatted_course, 
             section_number, title, description, grade, credit_earned, term_code, 
             credit_type, first_name, middle_name, last_name, audited, status_code, 
-            section_code, faculty_school_id, course_code)
+            section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'PHY', '131', 'PHY131', '932', 'Introduction to Physics', 'Introduction to Physics',
             'C', 3, 'FAYEAR3', 'Institutional', 'NEWSTUDENTFIRSTNAME', 'NEWSTUDENTMIDDLENAME', 
-            'NEWSTUDENTLASTNAME', 'N', 'E', 'PHY131-932', 'dmartinez340', 'PHY-131');
+            'NEWSTUDENTLASTNAME', 'N', 'E', 'PHY131-932', 'dmartinez340', 'PHY-131', '100');
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(NEWSTUDENT1)', 'MAT', '183', 'MAT183', '200', 'Advanced Mathematics', 'Advanced Mathematics',
             'C', 3, 'FA$(YEAR3)', 'Institutional', '$(NEWSTUDENTFIRSTNAME)', '$(NEWSTUDENTMIDDLENAME)', 
-            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'MAT183-200', 'jmartinez110', 'MAT183200');
+            '$(NEWSTUDENTLASTNAME)', 'N', 'E', 'MAT183-200', 'jmartinez110', 'MAT183200', '100');
 
 
 INSERT INTO external_student_risk_indicator (
@@ -327,7 +330,8 @@ VALUES ('$(NEWSTUDENT1)', 'FIN_AID_GPA', 'Financial Aid GPA', 'FIN_AID_GPA', 'Fi
 INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
 VALUES ('$(NEWSTUDENT1)', 'LIBRARY', 'Library/Learning Resource Access', 'LIBRARY', 'Library/Learning Resource Access', '1', 'LIBRARY 1');
 
-
+INSERT INTO external_student_special_service_group(school_id, code)
+    VALUES ('$(NEWSTUDENT1)', 'PATH'); 
           
 
 
@@ -454,20 +458,20 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'PSY', '101', 'PSY101', '213', 'Introduction to Psychology', 'Introduction to Psychology',
             'B', 3, 'FA$(YEAR1)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'PSY101-213', 'dmartinez340', 'PSY101213');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'PSY101-213', 'dmartinez340', 'PSY101213', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'MAT', '106', 'MAT106', '145', 'Applied Mathematics', 'Applied Mathematics',
             'A-', 3, 'FA$(YEAR1)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST102-645', 'etaylor310', 'MAT106145');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST102-645', 'etaylor310', 'MAT106145', '100');
 
 
 
@@ -475,40 +479,40 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'SCL', '101', 'SCL101', '123', 'Introduction to Sociology', 'Introduction to Sociology',
             'A', 3, 'FA$(YEAR1)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'SCL101-123', 'rjones330', 'SCL101123');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'SCL101-123', 'rjones330', 'SCL101123', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CRIJ', '130', 'CRIJ130', '211', 'Introduction to Criminal Justice', 'Introduction to Criminal Justice',
             'A', 4.00, 'FA$(YEAR1)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ130-211', 'jmartinez110', 'CRIJ13211');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ130-211', 'jmartinez110', 'CRIJ13211', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'ENG', '101', 'ENG101', '325', 'English Composition I', 'Introduction to college english',
             'B+', 3.00, 'FA$(YEAR1)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'ENG101-325', 'rjones210', 'ENG101325');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'ENG101-325', 'rjones210', 'ENG101325', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CRIJ', '131', 'CRIJ131', '390', 'Fundamentals of Criminal Law', 'Introduction to the fundamentals of Criminal Law',
             'B', 3.00, 'FA$(YEAR1)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ131-390', 'dwilson220', 'CRIJ131390');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ131-390', 'dwilson220', 'CRIJ131390', '100');
 
 
 
@@ -516,10 +520,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'ENG', '102', 'ENG102', '119', 'English Composition II', 'English Composition II',
             'A-', 3, 'SP$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'ENG102-119', 'dmartinez340', 'ENG102119');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'ENG102-119', 'dmartinez340', 'ENG102119', '100');
 
 
 
@@ -527,10 +531,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'LIT', '111', 'LIT111', '304', 'Basics of Literature', 'Basics of Literature',
             'B', 3, 'SP$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'LIT111-304', 'rjones330', 'LIT111304');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'LIT111-304', 'rjones330', 'LIT111304', '100');
 
 
 
@@ -538,20 +542,20 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CRIJ', '133', 'CRIJ133', '120', 'Juvenile Justice System', 'Study of the Juvenile Justice System',
             'B+', 3, 'SP$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ133-120', 'jwilliams510', 'CRIJ133120');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ133-120', 'jwilliams510', 'CRIJ133120', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CRIJ', '134', 'CRIJ134', '130', 'Ethics in Criminal Justice', 'Introduction to ethics in the criminal justice system',
             'A-', 3, 'SP$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ134-130', 'dmartinez340', 'CRIJ134130');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CRIJ134-130', 'dmartinez340', 'CRIJ134130', '100');
 
 
 
@@ -559,10 +563,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'MAT', '183', 'MAT183', '206', 'Advanced Mathematics', 'Advanced Mathematics',
             'A', 3, 'SP$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT183-206', 'jmartinez110', 'MAT183206');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT183-206', 'jmartinez110', 'MAT183206', '100');
 
 
 
@@ -573,10 +577,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '101', 'CST101', '120', 'Programming Fundamentals I', 'Programming Fundamentals I',
             'A+', 3, 'FA$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST101-120', 'etaylor310', 'CST101120');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST101-120', 'etaylor310', 'CST101120', '100');
 
 
 
@@ -585,10 +589,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '105', 'CST105', '304', 'Introduction to Computing I', 'Computers Intro',
             'A-', 3, 'FA$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST105-304', 'rjones330', 'CST105304');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST105-304', 'rjones330', 'CST105304', '100');
 
 
 
@@ -596,10 +600,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'MIC', '134', 'MIC134', '430', 'Foundational Microbiology', 'Introduction to microbiology',
             'B+', 3, 'FA$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MIC134-430', 'dmartinez340', 'MIC134430');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MIC134-430', 'dmartinez340', 'MIC134430', '100');
 
 
 
@@ -607,10 +611,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'PHL', '106', 'PHL106', '420', 'Advanced Philosophy', 'Study of Philosophy',
             'B', 3, 'FA$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'PHL106-420', 'jwilliams510', 'PHL106420');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'PHL106-420', 'jwilliams510', 'PHL106420', '100');
 
 
 
@@ -618,10 +622,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'MAT', '219', 'MAT219', '960', 'Applied Mathematics', 'Applied Mathematics',
             'A', 3, 'FA$(YEAR2)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT219-960', 'dmartinez340', 'MAT219960');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT219-960', 'dmartinez340', 'MAT219960', '100');
 
 
 
@@ -632,10 +636,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '102', 'CST102', '012', 'Programming Fundamentals II', 'Programming Fundamentals II',
             'A-', 3, 'SP$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST102-012', 'dmartinez340', 'CST102012');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST102-012', 'dmartinez340', 'CST102012', '100');
 
 
 
@@ -644,10 +648,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '135', 'CST135', '005', 'Fundamentals of Networking', 'Fundamentals of Networking',
             'A', 3, 'SP$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST135-005', 'rjones330', 'CST135005');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST135-005', 'rjones330', 'CST135005', '100');
 
 
 
@@ -655,70 +659,70 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'LIT', '155', 'LIT155', '090', 'Advanced Literature', 'Study of Short Stories and Literature',
             'B+', 3, 'SP$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'LIT155-090', 'jwilliams510', 'LIT155090');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'LIT155-090', 'jwilliams510', 'LIT155090', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'MAT', '251', 'MAT251', '116', 'Creative Mathematics', 'Creative Mathematics',
             'A', 3, 'SP$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT251-116', 'jmartinez110', 'MAT251116');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT251-116', 'jmartinez110', 'MAT251116', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '262', 'CST262', '240', 'UNIX Operating System', 'Introduction to the UNIX/LINUX operating system',
             'A-', 3, 'SP$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST262-240', 'dmartinez340', 'CST262240');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST262-240', 'dmartinez340', 'CST262240', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '230', 'CST230', '320', 'Object Orientated Programming', 'OO Programming with GUI design',
             'A', 3, 'FA$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST230-230', 'dmartinez340', 'CST230320');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST230-230', 'dmartinez340', 'CST230320', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'CST', '245', 'CST245', '189', 'System Analysis and Design', 'System Analysis and Design',
             'A', 3, 'FA$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST245-189', 'rjones330', 'CST245189');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'CST245-189', 'rjones330', 'CST245189', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'PHY', '215', 'PHY215', '485', 'College level Physics', 'College Physics',
             'A', 3, 'FA$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'PHY215-485', 'etaylor310', 'PHY215485');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'PHY215-485', 'etaylor310', 'PHY215485', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'HST', '210', 'HST210', '287', 'Survey History', 'Survey of History',
             'A', 3, 'FA$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'HST210-287', 'jwilliams510', 'HST210287');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'HST210-287', 'jwilliams510', 'HST210287', '100');
 
 
 
@@ -726,10 +730,10 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(PROGRESSINGSTUDENT2)', 'MAT', '324', 'MAT324', '112', 'Quantitative Mathematics', 'Quantitative Mathematics',
             'A', 3, 'FA$(YEAR3)', 'Institutional', '$(PROGRESSINGSTUDENTFIRSTNAME)', '$(PROGRESSINGSTUDENTMIDDLENAME)', 
-            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT324-112', 'jmartinez110', 'MAT324112');
+            '$(PROGRESSINGSTUDENTLASTNAME)', 'N', 'E', 'MAT324-112', 'jmartinez110', 'MAT324112', '100');
 
 
 
@@ -779,7 +783,8 @@ VALUES ('$(PROGRESSINGSTUDENT2)', 'FIN_AID_GPA', 'Financial Aid GPA', 'FIN_AID_G
 INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
 VALUES ('$(PROGRESSINGSTUDENT2)', 'LIBRARY', 'Library/Learning Resource Access', 'LIBRARY', 'Library/Learning Resource Access', '40', 'LIBRARY 40');
 
-
+INSERT INTO external_student_special_service_group(school_id, code)
+    VALUES ('$(PROGRESSINGSTUDENT2)', 'ATD'); 
 
 
 --$(STRUGGLINGSTUDENT3)
@@ -890,50 +895,50 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '101', 'AUMT101', '056', 'Introduction to Speed Communication', 'Introduction to Speed Communication',
             'B', 2.00, 'FA$(YEAR1)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT101-056', 'rjones210', 'AUMT101056');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT101-056', 'rjones210', 'AUMT101056', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'ENG', '055', 'ENG055', '112', 'English Composition I', 'Preparation for College Composition',
             'C+', 2.00, 'FA$(YEAR1)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG055-112', 'dwilson220', 'ENG055122');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG055-112', 'dwilson220', 'ENG055122', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'MAT', '085', 'MAT085', '500', 'Introductory Algebra', 'Introduction to the fundamentals of Algebra',
             'B+', 1.00, 'FA$(YEAR1)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'MAT085-500', 'jmartinez110', 'MAT085500');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'MAT085-500', 'jmartinez110', 'MAT085500', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '140', 'AUMT140', '139', 'Introduction to Automotive Technology', 'Introduction to Automotive Technology ',
             'C', 3, 'FA$(YEAR1)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT140-113', 'rjones330', 'AUMT140139');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT140-113', 'rjones330', 'AUMT140139', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'ENG', '075', 'ENG075', '125', 'College Writing I', 'College Writing I',
             'C+', 3, 'FA$(YEAR1)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG075-125', 'etaylor310', 'ENG075125');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG075-125', 'etaylor310', 'ENG075125', '100');
 
 
 
@@ -943,40 +948,40 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '142', 'AUMT142', '133', 'Automotive Engine Repair', 'Introduction to Automotive Engine Repair',
             'C+', 3, 'SP$(YEAR2)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT142-133', 'etaylor310', 'AUMT142133');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT142-133', 'etaylor310', 'AUMT142133', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'ENG', '076', 'ENG076', '100', 'College Writing II', 'College Writing II',
             'C', 3, 'SP$(YEAR2)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG076-100', 'dmartinez340', 'ENG076100');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG076-100', 'dmartinez340', 'ENG076100', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'GEO', '104', 'GEO104', '143', 'Introduction to Geography', 'Study of Geography',
             'C', 3, 'SP$(YEAR2)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'GEO104-143', 'jwilliams510', 'GEO104143');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'GEO104-143', 'jwilliams510', 'GEO104143', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'MAT', '086', 'MAT086', '168', 'Intermediate Algebra', 'Intermediate Algebra',
             'C', 3, 'SP$(YEAR2)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'MAT086-168', 'jmartinez110', 'MAT086168');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'MAT086-168', 'jmartinez110', 'MAT086168', '100');
 
 
 
@@ -986,41 +991,41 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '241', 'AUMT241', '450', 'Automotive Engine Performance Analysis',
 	    'Introduction to Auto Performance',
             'C', 3, 'FA$(YEAR2)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT241-450', 'dmartinez340', 'AUMT241450');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT241-450', 'dmartinez340', 'AUMT241450', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'ENG', '055', 'ENG055', '095', 'College Reading I', 'College Reading I',
             'C-', 3, 'FA$(YEAR2)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG055-095', 'etaylor310', 'ENG055095');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG055-095', 'etaylor310', 'ENG055095', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '146', 'AUMT146', '133', 'Automotive Suspension and Steering', 
 	    'Automotive Suspension and Steering',
             'C', 3, 'FA$(YEAR2)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT146-133', 'rjones330', 'AUMT146133');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT146-133', 'rjones330', 'AUMT146133', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '142', 'AUMT142', '133', 'Automotive Engine Repair', 
-	    'Introduction to Automotive Engine Repair', 'C-', 3, 'FA$(YEAR2)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', 			'$(STRUGGLINGSTUDENTMIDDLENAME)', '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT142-133', 'etaylor310', 'AUMT142133');
+	    'Introduction to Automotive Engine Repair', 'C-', 3, 'FA$(YEAR2)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', 			'$(STRUGGLINGSTUDENTMIDDLENAME)', '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT142-133', 'etaylor310', 'AUMT142133', '100');
 
 
 
@@ -1029,50 +1034,50 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '244', 'AUMT244', '148', 'Engine Performance Analysis II', 'Study of engine performance part II',
             'F', 3, 'SP$(YEAR3)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT244-148', 'jwilliams510', 'AUMT244148');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT244-148', 'jwilliams510', 'AUMT244148', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '245', 'AUMT245', '140', 'Automotive Alternative Fuels', 'Introduction to Automotive Alternative Fuels',
             'D', 3, 'SP$(YEAR3)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT245-140', 'rjones330', 'AUMT245140');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT245-140', 'rjones330', 'AUMT245140', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'ENG', '076', 'ENG076', '225', 'College Writing II', 'College Writing II',
             'D+', 3, 'SP$(YEAR3)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG076-225', 'etaylor310', 'ENG076225');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG076-225', 'etaylor310', 'ENG076225', '100');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'ENG', '076', 'ENG076', '100', 'College Writing II', 'College Writing II',
             'D', 3, 'FA$(YEAR3)', 'Developmental', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG076-100', 'dmartinez340', 'ENG076100');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'ENG076-100', 'dmartinez340', 'ENG076100', '24');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(STRUGGLINGSTUDENT3)', 'AUMT', '246', 'AUMT246', '190', 'Automotive Drive Train and Axles', 'Introduction to Automotive Drive Train and Axles',
             'D', 3, 'FA$(YEAR3)', 'Institutional', '$(STRUGGLINGSTUDENTFIRSTNAME)', '$(STRUGGLINGSTUDENTMIDDLENAME)', 
-            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT246-190', 'etaylor310', 'AUMT246190');
+            '$(STRUGGLINGSTUDENTLASTNAME)', 'N', 'E', 'AUMT246-190', 'etaylor310', 'AUMT246190', '78');
 
 
 INSERT INTO external_student_risk_indicator (
@@ -1102,6 +1107,8 @@ VALUES ('$(STRUGGLINGSTUDENT3)', 'FIN_AID_GPA', 'Financial Aid GPA', 'FIN_AID_GP
 INSERT INTO external_student_risk_indicator(school_id, model_code, model_name, indicator_code, indicator_name, indicator_value, indicator_value_description)  
 VALUES ('$(STRUGGLINGSTUDENT3)', 'LIBRARY', 'Library/Learning Resource Access', 'LIBRARY', 'Library/Learning Resource Access', '40', 'LIBRARY 40');
              
+INSERT INTO external_student_special_service_group(school_id, code)
+    VALUES ('$(STRUGGLINGSTUDENT3)', 'LEARN');             
 
 --External Course Data 
 

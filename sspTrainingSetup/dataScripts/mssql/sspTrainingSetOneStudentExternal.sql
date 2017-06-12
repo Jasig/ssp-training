@@ -68,6 +68,7 @@ DELETE FROM external_student_test WHERE school_id = '$(EXTERNALSYNC1)';
 DELETE FROM external_student_transcript WHERE school_id = '$(EXTERNALSYNC1)';
 DELETE FROM external_student_transcript_course WHERE school_id = '$(EXTERNALSYNC1)';
 DELETE FROM external_student_transcript_term  WHERE school_id = '$(EXTERNALSYNC1)';
+DELETE FROM external_student_special_service_group WHERE school_id = '$(EXTERNALSYNC1)';
 
 */
 --End of Deletes
@@ -134,50 +135,50 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'MAT', '085', 'MAT085', '801', 'Introductory Algebra', 'Preparation for college algebra',
 	    'B', 3, 'SP$(YEAR3)', 'Transfer', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-	    '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'MAT085-801', 'jmartinez110', 'MAT085801');
+	    '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'MAT085-801', 'jmartinez110', 'MAT085801', '89');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'ENG', '101', 'ENG101', '694', 'English Composition I', 'Introduction to college english',
 	    'C+', 3, 'SP$(YEAR3)', 'Transfer', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-	    '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'ENG101-694', 'rjones210', 'ENG101694');
+	    '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'ENG101-694', 'rjones210', 'ENG101694', '98');
 
 
 INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'CST', '101', 'CST101', '541', 'Introduction to Computing I', 'Introduction to the fundamentals of computing',
 	    'D', 3, 'SP$(YEAR3)', 'Transfer', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-	    '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'CST101-541', 'dmartinez340', 'CST101541');
+	    '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'CST101-541', 'dmartinez340', 'CST101541', '99');
 
 
 INSERT INTO external_student_transcript_course(
             school_id, subject_abbreviation, number, formatted_course, 
             section_number, title, description, grade, credit_earned, term_code, 
             credit_type, first_name, middle_name, last_name, audited, status_code, 
-            section_code, faculty_school_id, course_code)
+            section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'CST', '102', 'CST102', '645', 'Programming Fundamentals II', 'Programming Fundamentals II',
             'B', 3, 'FA$(YEAR3)', 'Institutional', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'CST102-645', 'etaylor310', 'CST102645');
+            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'CST102-645', 'etaylor310', 'CST102645', '100');
 
 
 INSERT INTO external_student_transcript_course(
             school_id, subject_abbreviation, number, formatted_course, 
             section_number, title, description, grade, credit_earned, term_code, 
             credit_type, first_name, middle_name, last_name, audited, status_code, 
-            section_code, faculty_school_id, course_code)
+            section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'ENG', '102', 'ENG102', '203', 'English Composition II', 'English Composition II',
             'B', 3, 'FA$(YEAR3)', 'Institutional', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'ENG102-203', 'dwilson220', 'ENG102203');
+            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'ENG102-203', 'dwilson220', 'ENG102203', '100');
 
 
 
@@ -185,33 +186,34 @@ INSERT INTO external_student_transcript_course(
 	    school_id, subject_abbreviation, number, formatted_course, 
 	    section_number, title, description, grade, credit_earned, term_code, 
 	    credit_type, first_name, middle_name, last_name, audited, status_code, 
-	    section_code, faculty_school_id, course_code)
+	    section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'HST', '133', 'HST133', '106', 'General History', 'General History',
             'B', 3, 'FA$(YEAR3)', 'Institutional', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'HST133-106', 'jwilliams510', 'HST133106');
+            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'HST133-106', 'jwilliams510', 'HST133106', '100');
 
 
 INSERT INTO external_student_transcript_course(
             school_id, subject_abbreviation, number, formatted_course, 
             section_number, title, description, grade, credit_earned, term_code, 
             credit_type, first_name, middle_name, last_name, audited, status_code, 
-            section_code, faculty_school_id, course_code)
+            section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'PHY', '131', 'PHY131', '932', 'General Physics', 'Introduction to physics',
             'B', 3, 'FA$(YEAR3)', 'Institutional', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'PHY131-932', 'dmartinez340', 'PHY131932');
+            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'PHY131-932', 'dmartinez340', 'PHY131932', '100');
 
 
 INSERT INTO external_student_transcript_course(
             school_id, subject_abbreviation, number, formatted_course, 
             section_number, title, description, grade, credit_earned, term_code, 
             credit_type, first_name, middle_name, last_name, audited, status_code, 
-            section_code, faculty_school_id, course_code)
+            section_code, faculty_school_id, course_code, participation)
      VALUES ('$(EXTERNALSYNC1)', 'MAT', '183', 'MAT183', '200', 'Advanced Mathematics', 'Advanced Mathematics',
             'B', 3, 'FA$(YEAR3)', 'Institutional', '$(EXTERNALSYNCFIRSTNAME)', '$(EXTERNALSYNCMIDDLENAME)', 
-            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'MAT183-200', 'jmartinez110', 'MAT183200');
+            '$(EXTERNALSYNCLASTNAME)', 'N', 'E', 'MAT183-200', 'jmartinez110', 'MAT183200', '100');
 
 
-
+INSERT INTO external_student_special_service_group(school_id, code)
+    VALUES ('$(EXTERNALSYNC1)', 'DISPL');
 
 
 

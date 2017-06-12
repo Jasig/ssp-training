@@ -74,7 +74,7 @@ set "cmdArgNumber=0"
 
 for %%x in (%*) do set /a cmdArgNumber+=1
 
-if "%cmdArgNumber%" == "20" set "shiftIndex=10"
+if "%cmdArgNumber%" == "20" set "shiftIndex=9"
 
 set NEWSTUDENTUSERNAME=%1
 set NEWFIRSTNAME=%2

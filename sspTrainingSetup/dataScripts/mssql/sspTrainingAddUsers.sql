@@ -189,7 +189,7 @@ DECLARE @throwAwayInt bigint;
       ELSE	 
 	BEGIN 
 	
-	SET @userEmail = 'demo'+@USERNAME+'@trainingssp.com';
+	SET @userEmail = 'demo'+@USERNAME+'@demossp.edu';
 	 
 	 IF @USERROLE = 'FACULTY'
  	   BEGIN	
@@ -391,13 +391,13 @@ VALUES (@USERNAME, @USERNAME, @FIRSTNAME, 'M', @LASTNAME, @userBirthdate, @userE
 INSERT INTO person_staff_details(id, created_date, modified_date, created_by, modified_by, object_status, office_location, office_hours, department_name)
 VALUES (@createdUUID, '2013-09-13 09:22:00.092', '2013-09-13 09:22:00.092', '58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', @userBuilding, @userOfficeHours, @userDepartment);
 
-	 INSERT INTO person(id, first_name, middle_name, last_name, birth_date, primary_email_address, secondary_email_address, username, home_phone, work_phone, cell_phone, address_line_1, address_line_2, city, state, zip_code, photo_url, school_id, enabled, created_date, modified_date, created_by,modified_by, object_status, person_demographics_id, person_education_goal_id, person_education_plan_id, coach_id, ability_to_benefit, anticipated_start_term, anticipated_start_year, student_intake_request_date,student_type_id, student_intake_complete_date, person_staff_details_id,actual_start_year, actual_start_term, non_local_address, alternate_address_in_use,alternate_address_line_1, alternate_address_line_2, alternate_address_city,alternate_address_state, alternate_address_zip_code, alternate_address_country,person_disability_id, f1_status, residency_county, person_class,secret,oauth2_client_access_token_validity_seconds)
-	 VALUES (@UUID, @FIRSTNAME, 'M', @LASTNAME, @userBirthdate, @userEmail, @userEmail, @USERNAME, @userPhoneNumber, @userPhoneNumber, @userPhoneNumber, @userStreetAddress, @userAptAddress, 'Phoenix', 'AZ','55555', @userPhotoUrl, @USERNAME, '1', '2010-08-20', '2010-08-20','58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, @createdUUID, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DemoCounty', 'user', NULL, NULL);
+	 INSERT INTO person(id, first_name, middle_name, last_name, birth_date, primary_email_address, secondary_email_address, username, home_phone, work_phone, cell_phone, address_line_1, address_line_2, city, state, zip_code, photo_url, school_id, enabled, created_date, modified_date, created_by,modified_by, object_status, person_demographics_id, person_education_goal_id, person_education_plan_id, coach_id, ability_to_benefit, anticipated_start_term, anticipated_start_year, student_intake_request_date,student_type_id, student_intake_complete_date, person_staff_details_id,actual_start_year, actual_start_term, non_local_address, alternate_address_in_use,alternate_address_line_1, alternate_address_line_2, alternate_address_city,alternate_address_state, alternate_address_zip_code, alternate_address_country,person_disability_id, f1_status, residency_county, person_class,secret,oauth2_client_access_token_validity_seconds, campus_id)
+	 VALUES (@UUID, @FIRSTNAME, 'M', @LASTNAME, @userBirthdate, @userEmail, @userEmail, @USERNAME, @userPhoneNumber, @userPhoneNumber, @userPhoneNumber, @userStreetAddress, @userAptAddress, 'Phoenix', 'AZ','55555', @userPhotoUrl, @USERNAME, '1', '2010-08-20', '2010-08-20','58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, @createdUUID, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DemoCounty', 'user', NULL, NULL, (SELECT TOP 1 id FROM campus ORDER BY NEWID()));
 	 
 	 IF @USERROLE = 'COACH'
 	 BEGIN
  		INSERT INTO early_alert_routing(id, created_date, modified_date, created_by, modified_by, object_status, campus_id, early_alert_reason_id, person_id, group_name, group_email)
-VALUES ((SELECT NEWID()), '2013-09-13 09:22:00.092', '2013-09-13 09:22:00.092', '58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', (SELECT TOP 1 id FROM campus ORDER BY NEWID()), (SELECT TOP 1 id FROM early_alert_reason ORDER BY NEWID()), @UUID, 'Early Alert Routing Group '  +  @USERNAME, 'demo@trainingssp.com');
+VALUES ((SELECT NEWID()), '2013-09-13 09:22:00.092', '2013-09-13 09:22:00.092', '58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', (SELECT TOP 1 id FROM campus ORDER BY NEWID()), (SELECT TOP 1 id FROM early_alert_reason ORDER BY NEWID()), @UUID, 'Early Alert Routing Group '  +  @USERNAME, 'demo@demossp.edu');
 
 	 END ; 
       END ;          

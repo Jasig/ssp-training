@@ -30,7 +30,7 @@
  *  or manually with the required data for each user adding a select statement each time. 
     This is a function so you would create a select statment for each new user. 
  *
- *  SELECT addUsersToPlatform('USERNAME','USERPASSWORD', 'USERFIRSTNAME', 'USERLASTNAME', 'USERUUID', 'USERROLE');
+ *  SELECT addUsersToPlatform('USERNAME','USERPASSWORD', 'USERFIRSTNAME', 'USERLASTNAME', 'USERUUID', 'USERROLE', 'IS_MAP_TEMPLATE_ADMIN');
  *
  * Substitute: 
  *	USERNAME = username of the new user to add (must be unique)
@@ -70,8 +70,6 @@ DECLARE
   userDirId bigint;
   userUserId bigint;
   idAttr bigint; 
-  ifExists boolean; 
-  blank integer; 
   attrRecord RECORD;
   createdUUID uuid; 
   roleTitle varchar(16);
@@ -92,9 +90,8 @@ DECLARE
 
 BEGIN
 	--Delete can comment out for fresh database (NOTE: Need to delete students assigned/referenced first!)
- 	/* ifExists = (SELECT EXISTS (SELECT count(*) FROM up_person_dir WHERE user_name = $1));
-	
-	 IF ifExists IS TRUE THEN	   
+ 	/* 	
+	 IF EXISTS (SELECT count(*) FROM up_person_dir WHERE user_name = $1) THEN	   
 	   FOR attrRecord IN (SELECT id FROM up_person_attr WHERE user_dir_id = 
 						(SELECT user_dir_id FROM up_person_dir WHERE user_name = $1)) LOOP
  		DELETE FROM up_person_attr_values WHERE attr_id = attrRecord.id;		
@@ -114,7 +111,7 @@ BEGIN
       IF $6 = 'STUDENT' THEN
       
 	 INSERT INTO up_person_dir(user_dir_id, entity_version, lst_pswd_cgh_dt, user_name, encrptd_pswd)
-	 VALUES (userDirId, '1', '2013-09-10 21:59:16.794', $1, $2);
+	 VALUES (userDirId, '1', (SELECT LOCALTIMESTAMP), $1, $2);
 
 	 INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
 	 VALUES ((SELECT nextval('up_person_attr_seq')), '0', 'DATA_ACADEMIC_RESOURCE_CENTER', userDirId);
@@ -188,7 +185,7 @@ BEGIN
     	 
       ELSE	 
 	 
-	 userEmail = 'demo'||$1||'@trainingssp.com';
+	 userEmail = 'demo'||$1||'@demossp.edu';
 	 IF $6 = 'FACULTY' THEN
  		roleTitle = '_Faculty';
  		roleDepartment = '_Academic Faculty';
@@ -258,7 +255,7 @@ BEGIN
  	 
 
 	 INSERT INTO up_person_dir(user_dir_id, entity_version, lst_pswd_cgh_dt, user_name, encrptd_pswd)
-	 VALUES (userDirId, '1', '2013-09-10 21:59:16.794', $1, $2);
+	 VALUES (userDirId, '1', (SELECT LOCALTIMESTAMP), $1, $2);
 	 	 
 	 
          INSERT INTO up_person_attr(id, entity_version, attr_name, user_dir_id)
@@ -377,14 +374,14 @@ BEGIN
 VALUES ($1, $1, $3, 'M', $4, userBirthdate, userEmail, userStreetAddress, userAptAddress, 'Phoenix', 'AZ','55555', userPhoneNumber, userPhoneNumber, userBuilding, userOfficeHours, userDepartment, NULL, NULL, userRelationshipStatus, 'Other', 'M', 't', NULL, NULL, userPhoneNumber, userPhotoUrl, 'DemoCounty', NULL, 'N', NULL, 'Other');
 
 INSERT INTO person_staff_details(id, created_date, modified_date, created_by, modified_by, object_status, office_location, office_hours, department_name)
-VALUES (createdUUID, '2013-09-13 09:22:00.092', '2013-09-13 09:22:00.092', '58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', userBuilding, userOfficeHours, userDepartment);
+VALUES (createdUUID, (SELECT LOCALTIMESTAMP), (SELECT LOCALTIMESTAMP), '58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', userBuilding, userOfficeHours, userDepartment);
 
-	 INSERT INTO person(id, first_name, middle_name, last_name, birth_date, primary_email_address, secondary_email_address, username, home_phone, work_phone, cell_phone, address_line_1, address_line_2, city, state, zip_code, photo_url, school_id, enabled, created_date, modified_date, created_by,modified_by, object_status, person_demographics_id, person_education_goal_id, person_education_plan_id, coach_id, ability_to_benefit, anticipated_start_term, anticipated_start_year, student_intake_request_date,student_type_id, student_intake_complete_date, person_staff_details_id,actual_start_year, actual_start_term, non_local_address, alternate_address_in_use,alternate_address_line_1, alternate_address_line_2, alternate_address_city,alternate_address_state, alternate_address_zip_code, alternate_address_country,person_disability_id, f1_status, residency_county, person_class,secret,oauth2_client_access_token_validity_seconds)
-	 VALUES ($5, $3, 'M', $4, userBirthdate, userEmail, userEmail, $1, userPhoneNumber, userPhoneNumber, userPhoneNumber, userStreetAddress, userAptAddress, 'Phoenix', 'AZ','55555', userPhotoUrl, $1, 't', '2010-08-20', '2010-08-20','58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, createdUUID, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DemoCounty', 'user', NULL, NULL);
+	 INSERT INTO person(id, first_name, middle_name, last_name, birth_date, primary_email_address, secondary_email_address, username, home_phone, work_phone, cell_phone, address_line_1, address_line_2, city, state, zip_code, photo_url, school_id, enabled, created_date, modified_date, created_by,modified_by, object_status, person_demographics_id, person_education_goal_id, person_education_plan_id, coach_id, ability_to_benefit, anticipated_start_term, anticipated_start_year, student_intake_request_date,student_type_id, student_intake_complete_date, person_staff_details_id,actual_start_year, actual_start_term, non_local_address, alternate_address_in_use,alternate_address_line_1, alternate_address_line_2, alternate_address_city,alternate_address_state, alternate_address_zip_code, alternate_address_country,person_disability_id, f1_status, residency_county, person_class,secret,oauth2_client_access_token_validity_seconds, campus_id)
+	 VALUES ($5, $3, 'M', $4, userBirthdate, userEmail, userEmail, $1, userPhoneNumber, userPhoneNumber, userPhoneNumber, userStreetAddress, userAptAddress, 'Phoenix', 'AZ','55555', userPhotoUrl, $1, 't', '2010-08-20', '2010-08-20','58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, createdUUID, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DemoCounty', 'user', NULL, NULL, (SELECT id FROM campus ORDER BY RANDOM() LIMIT 1));
 	 
 	 IF $6 = 'COACH' THEN
  		INSERT INTO early_alert_routing(id, created_date, modified_date, created_by, modified_by, object_status, campus_id, early_alert_reason_id, person_id, group_name, group_email)
-VALUES ((SELECT generateUUID()), '2013-09-13 09:22:00.092', '2013-09-13 09:22:00.092', '58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', (SELECT id FROM campus ORDER BY RANDOM() LIMIT 1), (SELECT id FROM early_alert_reason ORDER BY RANDOM() LIMIT 1), $5, 'Early Alert Routing Group ' || $1, 'demo@trainingssp.com');
+VALUES ((SELECT generateUUID()), (SELECT LOCALTIMESTAMP), (SELECT LOCALTIMESTAMP), '58ba5ee3-734e-4ae9-b9c5-943774b4de41','58ba5ee3-734e-4ae9-b9c5-943774b4de41', '1', (SELECT id FROM campus ORDER BY RANDOM() LIMIT 1), (SELECT id FROM early_alert_reason ORDER BY RANDOM() LIMIT 1), $5, 'Early Alert Routing Group ' || $1, 'demo@demossp.edu');
 
 	 END IF; 
       END IF;          

@@ -27,7 +27,7 @@
  *  or manually with the 3 names of the students you wish to reset. 
  *
  * Substitute: 
- *	NEWSTUDENT1 = usernname of the New Student Use Case
+ *	NEWSTUDENT1 = school_id of the New Student Use Case
  *	PROGRESSINGSTUDENT2 = school_id of the Progressing Student Use Case
  *	STRUGGLINGSTUDENT3 = school_id of the Struggling Student Use Case
  *	TASKID# = id (primary key) for task (There are 5 so TASKID1 ...) Needs to be random and unique. *     
@@ -92,7 +92,9 @@ DECLARE
 
 BEGIN
  FOR z IN (SELECT id FROM map_plan WHERE person_id = (SELECT id FROM person WHERE school_id = $1)) LOOP
-
+     
+     DELETE FROM map_plan_elective_course_electives WHERE map_plan_elective_course_id = (SELECT id FROM map_plan_elective_course WHERE plan_id = z.id);
+     DELETE FROM map_plan_elective_course WHERE plan_id = z.id;
      DELETE FROM map_plan_course WHERE plan_id = z.id;
      DELETE FROM map_term_note WHERE plan_id = z.id;	
  END LOOP;
@@ -261,12 +263,12 @@ INSERT INTO person_education_plan(
 
  
 INSERT INTO person(id, first_name, middle_name, last_name, birth_date, primary_email_address,            secondary_email_address, username, home_phone, work_phone, cell_phone, address_line_1, address_line_2, city, state, zip_code, photo_url, school_id, enabled, created_date, modified_date, created_by,modified_by, object_status, person_demographics_id, person_education_goal_id, person_education_plan_id, coach_id, ability_to_benefit, 
-            anticipated_start_term, anticipated_start_year, student_intake_request_date,student_type_id, student_intake_complete_date, person_staff_details_id,actual_start_year, actual_start_term, non_local_address, alternate_address_in_use,alternate_address_line_1, alternate_address_line_2, alternate_address_city,alternate_address_state, alternate_address_zip_code, alternate_address_country,person_disability_id, f1_status, residency_county, person_class,secret,oauth2_client_access_token_validity_seconds)
+            anticipated_start_term, anticipated_start_year, student_intake_request_date,student_type_id, student_intake_complete_date, person_staff_details_id,actual_start_year, actual_start_term, non_local_address, alternate_address_in_use,alternate_address_line_1, alternate_address_line_2, alternate_address_city,alternate_address_state, alternate_address_zip_code, alternate_address_country,person_disability_id, f1_status, residency_county, person_class,secret,oauth2_client_access_token_validity_seconds, campus_id)
 VALUES ((SELECT generateUUID()), (SELECT first_name FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
 	    (SELECT middle_name FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
 	    (SELECT last_name FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
 	    (SELECT birth_date FROM external_person WHERE school_id = 'NEWSTUDENT1'), 
-	    'demostudent@testdrivessp.com', 'seconddemostudent@testdrivessp.com', 'NEWSTUDENT1','(555) 555-7891', '(555) 555-3214', '(555) 555-3214','357 W. Demo St.', 'Apt. 2315', 'Phoenix', 'AZ','55555', '/ssp/images/demoAvatars/male_30.jpg','NEWSTUDENT1', 't', 'YEAR2-08-20', 'YEAR2-08-20','COACHID','COACHID', '1', 'TASKID1', 'TASKID1', 'TASKID1', 'COACHID', 't', 'SPYEAR3', 'YEAR3', null, '0a640a2a-409d-1271-8140-d0afceae00f1', 'YEAR3-09-13 09:22:00.091', null,'YEAR3', 'SPYEAR3', TRUE, TRUE, '157 N. Demo2 St.', 'Apt. 392', 'Tucson', 'AZ', '55555', 'United States', 'TASKID1', 'Y', 'DemoCounty','user', null, null);
+	    'demostudent@testdrivessp.com', 'seconddemostudent@testdrivessp.com', 'NEWSTUDENT1','(555) 555-7891', '(555) 555-3214', '(555) 555-3214','357 W. Demo St.', 'Apt. 2315', 'Phoenix', 'AZ','55555', '/ssp/images/demoAvatars/male_30.jpg','NEWSTUDENT1', 't', 'YEAR2-08-20', 'YEAR2-08-20','COACHID','COACHID', '1', 'TASKID1', 'TASKID1', 'TASKID1', 'COACHID', 't', 'SPYEAR3', 'YEAR3', null, '0a640a2a-409d-1271-8140-d0afceae00f1', 'YEAR3-09-13 09:22:00.091', null,'YEAR3', 'SPYEAR3', TRUE, TRUE, '157 N. Demo2 St.', 'Apt. 392', 'Tucson', 'AZ', '55555', 'United States', 'TASKID1', 'Y', 'DemoCounty','user', null, null, (SELECT id FROM campus ORDER BY RANDOM() LIMIT 1));
 	    
 
 INSERT INTO appointment(id, created_date, modified_date, created_by, modified_by, object_status, person_id, start_time, end_time, attended) 
@@ -497,7 +499,7 @@ INSERT INTO person(
             alternate_address_line_1, alternate_address_line_2, alternate_address_city, 
             alternate_address_state, alternate_address_zip_code, alternate_address_country, 
             person_disability_id, f1_status, residency_county, person_class, 
-            secret, oauth2_client_access_token_validity_seconds)
+            secret, oauth2_client_access_token_validity_seconds, campus_id)
 VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE school_id = 'PROGRESSINGSTUDENT2'), 
     (SELECT middle_name FROM external_person WHERE school_id = 'PROGRESSINGSTUDENT2'), 
     (SELECT last_name FROM external_person WHERE school_id = 'PROGRESSINGSTUDENT2'), 
@@ -507,7 +509,7 @@ VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE 
     'COACHID', '1', 'TASKID2', 'TASKID2', 'TASKID2', 'COACHID', 't', 
     'FAYEAR1', 'YEAR1', null, 
     'b2d05919-5056-a51a-80bd-03e5288de771', 'YEAR1-09-13 09:22:00.091', null, 
-    'YEAR1', 'FAYEAR1', 'f', 'f', '', '', '', '', '', '', 'TASKID2', 'Y', 'DemoCounty','user', null, null);
+    'YEAR1', 'FAYEAR1', 'f', 'f', '', '', '', '', '', '', 'TASKID2', 'Y', 'DemoCounty','user', null, null, (SELECT id FROM campus ORDER BY RANDOM() LIMIT 1));
 
 
 INSERT INTO appointment(id, created_date, modified_date, created_by, modified_by, object_status, person_id, start_time, end_time, attended) 
@@ -708,7 +710,7 @@ INSERT INTO person(
             alternate_address_line_1, alternate_address_line_2, alternate_address_city, 
             alternate_address_state, alternate_address_zip_code, alternate_address_country, 
             person_disability_id, f1_status, residency_county, person_class, 
-            secret, oauth2_client_access_token_validity_seconds)
+            secret, oauth2_client_access_token_validity_seconds, campus_id)
 VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
     (SELECT middle_name FROM external_person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
     (SELECT last_name FROM external_person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
@@ -719,7 +721,7 @@ VALUES ( (SELECT generateUUID()), (SELECT first_name FROM external_person WHERE 
     'COACHID', '1', 'TASKID3', null, null, 'COACHID', 't', 
     'FAYEAR1', 'YEAR1', null, 
     'b2d05919-5056-a51a-80bd-03e5288de771', 'YEAR1-09-13 09:22:00.091', null, 
-    'YEAR1', 'FAYEAR1', 'f', 'f', '', '', '', '', '', '', 'TASKID3', 'Y', 'DemoCounty', 'user', null, null);
+    'YEAR1', 'FAYEAR1', 'f', 'f', '', '', '', '', '', '', 'TASKID3', 'Y', 'DemoCounty', 'user', null, null, (SELECT id FROM campus ORDER BY RANDOM() LIMIT 1));
 
 INSERT INTO appointment(id, created_date, modified_date, created_by, modified_by, object_status, person_id, start_time, end_time, attended) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-13 09:22:00.092', 'YEAR3-09-13 09:22:00.092', 'COACHID', 'COACHID', '1', (SELECT id FROM person WHERE school_id = 'STRUGGLINGSTUDENT3'), 'YEAR3-09-23 09:00:00.092', 'YEAR3-09-23 012:00:00.092', 'false');
@@ -1255,10 +1257,10 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:22.854', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
-'TASKID3', 'ENG101', 'ENG-101', 'English Composition I', ' ', 'SUYEAR4', 3.00, false, 2, '', '', false, NULL);
+'TASKID3', 'ENG101', 'ENG-101', 'English Composition I', ' ', 'SUYEAR4', 3.00, false, 2, '', '', false, NULL, 'ENG101');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -1272,11 +1274,11 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:22.854', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
 'TASKID3', 'HST234', 'HST-234', 'College level History', 
-'  Course: HST234 is not currently offered in the selected term.', 'FAYEAR4', 3.00, false, 1, '', '', false, '9a07ced6-7b3a-4926-8a88-ba23f998fc46');
+'  Course: HST234 is not currently offered in the selected term.', 'FAYEAR4', 3.00, false, 1, '', '', false, '9a07ced6-7b3a-4926-8a88-ba23f998fc46', 'HST234');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1291,20 +1293,20 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:22.854', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
 'TASKID3', 'MAT407', 'MAT-407', 'College level Mathematics', 
-'  Course: MAT407 is not currently offered in the selected term.', 'WNYEAR4', 3.00, false, 1, '', '', false, NULL);
+'  Course: MAT407 is not currently offered in the selected term.', 'WNYEAR4', 3.00, false, 1, '', '', false, NULL, 'MAT407');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:22.854', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
-'TASKID3', 'ENG102', 'ENG-102', 'English Composition II', ' ', 'WNYEAR4', 3.00, false, 2, '', '', false, NULL);
+'TASKID3', 'ENG102', 'ENG-102', 'English Composition II', ' ', 'WNYEAR4', 3.00, false, 2, '', '', false, NULL, 'ENG102');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1346,11 +1348,11 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-05 14:53:22.854', 'YEAR3-09-05 14:53:22.854', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'STRUGGLINGSTUDENT3'), 
 'TASKID3', 'GEO172', 'GEO-172', 'Principles of Geography', 
-'  Course: GEO172 is not currently offered in the selected term.', 'FAYEAR5', 3.00, false, 1, '', '', false, '3122e73b-dd86-4f23-af05-22c2abd93414');
+'  Course: GEO172 is not currently offered in the selected term.', 'FAYEAR5', 3.00, false, 1, '', '', false, '3122e73b-dd86-4f23-af05-22c2abd93414', 'GEO172');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1377,11 +1379,11 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.237', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.237', 'YEAR3-09-06 12:35:52.237', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 'TASKID1', 
 'ENG101', 'ENG-101', 'English Composition I', 
-' ', 'SPYEAR2', 3.00, false, 0, '', '', false, NULL);
+' ', 'SPYEAR2', 3.00, false, 0, '', '', false, NULL, 'ENG101');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -1416,11 +1418,11 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.237', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.237', 'YEAR3-09-06 12:35:52.237', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 
 'TASKID1', 'ENG102', 'ENG-102', 'English Composition II', 
-' ', 'FAYEAR3', 3.00, false, 1, '', '', false, NULL);
+' ', 'FAYEAR3', 3.00, false, 1, '', '', false, NULL, 'ENG102');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -1444,11 +1446,11 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:52.238', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 'TASKID1', 
 'PHL177', 'PHL-177', 'Principles of Philosophy', 
-' ', 'FAYEAR3', 3.00, false, 4, '', '', false, NULL);
+' ', 'FAYEAR3', 3.00, false, 4, '', '', false, NULL, 'PHL177');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1470,10 +1472,10 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:52.238', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 
-'TASKID1', 'CST130', 'CST-130', 'Fundamentals of Networking Technologies', ' ', 'SPYEAR3', 3.00, false, 3, '', '', false, NULL);
+'TASKID1', 'CST130', 'CST-130', 'Fundamentals of Networking Technologies', ' ', 'SPYEAR3', 3.00, false, 3, '', '', false, NULL, 'CST130');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -1526,10 +1528,10 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:52.238', 'COACHID', 'COACHID',
  1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 'TASKID1', 'HST202', 'HST-202', 'U.S. History II', 
-' ', 'SPYEAR4', 3.00, false, 2, '', '', false, NULL);
+' ', 'SPYEAR4', 3.00, false, 2, '', '', false, NULL, 'HST202');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1545,20 +1547,20 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:52.238', 
 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 'TASKID1', 'ENG205', 
 'ENG-205', 'English - Oral Communication', '    Course: ENG205 is not currently offered in the selected term.
- ', 'SPYEAR4', 3.00, false, 4, '', '', false, NULL);
+ ', 'SPYEAR4', 3.00, false, 4, '', '', false, NULL, 'ENG205');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:52.238', 'COACHID', 'COACHID', 
 1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 'TASKID1', 'ENG202', 'ENG-202', 
-'Technical and Business Writing', ' ', 'FAYEAR4', 3.00, false, 0, '', '', false, NULL);
+'Technical and Business Writing', ' ', 'FAYEAR4', 3.00, false, 0, '', '', false, NULL, 'ENG202');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1573,10 +1575,10 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:52.238', 'COACHID', 'COACHID', 
 1, (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 'TASKID1', 'CST230', 'CST-230', 
-'Object Oriented Programming', ' Course: CST230 is not currently offered in the selected term.', 'FAYEAR4', 3.00, false, 2, '', '', false, NULL);
+'Object Oriented Programming', ' Course: CST230 is not currently offered in the selected term.', 'FAYEAR4', 3.00, false, 2, '', '', false, NULL, 'CST230');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status,
@@ -1678,10 +1680,10 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-06 12:35:52.238', 'YEAR3-09-06 12:35:52.238', 'COACHID', 'COACHID', 1, 
 (SELECT id FROM person WHERE school_id = 'NEWSTUDENT1'), 'TASKID1', 'GEO196', 'GEO-196', 'Introduction to Geography', 
-' Course: GEO196 is not currently offered in the selected term.', 'FAYEAR5', 3.00, false, 3, '', '', false, '3122e73b-dd86-4f23-af05-22c2abd93414');
+' Course: GEO196 is not currently offered in the selected term.', 'FAYEAR5', 3.00, false, 3, '', '', false, '3122e73b-dd86-4f23-af05-22c2abd93414', 'GEO196');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1738,10 +1740,10 @@ VALUES ((SELECT generateUUID()), 'YEAR1-09-13 13:27:34.543', 'YEAR1-09-13 13:27:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR1-09-13 13:27:34.543', 'YEAR1-09-13 13:27:34.543', 'COACHID', 
 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'ENG101', 
-'ENG-101', 'English Composition I', ' ', 'FAYEAR1', 3.00, false, 2, '', '', false, NULL);
+'ENG-101', 'English Composition I', ' ', 'FAYEAR1', 3.00, false, 2, '', '', false, NULL, 'ENG101');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -1779,10 +1781,10 @@ VALUES ((SELECT generateUUID()), 'YEAR2-09-13 13:27:34.543', 'YEAR2-09-13 13:27:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR2-09-13 13:27:34.543', 'YEAR2-09-13 13:27:34.543', 'COACHID', 
 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'ENG102', 
-'ENG-102', 'English Composition II', ' ', 'SPYEAR2', 3.00, false, 2, '', '', false, NULL);
+'ENG-102', 'English Composition II', ' ', 'SPYEAR2', 3.00, false, 2, '', '', false, NULL, 'ENG102');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -1924,8 +1926,8 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.543', 'YEAR3-09-13 13:27:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
-VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.543', 'YEAR3-09-13 13:27:34.543', 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'CST230', 'CST-230', 'Object Orientated Programming', ' ', 'FAYEAR3', 3.00, false, 1, '', '', false, NULL);
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
+VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.543', 'YEAR3-09-13 13:27:34.543', 'COACHID', 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'CST230', 'CST-230', 'Object Orientated Programming', ' ', 'FAYEAR3', 3.00, false, 1, '', '', false, NULL, 'CST230');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -1958,11 +1960,11 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.543', 'YEAR3-09-13 13:27:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.543', 'YEAR3-09-13 13:27:34.543', 'COACHID',
  'COACHID', 1, (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'CST270',
  'CST-270', 'Personal Computer Hardware', '  Course: PHL177 is not currently offered in the selected term.',
- 'SPYEAR4', 3.00, false, 4, '', '', false, NULL);
+ 'SPYEAR4', 3.00, false, 4, '', '', false, NULL, 'PHL177');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -2058,10 +2060,10 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.544', 'YEAR3-09-13 13:27:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.544', 'YEAR3-09-13 13:27:34.544', 'COACHID', 
 'COACHID', 1, (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 
-'TASKID2', 'ENG202', 'ENG-202', 'Technical and Business Writing', ' ', 'SPYEAR5', 3.00, false, 0, '', '', false, NULL);
+'TASKID2', 'ENG202', 'ENG-202', 'Technical and Business Writing', ' ', 'SPYEAR5', 3.00, false, 0, '', '', false, NULL, 'ENG202');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -2159,10 +2161,10 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.544', 'YEAR3-09-13 13:27:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.544', 'YEAR3-09-13 13:27:34.544', 'COACHID', 'COACHID', 1, 
 (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'ENG205', 'ENG-205', 
-'English - Oral Communication', ' ', 'WNYEAR5', 3.00, false, 0, '', '', false, NULL);
+'English - Oral Communication', ' ', 'WNYEAR5', 3.00, false, 0, '', '', false, NULL, 'ENG205');
 
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
@@ -2177,11 +2179,11 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.544', 'YEAR3-09-13 13:27:
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
             course_description, term_code, credit_hours, is_dev, order_in_term, 
-            contact_notes, student_notes, is_important, elective_id) 
+            contact_notes, student_notes, is_important, elective_id, original_formatted_course) 
 VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.544', 'YEAR3-09-13 13:27:34.544', 'COACHID', 'COACHID', 1, 
 (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'GEO196', 'GEO-196', 
 'Introduction to Geography', ' ', 
-'SPYEAR6', 3.00, false, 3, '', '', false, '3122e73b-dd86-4f23-af05-22c2abd93414');
+'SPYEAR6', 3.00, false, 3, '', '', false, '3122e73b-dd86-4f23-af05-22c2abd93414', 'GEO196');
 
 INSERT INTO map_plan_course (id, created_date, modified_date, created_by, modified_by, object_status, 
             person_id, plan_id, formatted_course, course_code, course_title, 
@@ -2216,6 +2218,138 @@ VALUES ((SELECT generateUUID()), 'YEAR3-09-13 13:27:34.544', 'YEAR3-09-13 13:27:
 1, (SELECT id FROM person WHERE school_id = 'PROGRESSINGSTUDENT2'), 'TASKID2', 'CST448', 'CST-448', 
 'International Computing', ' ', 'SUYEAR6', 3.00, false, 0, '', '', false, NULL);
 
+
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, 'TASKID3', 'ENG102', 'ENG-102', 'English Composition II', ' Course: ENG102 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, 'TASKID3', 'HST234', 'HST-234', 'College level History', ' Course: HST234 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, 'TASKID3', 'GEO172', 'GEO-172', 'Principles of Geography', ' Course: GEO172 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, 'TASKID3', 'MAT407', 'MAT-407', 'College level Mathematics', ' Course: MAT407 is not currently offered in the selected term.', 3.00);
+
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'ENG102'), 'COM127', 'COM-127', 'Basics of Communications', 'Basics of Communications', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'ENG102'), 'LIT282', 'LIT-282', 'General Literature', 'General Literature', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'HST234'), 'FIN114', 'FIN-114', 'Elementary Finance', 'Elementary Finance', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'HST234'), 'PHL450', 'PHL-450', 'College level Philosophy', 'College level Philosophy', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'HST234'), 'PSY127', 'PSY-127', 'Applied Psychology', 'Applied Psychology', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'GEO172'), 'AES118', 'AES-118', 'General Aerospace', 'General Aerospace', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'GEO172'), 'PHY131', 'PHY-131', 'General Physics', 'General Physics', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 20:49:34.236', 'YEAR1-05-16 20:49:34.236', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID3' AND formatted_course = 'MAT407'), 'MAT412', 'MAT-412', 'Applied Mathematics', 'Applied Mathematics', 4.00);
+
+
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, 'TASKID2', 'HST201', 'HST-201', 'U.S. History I', ' Course: HST201 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, 'TASKID2', 'HST202', 'HST-202', 'U.S. History II', ' Course: HST202 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, 'TASKID2', 'PHL177', 'PHL-177', 'Principles of Philosophy', ' Course: PHL177 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, 'TASKID2', 'GEO196', 'GEO-196', 'Introduction to Geography', 'Introduction to Geography', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, 'TASKID2', 'ENG102', 'ENG-102', 'English Composition II', ' Course: ENG102 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, 'TASKID2', 'ENG205', 'ENG-205', 'English - Oral Communication', ' Course: ENG205 is not currently offered in the selected term. Course: ENG205 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, 'TASKID2', 'ENG202', 'ENG-202', 'Technical and Business Writing', ' Course: ENG202 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, 'TASKID2', 'CST130', 'CST-130', 'Fundamentals of Networking Technologies', ' Course: CST130 is not currently offered in the selected term.', 3.00);
+
+
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'HST201'), 'HST210', 'HST-210', 'Survey History', 'Survey History', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'HST201'), 'HST241', 'HST-241', 'Exploratory History', 'Exploratory History', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'HST201'), 'HST260', 'HST-260-1', 'Entrepreneurial History', 'Entrepreneurial History', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'HST202'), 'HST234', 'HST-234', 'College level History', 'College level History', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'HST202'), 'HST240', 'HST-240', 'Fundamentals of History', 'Fundamentals of History', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'HST202'), 'HST299', 'HST-299', 'Elementary History', 'Elementary History', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'PHL177'), 'COM250', 'COM-250', 'Analytical Communications', 'Analytical Communications', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'PHL177'), 'PSY127', 'PSY-127', 'Applied Psychology', 'Applied Psychology', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'PHL177'), 'SCL181', 'SCL-181', 'Individualized Sociology', 'Individualized Sociology', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'GEO196'), 'AST124', 'AST-124', 'College level Astronomy', 'College level Astronomy', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.648', 'YEAR1-05-16 22:29:08.648', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'GEO196'), 'BIO191', 'BIO-191', 'Survey Biology', 'Survey Biology', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'GEO196'), 'PHY229', 'PHY-229', 'Survey Physics', 'Survey Physics', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'ENG102'), 'LIT111', 'LIT-111', 'Basics of Literature', 'Basics of Literature', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'ENG205'), 'LIT288', 'LIT-288', 'Integrative Literature', 'Integrative Literature', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'ENG202'), 'LIT155', 'LIT-155', 'Advanced Literature', 'Advanced Literature', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR1-05-16 22:29:08.649', 'YEAR1-05-16 22:29:08.649', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID2' AND formatted_course = 'CST130'), 'EEE106', 'EEE-106', 'Elementary Electrical Engineering', 'Elementary Electrical Engineering', 3.00);
+
+
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.032', 'YEAR3-05-16 23:58:56.032', 'COACHID', 'COACHID', 1, 'TASKID1', 'PHL177', 'PHL-177', 'Principles of Philosophy', ' Course: PHL177 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, 'TASKID1', 'CST230', 'CST-230', 'Object Oriented Programming', ' Course: CST230 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, 'TASKID1', 'GEO196', 'GEO-196', 'Introduction to Geography', ' Course: GEO196 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, 'TASKID1', 'ENG202', 'ENG-202', 'Technical and Business Writing', ' Course: ENG202 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, 'TASKID1', 'ENG205', 'ENG-205', 'English - Oral Communication', ' Course: ENG205 is not currently offered in the selected term. Course: ENG205 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, 'TASKID1', 'ENG102', 'ENG-102', 'English Composition II', ' Course: ENG102 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, 'TASKID1', 'HST202', 'HST-202', 'U.S. History II', ' Course: HST202 is not currently offered in the selected term.', 3.00);
+
+INSERT INTO map_plan_elective_course (id, created_date, modified_date, created_by, modified_by, object_status, plan_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, 'TASKID1', 'CST103', 'CST-103', 'Integrative Computing', ' Course: CST103 is not currently offered in the selected term.', 3.00);
+
+
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.032', 'YEAR3-05-16 23:58:56.032', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'PHL177'), 'COM138', 'COM-138', 'Fundamentals of Communications', 'Fundamentals of Communications', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'PHL177'), 'ECN187', 'ECN-187', 'Fundamentals of Economics', 'Fundamentals of Economics', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'PHL177'), 'POL139', 'POL-139', 'Elementary Political Science', 'Elementary Political Science', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'PHL177'), 'SCL182', 'SCL-182', 'Creative Sociology', 'Creative Sociology', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'CST230'), 'EEE237', 'EEE-237', 'Introduction to Electrical Engineering', 'Introduction to Electrical Engineering', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'GEO196'), 'BIO146', 'BIO-146', 'General Biology', 'General Biology', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'GEO196'), 'PHY149', 'PHY-149', 'Exploratory Physics', 'Exploratory Physics', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'ENG202'), 'FLM172', 'FLM-172', 'Basics of Film', 'Basics of Film', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'ENG202'), 'LIT140', 'LIT-140', 'Enterprise Literature', 'Enterprise Literature', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'ENG205'), 'COM206', 'COM-206', 'Honors Communications', 'Honors Communications', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'ENG205'), 'LIT282', 'LIT-282', 'General Literature', 'General Literature', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'ENG102'), 'COM122', 'COM-122', 'Introduction to Communications', 'Introduction to Communications', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'ENG102'), 'LIT111', 'LIT-111', 'Basics of Literature', 'Basics of Literature', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'HST202'), 'ECN217', 'ECN-217', 'Quantitative Economics', 'Quantitative Economics', 3.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'HST202'), 'FIN329', 'FIN-329', 'General Finance', 'General Finance', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.033', 'YEAR3-05-16 23:58:56.033', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'HST202'), 'SCL346', 'SCL-346', 'Survey Sociology', 'Survey Sociology', 4.00);
+
+INSERT INTO map_plan_elective_course_electives (id, created_date, modified_date, created_by, modified_by, object_status, map_plan_elective_course_id, formatted_course, course_code, course_title, course_description, credit_hours) VALUES ((SELECT generateUUID()), 'YEAR3-05-16 23:58:56.034', 'YEAR3-05-16 23:58:56.034', 'COACHID', 'COACHID', 1, (SELECT id FROM map_plan_elective_course WHERE plan_id = 'TASKID1' AND formatted_course = 'CST103'), 'IEE153', 'IEE-153', 'Applied Industrial Engineering', 'Applied Industrial Engineering', 4.00);
 
 -- ***END OF SQL SCRIPT***
 
